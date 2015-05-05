@@ -1,0 +1,10 @@
+<div id="side-menu">
+  <nav>
+    <li ng-repeat="link in links">
+      <a href="" ng-click=loadContent(link.about_body)>{{link.about_type}}</a>
+    </li>
+  </nav>
+</div>
+<div id="side-content" ng-bind-html='content'>
+
+</div>

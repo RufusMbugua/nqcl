@@ -1,0 +1,143 @@
+@import "bootstrap";
+$main-green:#00a460;
+$light-green:#99dbbf;
+body{
+  font-family:OpenSansRegular !important;
+}
+header{
+  background:white;
+  position:fixed;
+  width:100%;
+  z-index:10000;
+  #logo{
+    background:white;
+    width:100%;
+    padding:2%;
+    //height:10%;
+  }
+  nav#main{
+    @extend .navbar;
+    @extend .navbar-default;
+    background:$main-green !important;
+    height:auto !important;
+    padding:0.25% 15%;
+    margin-bottom:0 !important;
+    ul{
+      @extend .nav;
+      @extend .navbar-nav;
+      margin-bottom:0 !important;
+      li{
+        a{
+          color:#ffffff !important;
+        }
+
+      }
+      li.active{
+        a{
+          background:$light-green !important;
+        }
+      }
+      li:hover{
+        background:$light-green !important;
+      }
+    }
+  }
+
+}
+
+/* Content */
+#content{
+  width:100%;
+  padding:15% 15% 0 15%;
+
+  /* Carousel */
+  #carousel-container{
+    width:100%;
+    /* height:40% !important; */
+  }
+}
+/* Content Class */
+.content{
+  h1{
+    color:$main-green;
+  }
+}
+/* Full Size */
+.content.full{
+  @extend .col-md-12;
+}
+/* Small Size*/
+.content.small{
+  @extend .col-md-4;
+  h1{
+    font-size:30px;
+  }
+}
+/*  */
+#side-menu{
+  @extend .col-md-4;
+  nav{
+    @extend .nav;
+    @extend .nav-pills;
+    @extend .nav-stacked;
+  }
+}
+#side-content{
+  @extend .col-md-8;
+}
+
+/* Table */
+table{
+  @extend .table;
+  @extend .table-responsive;
+  @extend .table-hover;
+}
+
+.news-item{
+  padding-bottom:3%;
+  border-bottom: 1px solid #e5e5e5;
+  .news-item-content{
+    @extend .col-md-12;
+  }
+  .news-item-type{
+    @extend .col-md-8;
+    font-weight:bold;
+    color:$main_green;
+  }
+  .news-item-date{
+    @extend .col-md-4;
+    font-style:italic;
+  }
+}
+.news-item:last{
+  border:0;
+}
+#map{
+  @extend .col-md-12;
+  #map_canvas{
+    height:400p;
+  }
+}
+.in_address{
+  display:block;
+}
+
+
+/* Login */
+#login-form{
+  margin:auto;
+  width:40%;
+  padding:5%;
+  box-shadow:0 0 5px 1px $main_green;
+  .btn{
+    background:$main_green;
+    color:white;
+  }
+  .btn:hover{
+    background:$light_green;
+  }
+  input[type='password']:focus,input[type='email']:focus{
+    box-shadow:0 0 0.5px 0.5px $main_green;
+    border-color:$main_green;
+  }
+}

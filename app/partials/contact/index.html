@@ -1,0 +1,61 @@
+<div class="row">
+
+  <section id="map">
+
+  <script type="text/javascript">
+  var LGS=new google.maps.LatLng(-1.303227,36.807026);
+  function initialize()
+  {
+    var mapProp = {
+      center:new google.maps.LatLng(-1.303227,36.807026),
+      zoom:15,
+      mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    var map=new google.maps.Map(document.getElementById("map_canvas")
+    ,mapProp);
+    var marker=new google.maps.Marker({position:LGS,});
+
+    marker.setMap(map);
+    var infowindow1 = new google.maps.InfoWindow({
+      content:'<div id="MapLocation"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'
+    });
+
+    infowindow1.open(map,marker);
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
+  <div id="map_canvas">
+
+  </div>
+</section>
+<section class="full content">
+  <div class="main_address">
+    <div class="address">
+      <div class="in_address" style="margin-top:20px;">
+        <font style="text-transform:uppercase; color:#00a460;">Physical Address:</font><br/><br/> Kenyatta National Hospital Complex, Hospital Road, University of Nairobi,
+        School of Pharmacy Building 2nd Floor, P.O. Box 29726 - 00202 KNH, Nairobi
+      </div>
+      <div class="in_address" style="padding-top:20px;">
+        Tell:&nbsp;&nbsp;<a href="callto:+254 020 2726963">+254 020 2726963</a> /
+        <a href="callto:3544525/30">3544525/30</a> /
+        <a href="callto:+254 020 3544525">+254 020 3544525</a>
+      </div>
+      <div class="in_address" style="padding-top:10px;">
+        Fax:&nbsp;<a href="+254 020 2718073">
+          +254 020 2718073</a>
+
+        </div>
+        <div class="in_address" style="padding-top:10px; padding-bottom:10px;">
+          Email:&nbsp;&nbsp;<a href="mailto:info@nqcl.go.ke">
+            info@nqcl.go.ke</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+  </div>

@@ -1,0 +1,455 @@
+var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize'
+]);
+app.config(function(RestangularProvider) {
+	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	RestangularProvider.setRequestSuffix('?format=json');
+});
+;app.controller(
+	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			scope.links = [];
+			loadLinks();
+
+			function loadLinks() {
+				var Links = Restangular.all('about?format=json');
+				Links.getList().then(function(links) {
+					scope.links = links;
+				});
+			}
+
+			scope.loadContent = function loadContent(content) {
+				scope.content = content
+			}
+		}
+	]
+);
+;app.controller(
+  "adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+
+      scope.login = function login() {
+
+      }
+
+
+
+    }
+  ]
+);
+;app.controller(
+	"contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+
+
+		}
+	]
+);
+;app.controller(
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			loadImages();
+
+			function loadImages() {
+				scope.slides = [{
+					image: 'app/images/slides/1.png',
+					text: 'One'
+				}, {
+					image: 'app/images/slides/2.png',
+					text: 'Two'
+				}, {
+					image: 'app/images/slides/3.png',
+					text: 'Three'
+				}];
+			}
+		}
+	]
+);
+;app.controller(
+	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+
+			loadContent();
+
+			function loadContent() {
+				var Content = Restangular.all('news?format=json');
+				Content.getList().then(function(content) {
+					console.log(content);
+					scope.content = content;
+				});
+			}
+		}
+	]
+);
+;app.controller(
+  "servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      scope.links = [];
+      loadContent();
+
+      function loadContent() {
+        var Content = Restangular.all('services?format=json');
+        Content.getList().then(function(content) {
+          console.log(content);
+          scope.content = content[0];
+        });
+      }
+    }
+  ]
+);
+;app.controller(
+	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var users = Restangular.all('users');
+
+
+			scope.login = function login() {
+				var someData = {
+					email: 'mail@example.com',
+					password: 'tested'
+				}
+				users.post(someData).then(function(response) {
+					console.log(response);
+				});
+			}
+
+
+
+		}
+	]
+);
+;app.directive("header", function() {
+	return {
+		templateUrl: "app/partials/globals/header.html"
+	}
+});
+
+// app.directive("carousel", function() {
+//   return {
+//     templateUrl: "app/partials/globals/carousel.html"
+//   }
+// });
+app.directive('isActiveNav', ['$location', function($location) {
+	return {
+		restrict: 'A',
+		link: function(scope, element) {
+			scope.location = $location;
+			scope.$watch('location.path()', function(currentPath) {
+
+				if ('#' + currentPath == element[0].hash) {
+					element.parent().addClass('active');
+				} else {
+					element.parent().removeClass('active');
+				}
+			});
+		}
+	};
+}]);
+;app.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/");
+
+  // Now set up the states
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: 'app/partials/home/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('about', {
+      url: '/about',
+      templateUrl: 'app/partials/about/index.html',
+      controller: 'aboutCtrl'
+    })
+    .state('services', {
+      url: '/services',
+      templateUrl: 'app/partials/services/index.html',
+      controller: 'servicesCtrl'
+    })
+    .state('news', {
+      url: '/news',
+      templateUrl: 'app/partials/news/index.html',
+      controller: 'newsCtrl'
+    })
+    .state('contact', {
+      url: '/contact',
+      templateUrl: 'app/partials/contact/index.html',
+      controller: 'contactCtrl'
+    })
+    .state('admin', {
+      url: '/admin',
+      templateUrl: 'app/partials/admin/index.html',
+      controller: 'adminCtrl'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/partials/admin/login.html',
+      controller: 'usersCtrl'
+    });
+});
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+
+angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/about/index.html",
+    "<div id=\"side-menu\">\n" +
+    "  <nav>\n" +
+    "    <li ng-repeat=\"link in links\">\n" +
+    "      <a href=\"\" ng-click=loadContent(link.about_body)>{{link.about_type}}</a>\n" +
+    "    </li>\n" +
+    "  </nav>\n" +
+    "</div>\n" +
+    "<div id=\"side-content\" ng-bind-html='content'>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/admin/login.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/login.html",
+    "<form method=\"post\" id=\"login-form\">\n" +
+    "\n" +
+    "  <div class=\"form-group\">\n" +
+    "    <label for=\"exampleInputEmail1\">Email address</label>\n" +
+    "    <input type=\"email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "  </div>\n" +
+    "  <div class=\"form-group\">\n" +
+    "    <label for=\"exampleInputEmail1\">Password</label>\n" +
+    "    <input type=\"password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "    />\n" +
+    "  </div>\n" +
+    "  <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\"/>\n" +
+    "\n" +
+    "  <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
+    "</form>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/contact/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/index.html",
+    "<div class=\"row\">\n" +
+    "\n" +
+    "  <section id=\"map\">\n" +
+    "\n" +
+    "  <script type=\"text/javascript\">\n" +
+    "  var LGS=new google.maps.LatLng(-1.303227,36.807026);\n" +
+    "  function initialize()\n" +
+    "  {\n" +
+    "    var mapProp = {\n" +
+    "      center:new google.maps.LatLng(-1.303227,36.807026),\n" +
+    "      zoom:15,\n" +
+    "      mapTypeId:google.maps.MapTypeId.ROADMAP\n" +
+    "    };\n" +
+    "    var map=new google.maps.Map(document.getElementById(\"map_canvas\")\n" +
+    "    ,mapProp);\n" +
+    "    var marker=new google.maps.Marker({position:LGS,});\n" +
+    "\n" +
+    "    marker.setMap(map);\n" +
+    "    var infowindow1 = new google.maps.InfoWindow({\n" +
+    "      content:'<div id=\"MapLocation\"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'\n" +
+    "    });\n" +
+    "\n" +
+    "    infowindow1.open(map,marker);\n" +
+    "  }\n" +
+    "\n" +
+    "  google.maps.event.addDomListener(window, 'load', initialize);\n" +
+    "  </script>\n" +
+    "\n" +
+    "  <div id=\"map_canvas\">\n" +
+    "\n" +
+    "  </div>\n" +
+    "</section>\n" +
+    "<section class=\"full content\">\n" +
+    "  <div class=\"main_address\">\n" +
+    "    <div class=\"address\">\n" +
+    "      <div class=\"in_address\" style=\"margin-top:20px;\">\n" +
+    "        <font style=\"text-transform:uppercase; color:#00a460;\">Physical Address:</font><br/><br/> Kenyatta National Hospital Complex, Hospital Road, University of Nairobi,\n" +
+    "        School of Pharmacy Building 2nd Floor, P.O. Box 29726 - 00202 KNH, Nairobi\n" +
+    "      </div>\n" +
+    "      <div class=\"in_address\" style=\"padding-top:20px;\">\n" +
+    "        Tell:&nbsp;&nbsp;<a href=\"callto:+254 020 2726963\">+254 020 2726963</a> /\n" +
+    "        <a href=\"callto:3544525/30\">3544525/30</a> /\n" +
+    "        <a href=\"callto:+254 020 3544525\">+254 020 3544525</a>\n" +
+    "      </div>\n" +
+    "      <div class=\"in_address\" style=\"padding-top:10px;\">\n" +
+    "        Fax:&nbsp;<a href=\"+254 020 2718073\">\n" +
+    "          +254 020 2718073</a>\n" +
+    "\n" +
+    "        </div>\n" +
+    "        <div class=\"in_address\" style=\"padding-top:10px; padding-bottom:10px;\">\n" +
+    "          Email:&nbsp;&nbsp;<a href=\"mailto:info@nqcl.go.ke\">\n" +
+    "            info@nqcl.go.ke</a>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "      </div>\n" +
+    "    </section>\n" +
+    "\n" +
+    "\n" +
+    "\n" +
+    "  </div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/globals/carousel.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/carousel.html",
+    "");
+}]);
+
+angular.module("../app/partials/globals/header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/header.html",
+    "<!-- <img src=\"templates/user/logo/MOH.png\" style=\"float:left; margin-left:5px; height:61px; margin-top:7px;\"/>\n" +
+    "      <img src=\"templates/user/logo/NQCL_logo.png\" style=\"float:right; margin-right:10px; margin-top:7px;\"/> -->\n" +
+    "<!-- <div class=\"logo\">\n" +
+    "        <div class=\"real_logo\">\n" +
+    "          <a href=\"home.php\"><img src=\"templates/user/logo/middle_.png\" style=\"\"/></a>\n" +
+    "          </div>\n" +
+    "                 <div class=\"dater\">\n" +
+    "                   <a href=\"#\">FAQs</a>&nbsp; | <a href=\"#\">WebMail</a>\n" +
+    "                   </div>\n" +
+    "\n" +
+    "                   <div class=\"in_dater\">\n" +
+    "                     <script language=\"JavaScript\">\n" +
+    "          sampleDate1=new Date()\n" +
+    "          document.write (mdy(sampleDate1))\n" +
+    "          </script>\n" +
+    "                   </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<ul class=''>\n" +
+    "\n" +
+    "  </ul> -->\n" +
+    "  <div id=\"logo\">\n" +
+    "    <img src=\"app/images/logo/MOH.png\"/>\n" +
+    "    <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <nav id=\"main\">\n" +
+    "    <div class=\"container-fluid\">\n" +
+    "      <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "      <div class=\"navbar-header\">\n" +
+    "        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "          <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "          <span class=\"icon-bar\"></span>\n" +
+    "          <span class=\"icon-bar\"></span>\n" +
+    "          <span class=\"icon-bar\"></span>\n" +
+    "        </button>\n" +
+    "      </div>\n" +
+    "\n" +
+    "      <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "        <ul>\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"home\" >Home</a>\n" +
+    "          </li>\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"about\" >About NQCL</a>\n" +
+    "          </li>\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"services\" >Our Services</a>\n" +
+    "          </li>\n" +
+    "\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"news\" >News and Events</a>\n" +
+    "          </li>\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"downloads\">Downloads</a>\n" +
+    "          </li>\n" +
+    "          <li>\n" +
+    "            <a is-active-nav ui-sref=\"contact\">Contact Us</a>\n" +
+    "          </li>\n" +
+    "\n" +
+    "        </ul>\n" +
+    "\n" +
+    "        <ul class=\"navbar-right\">\n" +
+    "          <li><a href=\"#\"><i></i>Login</a></li>\n" +
+    "          <li class=\"dropdown\">\n" +
+    "            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
+    "            <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "              <li><a href=\"#\">Action</a></li>\n" +
+    "              <li><a href=\"#\">Another action</a></li>\n" +
+    "              <li><a href=\"#\">Something else here</a></li>\n" +
+    "              <li class=\"divider\"></li>\n" +
+    "              <li><a href=\"#\">Separated link</a></li>\n" +
+    "            </ul>\n" +
+    "          </li>\n" +
+    "        </ul>\n" +
+    "      </div><!-- /.navbar-collapse -->\n" +
+    "    </div><!-- /.container-fluid -->\n" +
+    "  </nav>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/home/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/home/index.html",
+    "<section id=\"carousel-container\">\n" +
+    "  <carousel interval=\"2000\">\n" +
+    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\">\n" +
+    "      <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\n" +
+    "      <div class=\"carousel-caption\">\n" +
+    "        <p>{{slide.text}}</p>\n" +
+    "      </div>\n" +
+    "    </slide>\n" +
+    "  </carousel>\n" +
+    "</section>\n" +
+    "\n" +
+    "<div class=\"row\">\n" +
+    "  <section class=\"content full\">\n" +
+    "    <h1>Welcome to NQCL</h1>\n" +
+    "    <div class=\"description\">\n" +
+    "      The NQCL was established as a Body Corporate through legislation enacted by Parliament in 1992 and assented to by the President on 28th October, 1992 (Pharmacy and Poisons (Amendment) Act of 1992). In accordance with this Act, the Laboratory is mandated to:\n" +
+    "\n" +
+    "1. Examine and test drugs and any material or substance from or with which and the manner in which drugs may be manufactured, processed or treated and ensure the quality control of drugs and medicinal substances\n" +
+    "2. Perform chemical, biological, biochemical, physiological and pharmacological analysis and other pharmaceutical evaluation; and\n" +
+    "3. Test, at the request of PPB and on behalf of the Government, of locally manufactured and imported drugs or medicinal substances with view of determining whether such drugs or medicinal substances comply with this Act.\n" +
+    "    </div>\n" +
+    "  </section>\n" +
+    "  <section class=\"content small\">\n" +
+    "    <h1>Our Services</h1>\n" +
+    "    <div class=\"description\"></div>\n" +
+    "  </section>\n" +
+    "  <section class=\"content small\">\n" +
+    "    <h1>News and Events</h1>\n" +
+    "    <div class=\"description\"></div>\n" +
+    "  </section>\n" +
+    "  <section class=\"content small\">\n" +
+    "    <h1>Contact Us</h1>\n" +
+    "    <div class=\"description\"></div>\n" +
+    "  </section>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/news/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/news/index.html",
+    "<div id=\"side-content\">\n" +
+    "  <h1>NEWS ARTICLES AND UPCOMING EVENTS</h1>\n" +
+    "  <div ng-repeat=\"item in content\" class='news-item' >\n" +
+    "      <h3>{{item.news_head}}</h3>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"news-item-content\" ng-bind-html=\"item.news_body\"></div>\n" +
+    "        <div class=\"news-item-type\">{{item.news_type}}</div>\n" +
+    "        <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
+    "      </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "<div id=\"side-menu\">\n" +
+    "  <h1>RECENT POSTS</h1>\n" +
+    "  <nav>\n" +
+    "    <li ng-repeat=\"item in content\">\n" +
+    "      <a href=\"\">{{item.news_head}}</a>\n" +
+    "    </li>\n" +
+    "  </nav>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/services/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/services/index.html",
+    "<div class=\"row\">\n" +
+    "\n" +
+    "  <section class=\"content full\" ng-bind-html=\"content.data_body\">\n" +
+    "  </section>\n" +
+    "</div>\n" +
+    "");
+}]);
