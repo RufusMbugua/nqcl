@@ -1,21 +1,20 @@
 app.controller(
-	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			var users = Restangular.all('users');
+  "usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'md5',
+
+    function(scope, filter, timeout, state, Restangular, md5) {
+      var users = Restangular.all('users');
 
 
-			scope.login = function login() {
-				var someData = {
-					email: 'mail@example.com',
-					password: 'tested'
-				}
-				users.post(someData).then(function(response) {
-					console.log(response);
-				});
-			}
+      scope.login = function login() {
+        scope.user.password = md5.createHash(scope.user.password || '');
+        users.post(scope.user).then(function(response) {
+          if (response[0]) {
+            state.
+          }
+        });
+      }
 
-
-
-		}
-	]
+    }
+  ]
 );

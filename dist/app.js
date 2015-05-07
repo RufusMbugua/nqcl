@@ -1,9 +1,9 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize'
+  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	RestangularProvider.setRequestSuffix('?format=json');
+  RestangularProvider.setBaseUrl('http://localhost/nqcl');
+  // RestangularProvider.setRequestSuffix('?format=json');
 });
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -98,25 +98,22 @@ app.config(function(RestangularProvider) {
   ]
 );
 ;app.controller(
-	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			var users = Restangular.all('users');
+  "usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'md5',
+
+    function(scope, filter, timeout, state, Restangular, md5) {
+      var users = Restangular.all('users');
 
 
-			scope.login = function login() {
-				var someData = {
-					email: 'mail@example.com',
-					password: 'tested'
-				}
-				users.post(someData).then(function(response) {
-					console.log(response);
-				});
-			}
+      scope.login = function login() {
+        scope.user.password = md5.createHash(scope.user.password || '');
+        users.post(scope.user).then(function(response) {
+          console.log(response);
+        });
+      }
 
-
-
-		}
-	]
+    }
+  ]
 );
 ;app.directive("header", function() {
 	return {
@@ -207,18 +204,18 @@ angular.module("../app/partials/about/index.html", []).run(["$templateCache", fu
 
 angular.module("../app/partials/admin/login.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/admin/login.html",
-    "<form method=\"post\" id=\"login-form\">\n" +
+    "<form id=\"login-form\">\n" +
     "\n" +
     "  <div class=\"form-group\">\n" +
     "    <label for=\"exampleInputEmail1\">Email address</label>\n" +
-    "    <input type=\"email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "    <input type=\"email\" ng-model=\"user.email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
     "    <label for=\"exampleInputEmail1\">Password</label>\n" +
-    "    <input type=\"password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "    <input type=\"password\" ng-model=\"user.password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
     "    />\n" +
     "  </div>\n" +
-    "  <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\"/>\n" +
+    "  <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\" ng-click=\"login()\"/>\n" +
     "\n" +
     "  <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
     "</form>\n" +
@@ -298,85 +295,64 @@ angular.module("../app/partials/globals/carousel.html", []).run(["$templateCache
 
 angular.module("../app/partials/globals/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/globals/header.html",
-    "<!-- <img src=\"templates/user/logo/MOH.png\" style=\"float:left; margin-left:5px; height:61px; margin-top:7px;\"/>\n" +
-    "      <img src=\"templates/user/logo/NQCL_logo.png\" style=\"float:right; margin-right:10px; margin-top:7px;\"/> -->\n" +
-    "<!-- <div class=\"logo\">\n" +
-    "        <div class=\"real_logo\">\n" +
-    "          <a href=\"home.php\"><img src=\"templates/user/logo/middle_.png\" style=\"\"/></a>\n" +
-    "          </div>\n" +
-    "                 <div class=\"dater\">\n" +
-    "                   <a href=\"#\">FAQs</a>&nbsp; | <a href=\"#\">WebMail</a>\n" +
-    "                   </div>\n" +
-    "\n" +
-    "                   <div class=\"in_dater\">\n" +
-    "                     <script language=\"JavaScript\">\n" +
-    "          sampleDate1=new Date()\n" +
-    "          document.write (mdy(sampleDate1))\n" +
-    "          </script>\n" +
-    "                   </div>\n" +
+    "<div id=\"logo\">\n" +
+    "  <img src=\"app/images/logo/MOH.png\"/>\n" +
+    "  <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
     "</div>\n" +
     "\n" +
-    "<ul class=''>\n" +
+    "<nav id=\"main\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
     "\n" +
-    "  </ul> -->\n" +
-    "  <div id=\"logo\">\n" +
-    "    <img src=\"app/images/logo/MOH.png\"/>\n" +
-    "    <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
-    "  </div>\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"home\" >Home</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"about\" >About NQCL</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"services\" >Our Services</a>\n" +
+    "        </li>\n" +
     "\n" +
-    "  <nav id=\"main\">\n" +
-    "    <div class=\"container-fluid\">\n" +
-    "      <!-- Brand and toggle get grouped for better mobile display -->\n" +
-    "      <div class=\"navbar-header\">\n" +
-    "        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
-    "          <span class=\"sr-only\">Toggle navigation</span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "        </button>\n" +
-    "      </div>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"news\" >News and Events</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"downloads\">Downloads</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"contact\">Contact Us</a>\n" +
+    "        </li>\n" +
     "\n" +
-    "      <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-    "      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
-    "        <ul>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"home\" >Home</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"about\" >About NQCL</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"services\" >Our Services</a>\n" +
-    "          </li>\n" +
+    "      </ul>\n" +
     "\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"news\" >News and Events</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"downloads\">Downloads</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"contact\">Contact Us</a>\n" +
-    "          </li>\n" +
-    "\n" +
-    "        </ul>\n" +
-    "\n" +
-    "        <ul class=\"navbar-right\">\n" +
-    "          <li><a href=\"#\"><i></i>Login</a></li>\n" +
-    "          <li class=\"dropdown\">\n" +
-    "            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
-    "            <ul class=\"dropdown-menu\" role=\"menu\">\n" +
-    "              <li><a href=\"#\">Action</a></li>\n" +
-    "              <li><a href=\"#\">Another action</a></li>\n" +
-    "              <li><a href=\"#\">Something else here</a></li>\n" +
-    "              <li class=\"divider\"></li>\n" +
-    "              <li><a href=\"#\">Separated link</a></li>\n" +
-    "            </ul>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
-    "      </div><!-- /.navbar-collapse -->\n" +
-    "    </div><!-- /.container-fluid -->\n" +
-    "  </nav>\n" +
+    "      <ul class=\"navbar-right\">\n" +
+    "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i></i>Login</a></li>\n" +
+    "        <li class=\"dropdown\">\n" +
+    "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
+    "          <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "            <li><a href=\"#\">Action</a></li>\n" +
+    "            <li><a href=\"#\">Another action</a></li>\n" +
+    "            <li><a href=\"#\">Something else here</a></li>\n" +
+    "            <li class=\"divider\"></li>\n" +
+    "            <li><a href=\"#\">Separated link</a></li>\n" +
+    "          </ul>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
     "");
 }]);
 

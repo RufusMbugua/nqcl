@@ -1,15 +1,15 @@
-<form method="post" id="login-form">
+<form id="login-form">
 
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" name="mail_address" required="required" placeholder="Email" />
+    <input type="email" ng-model="user.email" class="form-control" name="mail_address" required="required" placeholder="Email" />
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Password</label>
-    <input type="password" class="form-control" name="password" required="required" placeholder="Password"
+    <input type="password" ng-model="user.password" class="form-control" name="password" required="required" placeholder="Password"
     />
   </div>
-  <input type="submit" class="btn" name="sender" value="SUBMIT"/>
+  <input type="submit" class="btn" name="sender" value="SUBMIT" ng-click="login()"/>
 
   <p><center><a href="#">Forgot your password?</a></center></p>
 </form>

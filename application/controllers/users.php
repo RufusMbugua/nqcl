@@ -16,7 +16,11 @@ class Users extends MY_Controller {
   }
 
   function index_post(){
-    $post_data = $this->input->post();
-    $this->response($post_data);
+    $post_data = file_get_contents("php://input");
+    $post_data = json_decode($post_data,true);
+    $result = $this->users_model->getUser($post_data);
+
+
+    $this->response($result);
   }
 }
