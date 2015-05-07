@@ -38,32 +38,86 @@ app.config(function(RestangularProvider) {
   ]
 );
 ;app.controller(
-	"contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-
-
-		}
-	]
-);
-;app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+  "contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
     function(scope, filter, timeout, state, Restangular) {
-      loadImages();
 
-      function loadImages() {
-        scope.slides = [{
-          image: 'app/images/slides/1.png',
-          text: ''
-        }, {
-          image: 'app/images/slides/2.png',
-          text: ''
-        }, {
-          image: 'app/images/slides/3.png',
-          text: ''
-        }];
+      var front = Restangular.all('front?format=json');
+      loadContent();
+
+      function loadContent() {
+        front.getList().then(function(content) {
+
+          angular.forEach(content, function(value, key) {
+            switch (value.data_type) {
+              case "WELCOME TO NQCL":
+                scope.content.welcome = value;
+                break;
+              case "OUR SERVICES":
+                scope.content.services = value;
+                break;
+              case "CUSTOMERS WHO TRUST IN US":
+                scope.content.customers = value;
+                break;
+              default:
+
+                break;
+
+            }
+
+          });
+        });
       }
     }
   ]
+);
+;app.controller(
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('front?format=json');
+			loadImages();
+			loadContent();
+			scope.content = [];
+
+			function loadImages() {
+				scope.slides = [{
+					image: 'app/images/slides/1.png',
+					text: ''
+				}, {
+					image: 'app/images/slides/2.png',
+					text: ''
+				}, {
+					image: 'app/images/slides/3.png',
+					text: ''
+				}];
+			}
+
+
+			function loadContent() {
+				front.getList().then(function(content) {
+
+					angular.forEach(content, function(value, key) {
+						switch (value.data_type) {
+							case "WELCOME TO NQCL":
+								scope.content.welcome = value;
+								break;
+							case "OUR SERVICES":
+								scope.content.services = value;
+								break;
+							case "CUSTOMERS WHO TRUST IN US":
+								scope.content.customers = value;
+								break;
+							default:
+
+								break;
+
+						}
+
+					});
+				});
+			}
+
+		}
+	]
 );
 ;app.controller(
   "newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -257,30 +311,8 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "  </div>\n" +
     "</section>\n" +
-    "<section class=\"full content\">\n" +
-    "  <div class=\"main_address\">\n" +
-    "    <div class=\"address\">\n" +
-    "      <div class=\"in_address\" style=\"margin-top:20px;\">\n" +
-    "        <font style=\"text-transform:uppercase; color:#00a460;\">Physical Address:</font><br/><br/> Kenyatta National Hospital Complex, Hospital Road, University of Nairobi,\n" +
-    "        School of Pharmacy Building 2nd Floor, P.O. Box 29726 - 00202 KNH, Nairobi\n" +
-    "      </div>\n" +
-    "      <div class=\"in_address\" style=\"padding-top:20px;\">\n" +
-    "        Tell:&nbsp;&nbsp;<a href=\"callto:+254 020 2726963\">+254 020 2726963</a> /\n" +
-    "        <a href=\"callto:3544525/30\">3544525/30</a> /\n" +
-    "        <a href=\"callto:+254 020 3544525\">+254 020 3544525</a>\n" +
-    "      </div>\n" +
-    "      <div class=\"in_address\" style=\"padding-top:10px;\">\n" +
-    "        Fax:&nbsp;<a href=\"+254 020 2718073\">\n" +
-    "          +254 020 2718073</a>\n" +
+    "<section class=\"full content\" ng-bind-html=\"content.contact\">\n" +
     "\n" +
-    "        </div>\n" +
-    "        <div class=\"in_address\" style=\"padding-top:10px; padding-bottom:10px;\">\n" +
-    "          Email:&nbsp;&nbsp;<a href=\"mailto:info@nqcl.go.ke\">\n" +
-    "            info@nqcl.go.ke</a>\n" +
-    "          </div>\n" +
-    "        </div>\n" +
-    "\n" +
-    "      </div>\n" +
     "    </section>\n" +
     "\n" +
     "\n" +
@@ -372,22 +404,20 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "\n" +
     "<div class=\"row\">\n" +
     "  <section class=\"content full\">\n" +
-    "    <h1>Welcome to NQCL</h1>\n" +
-    "    <div class=\"description\">\n" +
-    "      The NQCL was established as a Body Corporate through legislation enacted by Parliament in 1992 and assented to by the President on 28th October, 1992 (Pharmacy and Poisons (Amendment) Act of 1992). In accordance with this Act, the Laboratory is mandated to:\n" +
     "\n" +
-    "1. Examine and test drugs and any material or substance from or with which and the manner in which drugs may be manufactured, processed or treated and ensure the quality control of drugs and medicinal substances\n" +
-    "2. Perform chemical, biological, biochemical, physiological and pharmacological analysis and other pharmaceutical evaluation; and\n" +
-    "3. Test, at the request of PPB and on behalf of the Government, of locally manufactured and imported drugs or medicinal substances with view of determining whether such drugs or medicinal substances comply with this Act.\n" +
+    "    <h1>{{content.welcome.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.welcome.data_body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <h1>Our Services</h1>\n" +
-    "    <div class=\"description\"></div>\n" +
+    "    <h1>{{content.services.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.services.data_body\">\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <h1>News and Events</h1>\n" +
-    "    <div class=\"description\"></div>\n" +
+    "    <h1>{{content.customers.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.customers.data_body\">\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>Contact Us</h1>\n" +
