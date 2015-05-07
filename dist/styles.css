@@ -5884,6 +5884,15 @@ header {
   font-size: 30px; }
 
 /*  */
+#side-menu h1 {
+  color: #00a460; }
+#side-menu nav li.active {
+  background: #00a460 !important;
+  color: white !important; }
+
+#side-content h1 {
+  color: #00a460; }
+
 /* Table */
 .news-item {
   padding-bottom: 3%;

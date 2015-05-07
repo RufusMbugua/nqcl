@@ -76,14 +76,24 @@ header{
 /*  */
 #side-menu{
   @extend .col-md-4;
+  h1{
+    color:$main_green;
+  }
   nav{
     @extend .nav;
     @extend .nav-pills;
     @extend .nav-stacked;
+    li.active{
+      background:$main_green !important;
+      color:white !important;
+    }
   }
 }
 #side-content{
   @extend .col-md-8;
+  h1{
+    color:$main_green;
+  }
 }
 
 /* Table */

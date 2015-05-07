@@ -46,40 +46,39 @@ app.config(function(RestangularProvider) {
 	]
 );
 ;app.controller(
-	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			loadImages();
+  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      loadImages();
 
-			function loadImages() {
-				scope.slides = [{
-					image: 'app/images/slides/1.png',
-					text: 'One'
-				}, {
-					image: 'app/images/slides/2.png',
-					text: 'Two'
-				}, {
-					image: 'app/images/slides/3.png',
-					text: 'Three'
-				}];
-			}
-		}
-	]
+      function loadImages() {
+        scope.slides = [{
+          image: 'app/images/slides/1.png',
+          text: ''
+        }, {
+          image: 'app/images/slides/2.png',
+          text: ''
+        }, {
+          image: 'app/images/slides/3.png',
+          text: ''
+        }];
+      }
+    }
+  ]
 );
 ;app.controller(
-	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
+  "newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
 
-			loadContent();
+      loadContent();
 
-			function loadContent() {
-				var Content = Restangular.all('news?format=json');
-				Content.getList().then(function(content) {
-					console.log(content);
-					scope.content = content;
-				});
-			}
-		}
-	]
+      function loadContent() {
+        var Content = Restangular.all('news?format=json');
+        Content.getList().then(function(content) {
+          scope.content = content;
+        });
+      }
+    }
+  ]
 );
 ;app.controller(
   "servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
