@@ -12,3 +12,10 @@ app.config(function(localStorageServiceProvider) {
 		.setStorageType('sessionStorage')
 		.setPrefix('nqcl');
 });
+
+app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
+	'Session',
+	function(localStorageService, rootScope, state, stateParams, Session) {
+		Session.checkIfLogged();
+	}
+]);

@@ -12,6 +12,13 @@ app.config(function(localStorageServiceProvider) {
 		.setStorageType('sessionStorage')
 		.setPrefix('nqcl');
 });
+
+app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
+	'Session',
+	function(localStorageService, rootScope, state, stateParams, Session) {
+		Session.checkIfLogged();
+	}
+]);
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
@@ -154,18 +161,18 @@ app.config(function(localStorageServiceProvider) {
 );
 ;app.controller(
   "usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    'md5', 'localStorageService',
+    'md5', 'localStorageService', '$rootScope',
 
     function(scope, filter, timeout, state, Restangular, md5,
-      localStorageService) {
+      localStorageService, rootScope) {
       var users = Restangular.all('users');
-
+      var user = [];
 
       scope.login = function login() {
         scope.user.password = md5.createHash(scope.user.password || '');
         users.post(scope.user).then(function(response) {
-          console.log(response);
           localStorageService.set('user', response);
+          rootScope.user = response;
         });
       }
 
@@ -242,6 +249,26 @@ app.directive('isActiveNav', ['$location', function($location) {
       controller: 'usersCtrl'
     });
 });
+;app.factory('Session', ['localStorageService', '$rootScope', function(
+	localStorageService, rootScope) {
+
+	return {
+		checkIfLogged: function checkIfLogged() {
+			rootScope.user = [];
+			user = localStorageService.get('user');
+			console.log(user);
+			if (user == null) {
+				rootScope.user = null;
+				status = 'Not Logged In';
+			} else {
+				rootScope.user = user;
+				status = 'Logged In';
+			}
+
+		}
+	}
+
+}]);
 ;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
