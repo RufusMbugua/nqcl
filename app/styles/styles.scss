@@ -3,8 +3,8 @@ $main-green:#00a460;
 $light-green:#99dbbf;
 
 /* Admin Theme */
-$main_blue:#59ABE3;
-$light_blue:#C5EFF7;
+$main_blue:#2C3E50;
+$main_red:#90C695;
 body{
   font-family:OpenSansRegular !important;
 }
@@ -56,13 +56,13 @@ header,admin-header{
       li.active{
         a{
           font-weight:bold;
-          color:black !important;
           background:none !important;
+          color:$main_red !important;
         }
       }
       li:hover{
         font-weight:bold;
-        color:black !important;
+        color:$main_red !important;
         background:none !important;
       }
     }
@@ -72,7 +72,7 @@ header,admin-header{
 /* Content */
 #content{
   width:100%;
-  padding:15% 15% 0 15%;
+  padding:5% 5% 0 5%;
 
   /* Carousel */
   #carousel-container{
@@ -107,9 +107,16 @@ header,admin-header{
     @extend .nav;
     @extend .nav-pills;
     @extend .nav-stacked;
-    li.active{
-      background:$main_green !important;
+    a.active{
+      background:$main_red !important;
       color:white !important;
+    }
+    a{
+      background:none !important;
+      .active{
+        background:$main_red !important;
+        color:white !important;
+      }
     }
   }
 }
@@ -125,6 +132,10 @@ table{
   @extend .table;
   @extend .table-responsive;
   @extend .table-hover;
+  thead{
+    background:$main_red;
+    color:white;
+  }
 }
 
 .news-item{

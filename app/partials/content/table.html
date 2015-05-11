@@ -4,11 +4,21 @@
     <th>Order</th>
     <th>Linked Content</th>
     <th>Active</th>
+    <th>Action</th>
   </thead>
   <tbody>
-    <tr><td>Words</td></tr>
-    <tr><td>Words</td></tr>
-    <tr><td>Words</td></tr>
+    <tr ng-repeat="item in list">
+      <td>{{item.name}}</td>
+      <td>{{item.order}}</td>
+      <td>{{item.content_id}}</td>
+      <td>{{item.active}}</td>
+      <td>
+        <div class="btn-group btn-group-sm">
+          <a href="" class="btn btn-warning">Edit</a>
+          <a href="" class="btn btn-danger">Disable</a>
+        </div>
+      </td>
+    </tr>
   </tbody>
   <tfoot><td>Feet</td></tfoot>
 </table>

@@ -77,9 +77,16 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 ;app.controller(
 	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
-			var content = [];
-			content = Restangular.all('content?format=json');
+			menu = Restangular.all('content?format=json');
+			scope.menu = [];
+			getMenuItems();
 
+			function getMenuItems() {
+				console.log('Working');
+				menu.getList().then(function(menu) {
+					scope.list = menu;
+				});
+			}
 		}
 	]
 );
@@ -217,81 +224,82 @@ app.directive('isActiveNav', ['$location', function($location) {
   };
 }]);
 ;app.config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/");
+	//
+	// For any unmatched url, redirect to /state1
+	$urlRouterProvider.otherwise("/");
 
-  // Now set up the states
-  $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'app/partials/home/index.html',
-      controller: 'homeCtrl'
-    })
-    .state('about', {
-      url: '/about',
-      templateUrl: 'app/partials/about/index.html',
-      controller: 'aboutCtrl'
-    })
-    .state('services', {
-      url: '/services',
-      templateUrl: 'app/partials/services/index.html',
-      controller: 'servicesCtrl'
-    })
-    .state('news', {
-      url: '/news',
-      templateUrl: 'app/partials/news/index.html',
-      controller: 'newsCtrl'
-    })
-    .state('contact', {
-      url: '/contact',
-      templateUrl: 'app/partials/contact/index.html',
-      controller: 'contactCtrl'
-    })
-    .state('admin', {
-      url: '/admin',
-      templateUrl: 'app/partials/admin/index.html',
-      controller: 'adminCtrl'
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/partials/admin/login.html',
-      controller: 'usersCtrl'
-    })
-    .state('content', {
-      url: '/content',
-      views: {
-        // Main
-        '': {
-          templateUrl: 'app/partials/content/content.html'
-        },
-        'table@content': {
-          templateUrl: 'app/partials/content/table.html'
-        },
-        'menu@content': {
-          templateUrl: 'app/partials/content/menu.html'
-        }
-      }
-    });
+	// Now set up the states
+	$stateProvider
+		.state('home', {
+			url: '/',
+			templateUrl: 'app/partials/home/index.html',
+			controller: 'homeCtrl'
+		})
+		.state('about', {
+			url: '/about',
+			templateUrl: 'app/partials/about/index.html',
+			controller: 'aboutCtrl'
+		})
+		.state('services', {
+			url: '/services',
+			templateUrl: 'app/partials/services/index.html',
+			controller: 'servicesCtrl'
+		})
+		.state('news', {
+			url: '/news',
+			templateUrl: 'app/partials/news/index.html',
+			controller: 'newsCtrl'
+		})
+		.state('contact', {
+			url: '/contact',
+			templateUrl: 'app/partials/contact/index.html',
+			controller: 'contactCtrl'
+		})
+		.state('admin', {
+			url: '/admin',
+			templateUrl: 'app/partials/admin/index.html',
+			controller: 'adminCtrl'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'app/partials/admin/login.html',
+			controller: 'usersCtrl'
+		})
+		.state('content', {
+			url: '/content',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/content/content.html'
+				},
+				'table@content': {
+					templateUrl: 'app/partials/content/table.html',
+					controller: 'contentCtrl'
+				},
+				'menu@content': {
+					templateUrl: 'app/partials/content/menu.html',
+					controller: 'contentCtrl'
+				}
+			}
+		});
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', function(
-	localStorageService, rootScope) {
+  localStorageService, rootScope) {
 
-	return {
-		checkIfLogged: function checkIfLogged() {
-			rootScope.user = [];
-			user = localStorageService.get('user');
-			console.log(user);
-			if (user == null) {
-				rootScope.user = null;
-				status = 'Not Logged In';
-			} else {
-				rootScope.user = user;
-				status = 'Logged In';
-			}
+  return {
+    checkIfLogged: function checkIfLogged() {
+      rootScope.user = [];
+      user = localStorageService.get('user');
+      if (user == null) {
+        rootScope.user = null;
+        status = 'Not Logged In';
+      } else {
+        rootScope.user = user;
+        status = 'Logged In';
+      }
 
-		}
-	}
+    }
+  }
 
 }]);
 ;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
@@ -332,13 +340,23 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "          <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
     "        </li>\n" +
     "        <li>\n" +
-    "          <a is-active-nav ui-sref=\"content\" ><i class='fa fa-list-ul'></i>Content</a>\n" +
+    "          <a is-active-nav ui-sref=\"content\" ><i class='fa fa-list-ul'></i>Page Content</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"articles\" ><i class='fa fa-list-ul'></i>Articles</a>\n" +
     "        </li>\n" +
     "\n" +
     "\n" +
     "      </ul>\n" +
     "\n" +
     "      <ul class=\"navbar-right\">\n" +
+    "        <li>\n" +
+    "          <a>\n" +
+    "            <i class='fa fa-user'></i>\n" +
+    "            <span>{{user[0].f_name}}</span>\n" +
+    "            <span>{{user[0].l_name}}</span>\n" +
+    "          </a>\n" +
+    "        </li>\n" +
     "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +
@@ -463,11 +481,21 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
     "    <th>Order</th>\n" +
     "    <th>Linked Content</th>\n" +
     "    <th>Active</th>\n" +
+    "    <th>Action</th>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
-    "    <tr><td>Words</td></tr>\n" +
-    "    <tr><td>Words</td></tr>\n" +
-    "    <tr><td>Words</td></tr>\n" +
+    "    <tr ng-repeat=\"item in list\">\n" +
+    "      <td>{{item.name}}</td>\n" +
+    "      <td>{{item.order}}</td>\n" +
+    "      <td>{{item.content_id}}</td>\n" +
+    "      <td>{{item.active}}</td>\n" +
+    "      <td>\n" +
+    "        <div class=\"btn-group btn-group-sm\">\n" +
+    "          <a href=\"\" class=\"btn btn-warning\">Edit</a>\n" +
+    "          <a href=\"\" class=\"btn btn-danger\">Disable</a>\n" +
+    "        </div>\n" +
+    "      </td>\n" +
+    "    </tr>\n" +
     "  </tbody>\n" +
     "  <tfoot><td>Feet</td></tfoot>\n" +
     "</table>\n" +

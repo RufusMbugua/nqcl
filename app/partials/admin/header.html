@@ -17,13 +17,23 @@
           <a is-active-nav ui-sref="home" >Dashboard</a>
         </li>
         <li>
-          <a is-active-nav ui-sref="content" ><i class='fa fa-list-ul'></i>Content</a>
+          <a is-active-nav ui-sref="content" ><i class='fa fa-list-ul'></i>Page Content</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="articles" ><i class='fa fa-list-ul'></i>Articles</a>
         </li>
 
 
       </ul>
 
       <ul class="navbar-right">
+        <li>
+          <a>
+            <i class='fa fa-user'></i>
+            <span>{{user[0].f_name}}</span>
+            <span>{{user[0].l_name}}</span>
+          </a>
+        </li>
         <li><a href="#" is-active-nav ui-sref="login"><i class='fa fa-sign-out'></i>Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -1,9 +1,16 @@
 app.controller(
 	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
-			var content = [];
-			content = Restangular.all('content?format=json');
+			menu = Restangular.all('content?format=json');
+			scope.menu = [];
+			getMenuItems();
 
+			function getMenuItems() {
+				console.log('Working');
+				menu.getList().then(function(menu) {
+					scope.list = menu;
+				});
+			}
 		}
 	]
 );
