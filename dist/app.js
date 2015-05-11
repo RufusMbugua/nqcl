@@ -75,6 +75,15 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var content = [];
+			content = Restangular.all('content?format=json');
+
+		}
+	]
+);
+;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
 			var front = Restangular.all('front?format=json');
@@ -208,47 +217,62 @@ app.directive('isActiveNav', ['$location', function($location) {
   };
 }]);
 ;app.config(function($stateProvider, $urlRouterProvider) {
-	//
-	// For any unmatched url, redirect to /state1
-	$urlRouterProvider.otherwise("/");
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/");
 
-	// Now set up the states
-	$stateProvider
-		.state('home', {
-			url: '/',
-			templateUrl: 'app/partials/home/index.html',
-			controller: 'homeCtrl'
-		})
-		.state('about', {
-			url: '/about',
-			templateUrl: 'app/partials/about/index.html',
-			controller: 'aboutCtrl'
-		})
-		.state('services', {
-			url: '/services',
-			templateUrl: 'app/partials/services/index.html',
-			controller: 'servicesCtrl'
-		})
-		.state('news', {
-			url: '/news',
-			templateUrl: 'app/partials/news/index.html',
-			controller: 'newsCtrl'
-		})
-		.state('contact', {
-			url: '/contact',
-			templateUrl: 'app/partials/contact/index.html',
-			controller: 'contactCtrl'
-		})
-		.state('admin', {
-			url: '/admin',
-			templateUrl: 'app/partials/admin/index.html',
-			controller: 'adminCtrl'
-		})
-		.state('login', {
-			url: '/login',
-			templateUrl: 'app/partials/admin/login.html',
-			controller: 'usersCtrl'
-		});
+  // Now set up the states
+  $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: 'app/partials/home/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('about', {
+      url: '/about',
+      templateUrl: 'app/partials/about/index.html',
+      controller: 'aboutCtrl'
+    })
+    .state('services', {
+      url: '/services',
+      templateUrl: 'app/partials/services/index.html',
+      controller: 'servicesCtrl'
+    })
+    .state('news', {
+      url: '/news',
+      templateUrl: 'app/partials/news/index.html',
+      controller: 'newsCtrl'
+    })
+    .state('contact', {
+      url: '/contact',
+      templateUrl: 'app/partials/contact/index.html',
+      controller: 'contactCtrl'
+    })
+    .state('admin', {
+      url: '/admin',
+      templateUrl: 'app/partials/admin/index.html',
+      controller: 'adminCtrl'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/partials/admin/login.html',
+      controller: 'usersCtrl'
+    })
+    .state('content', {
+      url: '/content',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/content/content.html'
+        },
+        'table@content': {
+          templateUrl: 'app/partials/content/table.html'
+        },
+        'menu@content': {
+          templateUrl: 'app/partials/content/menu.html'
+        }
+      }
+    });
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', function(
 	localStorageService, rootScope) {
@@ -270,7 +294,7 @@ app.directive('isActiveNav', ['$location', function($location) {
 	}
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -326,10 +350,14 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
 angular.module("../app/partials/admin/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/admin/index.html",
     "<!-- Here we are -->\n" +
-    "<adminheader>\n" +
+    "<!-- <admin-header>\n" +
     "\n" +
     "\n" +
-    "</adminheader>\n" +
+    "</admin-header> -->\n" +
+    "\n" +
+    "<section ui-view=\"detail\">\n" +
+    "\n" +
+    "</section>\n" +
     "");
 }]);
 
@@ -395,6 +423,54 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "\n" +
     "  </div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/content/content.detail.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.detail.html",
+    "IMG\n" +
+    "<div ui-view=\"table\">\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/content/content.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.html",
+    "<div id=\"side-menu\" ui-view=\"menu\">\n" +
+    "\n" +
+    "</div>\n" +
+    "<div id=\"side-content\" ui-view=\"table\">\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/content/menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/menu.html",
+    "<nav>\n" +
+    "    <li><a href=\"\">Menu Links</a></li>\n" +
+    "    <li><a href=\"\">Site Content</a></li>\n" +
+    "</nav>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/content/table.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/table.html",
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <th>Name</th>\n" +
+    "    <th>Order</th>\n" +
+    "    <th>Linked Content</th>\n" +
+    "    <th>Active</th>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr><td>Words</td></tr>\n" +
+    "    <tr><td>Words</td></tr>\n" +
+    "    <tr><td>Words</td></tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot><td>Feet</td></tfoot>\n" +
+    "</table>\n" +
     "");
 }]);
 

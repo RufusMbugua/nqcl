@@ -5879,13 +5879,11 @@ header, admin-header {
     header nav#admin ul li.active a, admin-header nav#admin ul li.active a {
       font-weight: bold;
       color: black !important;
-      background: none !important;
-      font-size: 1.4em; }
+      background: none !important; }
     header nav#admin ul li:hover, admin-header nav#admin ul li:hover {
       font-weight: bold;
       color: black !important;
-      background: none !important;
-      font-size: 1.4em; }
+      background: none !important; }
 
 /* Content */
 #content {
