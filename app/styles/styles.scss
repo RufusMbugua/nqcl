@@ -1,10 +1,14 @@
 @import "bootstrap";
 $main-green:#00a460;
 $light-green:#99dbbf;
+
+/* Admin Theme */
+$main_blue:#59ABE3;
+$light_blue:#C5EFF7;
 body{
   font-family:OpenSansRegular !important;
 }
-header{
+header,admin-header{
   background:white;
   position:fixed;
   width:100%;
@@ -15,13 +19,16 @@ header{
     padding:2%;
     //height:10%;
   }
-  nav#main{
+  nav#main,nav#admin{
     @extend .navbar;
     @extend .navbar-default;
     background:$main-green !important;
     height:auto !important;
     padding:0.25% 15%;
     margin-bottom:0 !important;
+    i{
+      padding-right:5px;
+    }
     ul{
       @extend .nav;
       @extend .navbar-nav;
@@ -42,7 +49,26 @@ header{
       }
     }
   }
-
+  nav#admin{
+    padding:0.25%;
+    background:$main_blue !important;
+    ul{
+      li.active{
+        a{
+          font-weight:bold;
+          color:black !important;
+          background:none !important;
+          font-size:1.4em;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:black !important;
+        background:none !important;
+        font-size:1.4em;
+      }
+    }
+  }
 }
 
 /* Content */

@@ -232,7 +232,7 @@ th {
   select {
     background: #fff !important; }
 
-  .navbar, header nav#main {
+  .navbar, header nav#main, header nav#admin, admin-header nav#main, admin-header nav#admin {
     display: none; }
 
   .btn > .caret,
@@ -3547,41 +3547,41 @@ tbody.collapse.in {
   .input-group-btn:last-child > .btn-group {
     margin-left: -1px; }
 
-.nav, header nav#main ul, #side-menu nav {
+.nav, header nav#main ul, header nav#admin ul, admin-header nav#main ul, admin-header nav#admin ul, #side-menu nav {
   margin-bottom: 0;
   padding-left: 0;
   list-style: none; }
-  .nav:before, header nav#main ul:before, #side-menu nav:before, .nav:after, header nav#main ul:after, #side-menu nav:after {
+  .nav:before, header nav#main ul:before, header nav#admin ul:before, admin-header nav#main ul:before, admin-header nav#admin ul:before, #side-menu nav:before, .nav:after, header nav#main ul:after, header nav#admin ul:after, admin-header nav#main ul:after, admin-header nav#admin ul:after, #side-menu nav:after {
     content: " ";
     display: table; }
-  .nav:after, header nav#main ul:after, #side-menu nav:after {
+  .nav:after, header nav#main ul:after, header nav#admin ul:after, admin-header nav#main ul:after, admin-header nav#admin ul:after, #side-menu nav:after {
     clear: both; }
-  .nav > li, header nav#main ul > li, #side-menu nav > li {
+  .nav > li, header nav#main ul > li, header nav#admin ul > li, admin-header nav#main ul > li, admin-header nav#admin ul > li, #side-menu nav > li {
     position: relative;
     display: block; }
-    .nav > li > a, header nav#main ul > li > a, #side-menu nav > li > a {
+    .nav > li > a, header nav#main ul > li > a, header nav#admin ul > li > a, admin-header nav#main ul > li > a, admin-header nav#admin ul > li > a, #side-menu nav > li > a {
       position: relative;
       display: block;
       padding: 10px 15px; }
-      .nav > li > a:hover, header nav#main ul > li > a:hover, #side-menu nav > li > a:hover, .nav > li > a:focus, header nav#main ul > li > a:focus, #side-menu nav > li > a:focus {
+      .nav > li > a:hover, header nav#main ul > li > a:hover, header nav#admin ul > li > a:hover, admin-header nav#main ul > li > a:hover, admin-header nav#admin ul > li > a:hover, #side-menu nav > li > a:hover, .nav > li > a:focus, header nav#main ul > li > a:focus, header nav#admin ul > li > a:focus, admin-header nav#main ul > li > a:focus, admin-header nav#admin ul > li > a:focus, #side-menu nav > li > a:focus {
         text-decoration: none;
         background-color: #eeeeee; }
-    .nav > li.disabled > a, header nav#main ul > li.disabled > a, #side-menu nav > li.disabled > a {
+    .nav > li.disabled > a, header nav#main ul > li.disabled > a, header nav#admin ul > li.disabled > a, admin-header nav#main ul > li.disabled > a, admin-header nav#admin ul > li.disabled > a, #side-menu nav > li.disabled > a {
       color: #777777; }
-      .nav > li.disabled > a:hover, header nav#main ul > li.disabled > a:hover, #side-menu nav > li.disabled > a:hover, .nav > li.disabled > a:focus, header nav#main ul > li.disabled > a:focus, #side-menu nav > li.disabled > a:focus {
+      .nav > li.disabled > a:hover, header nav#main ul > li.disabled > a:hover, header nav#admin ul > li.disabled > a:hover, admin-header nav#main ul > li.disabled > a:hover, admin-header nav#admin ul > li.disabled > a:hover, #side-menu nav > li.disabled > a:hover, .nav > li.disabled > a:focus, header nav#main ul > li.disabled > a:focus, header nav#admin ul > li.disabled > a:focus, admin-header nav#main ul > li.disabled > a:focus, admin-header nav#admin ul > li.disabled > a:focus, #side-menu nav > li.disabled > a:focus {
         color: #777777;
         text-decoration: none;
         background-color: transparent;
         cursor: not-allowed; }
-  .nav .open > a, header nav#main ul .open > a, #side-menu nav .open > a, .nav .open > a:hover, header nav#main ul .open > a:hover, #side-menu nav .open > a:hover, .nav .open > a:focus, header nav#main ul .open > a:focus, #side-menu nav .open > a:focus {
+  .nav .open > a, header nav#main ul .open > a, header nav#admin ul .open > a, admin-header nav#main ul .open > a, admin-header nav#admin ul .open > a, #side-menu nav .open > a, .nav .open > a:hover, header nav#main ul .open > a:hover, header nav#admin ul .open > a:hover, admin-header nav#main ul .open > a:hover, admin-header nav#admin ul .open > a:hover, #side-menu nav .open > a:hover, .nav .open > a:focus, header nav#main ul .open > a:focus, header nav#admin ul .open > a:focus, admin-header nav#main ul .open > a:focus, admin-header nav#admin ul .open > a:focus, #side-menu nav .open > a:focus {
     background-color: #eeeeee;
     border-color: #337ab7; }
-  .nav .nav-divider, header nav#main ul .nav-divider, #side-menu nav .nav-divider {
+  .nav .nav-divider, header nav#main ul .nav-divider, header nav#admin ul .nav-divider, admin-header nav#main ul .nav-divider, admin-header nav#admin ul .nav-divider, #side-menu nav .nav-divider {
     height: 1px;
     margin: 9px 0;
     overflow: hidden;
     background-color: #e5e5e5; }
-  .nav > li > a > img, header nav#main ul > li > a > img, #side-menu nav > li > a > img {
+  .nav > li > a > img, header nav#main ul > li > a > img, header nav#admin ul > li > a > img, admin-header nav#main ul > li > a > img, admin-header nav#admin ul > li > a > img, #side-menu nav > li > a > img {
     max-width: none; }
 
 .nav-tabs {
@@ -3668,18 +3668,18 @@ tbody.collapse.in {
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
-.navbar, header nav#main {
+.navbar, header nav#main, header nav#admin, admin-header nav#main, admin-header nav#admin {
   position: relative;
   min-height: 50px;
   margin-bottom: 20px;
   border: 1px solid transparent; }
-  .navbar:before, header nav#main:before, .navbar:after, header nav#main:after {
+  .navbar:before, header nav#main:before, header nav#admin:before, admin-header nav#main:before, admin-header nav#admin:before, .navbar:after, header nav#main:after, header nav#admin:after, admin-header nav#main:after, admin-header nav#admin:after {
     content: " ";
     display: table; }
-  .navbar:after, header nav#main:after {
+  .navbar:after, header nav#main:after, header nav#admin:after, admin-header nav#main:after, admin-header nav#admin:after {
     clear: both; }
   @media (min-width: 768px) {
-    .navbar, header nav#main {
+    .navbar, header nav#main, header nav#admin, admin-header nav#main, admin-header nav#admin {
       border-radius: 4px; } }
 
 .navbar-header:before, .navbar-header:after {
@@ -3781,7 +3781,7 @@ tbody.collapse.in {
   .navbar-brand > img {
     display: block; }
   @media (min-width: 768px) {
-    .navbar > .container .navbar-brand, header nav#main > .container .navbar-brand, .navbar > .container-fluid .navbar-brand, header nav#main > .container-fluid .navbar-brand {
+    .navbar > .container .navbar-brand, header nav#main > .container .navbar-brand, header nav#admin > .container .navbar-brand, admin-header nav#main > .container .navbar-brand, admin-header nav#admin > .container .navbar-brand, .navbar > .container-fluid .navbar-brand, header nav#main > .container-fluid .navbar-brand, header nav#admin > .container-fluid .navbar-brand, admin-header nav#main > .container-fluid .navbar-brand, admin-header nav#admin > .container-fluid .navbar-brand {
       margin-left: -15px; } }
 
 .navbar-toggle {
@@ -3808,14 +3808,14 @@ tbody.collapse.in {
     .navbar-toggle {
       display: none; } }
 
-.navbar-nav, header nav#main ul {
+.navbar-nav, header nav#main ul, header nav#admin ul, admin-header nav#main ul, admin-header nav#admin ul {
   margin: 7.5px -15px; }
-  .navbar-nav > li > a, header nav#main ul > li > a {
+  .navbar-nav > li > a, header nav#main ul > li > a, header nav#admin ul > li > a, admin-header nav#main ul > li > a, admin-header nav#admin ul > li > a {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 20px; }
   @media (max-width: 767px) {
-    .navbar-nav .open .dropdown-menu, header nav#main ul .open .dropdown-menu {
+    .navbar-nav .open .dropdown-menu, header nav#main ul .open .dropdown-menu, header nav#admin ul .open .dropdown-menu, admin-header nav#main ul .open .dropdown-menu, admin-header nav#admin ul .open .dropdown-menu {
       position: static;
       float: none;
       width: auto;
@@ -3823,21 +3823,24 @@ tbody.collapse.in {
       background-color: transparent;
       border: 0;
       box-shadow: none; }
-      .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a,
+      .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a, header nav#admin ul .open .dropdown-menu > li > a, admin-header nav#main ul .open .dropdown-menu > li > a, admin-header nav#admin ul .open .dropdown-menu > li > a,
       .navbar-nav .open .dropdown-menu .dropdown-header,
-      header nav#main ul .open .dropdown-menu .dropdown-header {
+      header nav#main ul .open .dropdown-menu .dropdown-header,
+      header nav#admin ul .open .dropdown-menu .dropdown-header,
+      admin-header nav#main ul .open .dropdown-menu .dropdown-header,
+      admin-header nav#admin ul .open .dropdown-menu .dropdown-header {
         padding: 5px 15px 5px 25px; }
-      .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a {
+      .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a, header nav#admin ul .open .dropdown-menu > li > a, admin-header nav#main ul .open .dropdown-menu > li > a, admin-header nav#admin ul .open .dropdown-menu > li > a {
         line-height: 20px; }
-        .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main ul .open .dropdown-menu > li > a:hover, .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main ul .open .dropdown-menu > li > a:focus {
+        .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main ul .open .dropdown-menu > li > a:hover, header nav#admin ul .open .dropdown-menu > li > a:hover, admin-header nav#main ul .open .dropdown-menu > li > a:hover, admin-header nav#admin ul .open .dropdown-menu > li > a:hover, .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main ul .open .dropdown-menu > li > a:focus, header nav#admin ul .open .dropdown-menu > li > a:focus, admin-header nav#main ul .open .dropdown-menu > li > a:focus, admin-header nav#admin ul .open .dropdown-menu > li > a:focus {
           background-image: none; } }
   @media (min-width: 768px) {
-    .navbar-nav, header nav#main ul {
+    .navbar-nav, header nav#main ul, header nav#admin ul, admin-header nav#main ul, admin-header nav#admin ul {
       float: left;
       margin: 0; }
-      .navbar-nav > li, header nav#main ul > li {
+      .navbar-nav > li, header nav#main ul > li, header nav#admin ul > li, admin-header nav#main ul > li, admin-header nav#admin ul > li {
         float: left; }
-        .navbar-nav > li > a, header nav#main ul > li > a {
+        .navbar-nav > li > a, header nav#main ul > li > a, header nav#admin ul > li > a, admin-header nav#main ul > li > a, admin-header nav#admin ul > li > a {
           padding-top: 15px;
           padding-bottom: 15px; } }
 
@@ -3905,12 +3908,12 @@ tbody.collapse.in {
       -webkit-box-shadow: none;
       box-shadow: none; } }
 
-.navbar-nav > li > .dropdown-menu, header nav#main ul > li > .dropdown-menu {
+.navbar-nav > li > .dropdown-menu, header nav#main ul > li > .dropdown-menu, header nav#admin ul > li > .dropdown-menu, admin-header nav#main ul > li > .dropdown-menu, admin-header nav#admin ul > li > .dropdown-menu {
   margin-top: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0; }
 
-.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu, .navbar-fixed-bottom header nav#main ul > li > .dropdown-menu, header nav#main .navbar-fixed-bottom ul > li > .dropdown-menu {
+.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu, .navbar-fixed-bottom header nav#main ul > li > .dropdown-menu, header nav#main .navbar-fixed-bottom ul > li > .dropdown-menu, .navbar-fixed-bottom header nav#admin ul > li > .dropdown-menu, header nav#admin .navbar-fixed-bottom ul > li > .dropdown-menu, .navbar-fixed-bottom admin-header nav#main ul > li > .dropdown-menu, admin-header nav#main .navbar-fixed-bottom ul > li > .dropdown-menu, .navbar-fixed-bottom admin-header nav#admin ul > li > .dropdown-menu, admin-header nav#admin .navbar-fixed-bottom ul > li > .dropdown-menu {
   margin-bottom: 0;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
@@ -3945,61 +3948,64 @@ tbody.collapse.in {
     margin-right: -15px; }
     .navbar-right ~ .navbar-right {
       margin-right: 0; } }
-.navbar-default, header nav#main {
+.navbar-default, header nav#main, header nav#admin, admin-header nav#main, admin-header nav#admin {
   background-color: #f8f8f8;
   border-color: #e7e7e7; }
-  .navbar-default .navbar-brand, header nav#main .navbar-brand {
+  .navbar-default .navbar-brand, header nav#main .navbar-brand, header nav#admin .navbar-brand, admin-header nav#main .navbar-brand, admin-header nav#admin .navbar-brand {
     color: #777; }
-    .navbar-default .navbar-brand:hover, header nav#main .navbar-brand:hover, .navbar-default .navbar-brand:focus, header nav#main .navbar-brand:focus {
+    .navbar-default .navbar-brand:hover, header nav#main .navbar-brand:hover, header nav#admin .navbar-brand:hover, admin-header nav#main .navbar-brand:hover, admin-header nav#admin .navbar-brand:hover, .navbar-default .navbar-brand:focus, header nav#main .navbar-brand:focus, header nav#admin .navbar-brand:focus, admin-header nav#main .navbar-brand:focus, admin-header nav#admin .navbar-brand:focus {
       color: #5e5e5e;
       background-color: transparent; }
-  .navbar-default .navbar-text, header nav#main .navbar-text {
+  .navbar-default .navbar-text, header nav#main .navbar-text, header nav#admin .navbar-text, admin-header nav#main .navbar-text, admin-header nav#admin .navbar-text {
     color: #777; }
-  .navbar-default .navbar-nav > li > a, header nav#main .navbar-nav > li > a, header nav#main ul > li > a {
+  .navbar-default .navbar-nav > li > a, header nav#main .navbar-nav > li > a, header nav#admin .navbar-nav > li > a, admin-header nav#main .navbar-nav > li > a, admin-header nav#admin .navbar-nav > li > a, header nav#main ul > li > a, header nav#admin ul > li > a, admin-header nav#main ul > li > a, admin-header nav#admin ul > li > a {
     color: #777; }
-    .navbar-default .navbar-nav > li > a:hover, header nav#main .navbar-nav > li > a:hover, header nav#main ul > li > a:hover, .navbar-default .navbar-nav > li > a:focus, header nav#main .navbar-nav > li > a:focus, header nav#main ul > li > a:focus {
+    .navbar-default .navbar-nav > li > a:hover, header nav#main .navbar-nav > li > a:hover, header nav#admin .navbar-nav > li > a:hover, admin-header nav#main .navbar-nav > li > a:hover, admin-header nav#admin .navbar-nav > li > a:hover, header nav#main ul > li > a:hover, header nav#admin ul > li > a:hover, admin-header nav#main ul > li > a:hover, admin-header nav#admin ul > li > a:hover, .navbar-default .navbar-nav > li > a:focus, header nav#main .navbar-nav > li > a:focus, header nav#admin .navbar-nav > li > a:focus, admin-header nav#main .navbar-nav > li > a:focus, admin-header nav#admin .navbar-nav > li > a:focus, header nav#main ul > li > a:focus, header nav#admin ul > li > a:focus, admin-header nav#main ul > li > a:focus, admin-header nav#admin ul > li > a:focus {
       color: #333;
       background-color: transparent; }
-  .navbar-default .navbar-nav > .active > a, header nav#main .navbar-nav > .active > a, header nav#main ul > .active > a, .navbar-default .navbar-nav > .active > a:hover, header nav#main .navbar-nav > .active > a:hover, header nav#main ul > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, header nav#main .navbar-nav > .active > a:focus, header nav#main ul > .active > a:focus {
+  .navbar-default .navbar-nav > .active > a, header nav#main .navbar-nav > .active > a, header nav#admin .navbar-nav > .active > a, admin-header nav#main .navbar-nav > .active > a, admin-header nav#admin .navbar-nav > .active > a, header nav#main ul > .active > a, header nav#admin ul > .active > a, admin-header nav#main ul > .active > a, admin-header nav#admin ul > .active > a, .navbar-default .navbar-nav > .active > a:hover, header nav#main .navbar-nav > .active > a:hover, header nav#admin .navbar-nav > .active > a:hover, admin-header nav#main .navbar-nav > .active > a:hover, admin-header nav#admin .navbar-nav > .active > a:hover, header nav#main ul > .active > a:hover, header nav#admin ul > .active > a:hover, admin-header nav#main ul > .active > a:hover, admin-header nav#admin ul > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus, header nav#main .navbar-nav > .active > a:focus, header nav#admin .navbar-nav > .active > a:focus, admin-header nav#main .navbar-nav > .active > a:focus, admin-header nav#admin .navbar-nav > .active > a:focus, header nav#main ul > .active > a:focus, header nav#admin ul > .active > a:focus, admin-header nav#main ul > .active > a:focus, admin-header nav#admin ul > .active > a:focus {
     color: #555;
     background-color: #e7e7e7; }
-  .navbar-default .navbar-nav > .disabled > a, header nav#main .navbar-nav > .disabled > a, header nav#main ul > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, header nav#main .navbar-nav > .disabled > a:hover, header nav#main ul > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus, header nav#main .navbar-nav > .disabled > a:focus, header nav#main ul > .disabled > a:focus {
+  .navbar-default .navbar-nav > .disabled > a, header nav#main .navbar-nav > .disabled > a, header nav#admin .navbar-nav > .disabled > a, admin-header nav#main .navbar-nav > .disabled > a, admin-header nav#admin .navbar-nav > .disabled > a, header nav#main ul > .disabled > a, header nav#admin ul > .disabled > a, admin-header nav#main ul > .disabled > a, admin-header nav#admin ul > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, header nav#main .navbar-nav > .disabled > a:hover, header nav#admin .navbar-nav > .disabled > a:hover, admin-header nav#main .navbar-nav > .disabled > a:hover, admin-header nav#admin .navbar-nav > .disabled > a:hover, header nav#main ul > .disabled > a:hover, header nav#admin ul > .disabled > a:hover, admin-header nav#main ul > .disabled > a:hover, admin-header nav#admin ul > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus, header nav#main .navbar-nav > .disabled > a:focus, header nav#admin .navbar-nav > .disabled > a:focus, admin-header nav#main .navbar-nav > .disabled > a:focus, admin-header nav#admin .navbar-nav > .disabled > a:focus, header nav#main ul > .disabled > a:focus, header nav#admin ul > .disabled > a:focus, admin-header nav#main ul > .disabled > a:focus, admin-header nav#admin ul > .disabled > a:focus {
     color: #ccc;
     background-color: transparent; }
-  .navbar-default .navbar-toggle, header nav#main .navbar-toggle {
+  .navbar-default .navbar-toggle, header nav#main .navbar-toggle, header nav#admin .navbar-toggle, admin-header nav#main .navbar-toggle, admin-header nav#admin .navbar-toggle {
     border-color: #ddd; }
-    .navbar-default .navbar-toggle:hover, header nav#main .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, header nav#main .navbar-toggle:focus {
+    .navbar-default .navbar-toggle:hover, header nav#main .navbar-toggle:hover, header nav#admin .navbar-toggle:hover, admin-header nav#main .navbar-toggle:hover, admin-header nav#admin .navbar-toggle:hover, .navbar-default .navbar-toggle:focus, header nav#main .navbar-toggle:focus, header nav#admin .navbar-toggle:focus, admin-header nav#main .navbar-toggle:focus, admin-header nav#admin .navbar-toggle:focus {
       background-color: #ddd; }
-    .navbar-default .navbar-toggle .icon-bar, header nav#main .navbar-toggle .icon-bar {
+    .navbar-default .navbar-toggle .icon-bar, header nav#main .navbar-toggle .icon-bar, header nav#admin .navbar-toggle .icon-bar, admin-header nav#main .navbar-toggle .icon-bar, admin-header nav#admin .navbar-toggle .icon-bar {
       background-color: #888; }
-  .navbar-default .navbar-collapse, header nav#main .navbar-collapse,
+  .navbar-default .navbar-collapse, header nav#main .navbar-collapse, header nav#admin .navbar-collapse, admin-header nav#main .navbar-collapse, admin-header nav#admin .navbar-collapse,
   .navbar-default .navbar-form,
-  header nav#main .navbar-form {
+  header nav#main .navbar-form,
+  header nav#admin .navbar-form,
+  admin-header nav#main .navbar-form,
+  admin-header nav#admin .navbar-form {
     border-color: #e7e7e7; }
-  .navbar-default .navbar-nav > .open > a, header nav#main .navbar-nav > .open > a, header nav#main ul > .open > a, .navbar-default .navbar-nav > .open > a:hover, header nav#main .navbar-nav > .open > a:hover, header nav#main ul > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, header nav#main .navbar-nav > .open > a:focus, header nav#main ul > .open > a:focus {
+  .navbar-default .navbar-nav > .open > a, header nav#main .navbar-nav > .open > a, header nav#admin .navbar-nav > .open > a, admin-header nav#main .navbar-nav > .open > a, admin-header nav#admin .navbar-nav > .open > a, header nav#main ul > .open > a, header nav#admin ul > .open > a, admin-header nav#main ul > .open > a, admin-header nav#admin ul > .open > a, .navbar-default .navbar-nav > .open > a:hover, header nav#main .navbar-nav > .open > a:hover, header nav#admin .navbar-nav > .open > a:hover, admin-header nav#main .navbar-nav > .open > a:hover, admin-header nav#admin .navbar-nav > .open > a:hover, header nav#main ul > .open > a:hover, header nav#admin ul > .open > a:hover, admin-header nav#main ul > .open > a:hover, admin-header nav#admin ul > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus, header nav#main .navbar-nav > .open > a:focus, header nav#admin .navbar-nav > .open > a:focus, admin-header nav#main .navbar-nav > .open > a:focus, admin-header nav#admin .navbar-nav > .open > a:focus, header nav#main ul > .open > a:focus, header nav#admin ul > .open > a:focus, admin-header nav#main ul > .open > a:focus, admin-header nav#admin ul > .open > a:focus {
     background-color: #e7e7e7;
     color: #555; }
   @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a, header nav#main .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a, header nav#main .navbar-nav .open .dropdown-menu > li > a, header nav#admin .navbar-nav .open .dropdown-menu > li > a, admin-header nav#main .navbar-nav .open .dropdown-menu > li > a, admin-header nav#admin .navbar-nav .open .dropdown-menu > li > a, header nav#main ul .open .dropdown-menu > li > a, header nav#admin ul .open .dropdown-menu > li > a, admin-header nav#main ul .open .dropdown-menu > li > a, admin-header nav#admin ul .open .dropdown-menu > li > a {
       color: #777; }
-      .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main ul .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main ul .open .dropdown-menu > li > a:focus {
+      .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main .navbar-nav .open .dropdown-menu > li > a:hover, header nav#admin .navbar-nav .open .dropdown-menu > li > a:hover, admin-header nav#main .navbar-nav .open .dropdown-menu > li > a:hover, admin-header nav#admin .navbar-nav .open .dropdown-menu > li > a:hover, header nav#main ul .open .dropdown-menu > li > a:hover, header nav#admin ul .open .dropdown-menu > li > a:hover, admin-header nav#main ul .open .dropdown-menu > li > a:hover, admin-header nav#admin ul .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main .navbar-nav .open .dropdown-menu > li > a:focus, header nav#admin .navbar-nav .open .dropdown-menu > li > a:focus, admin-header nav#main .navbar-nav .open .dropdown-menu > li > a:focus, admin-header nav#admin .navbar-nav .open .dropdown-menu > li > a:focus, header nav#main ul .open .dropdown-menu > li > a:focus, header nav#admin ul .open .dropdown-menu > li > a:focus, admin-header nav#main ul .open .dropdown-menu > li > a:focus, admin-header nav#admin ul .open .dropdown-menu > li > a:focus {
         color: #333;
         background-color: transparent; }
-    .navbar-default .navbar-nav .open .dropdown-menu > .active > a, header nav#main .navbar-nav .open .dropdown-menu > .active > a, header nav#main ul .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, header nav#main .navbar-nav .open .dropdown-menu > .active > a:hover, header nav#main ul .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus, header nav#main .navbar-nav .open .dropdown-menu > .active > a:focus, header nav#main ul .open .dropdown-menu > .active > a:focus {
+    .navbar-default .navbar-nav .open .dropdown-menu > .active > a, header nav#main .navbar-nav .open .dropdown-menu > .active > a, header nav#admin .navbar-nav .open .dropdown-menu > .active > a, admin-header nav#main .navbar-nav .open .dropdown-menu > .active > a, admin-header nav#admin .navbar-nav .open .dropdown-menu > .active > a, header nav#main ul .open .dropdown-menu > .active > a, header nav#admin ul .open .dropdown-menu > .active > a, admin-header nav#main ul .open .dropdown-menu > .active > a, admin-header nav#admin ul .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, header nav#main .navbar-nav .open .dropdown-menu > .active > a:hover, header nav#admin .navbar-nav .open .dropdown-menu > .active > a:hover, admin-header nav#main .navbar-nav .open .dropdown-menu > .active > a:hover, admin-header nav#admin .navbar-nav .open .dropdown-menu > .active > a:hover, header nav#main ul .open .dropdown-menu > .active > a:hover, header nav#admin ul .open .dropdown-menu > .active > a:hover, admin-header nav#main ul .open .dropdown-menu > .active > a:hover, admin-header nav#admin ul .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus, header nav#main .navbar-nav .open .dropdown-menu > .active > a:focus, header nav#admin .navbar-nav .open .dropdown-menu > .active > a:focus, admin-header nav#main .navbar-nav .open .dropdown-menu > .active > a:focus, admin-header nav#admin .navbar-nav .open .dropdown-menu > .active > a:focus, header nav#main ul .open .dropdown-menu > .active > a:focus, header nav#admin ul .open .dropdown-menu > .active > a:focus, admin-header nav#main ul .open .dropdown-menu > .active > a:focus, admin-header nav#admin ul .open .dropdown-menu > .active > a:focus {
       color: #555;
       background-color: #e7e7e7; }
-    .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a, header nav#main ul .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:hover, header nav#main ul .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:focus, header nav#main ul .open .dropdown-menu > .disabled > a:focus {
+    .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a, header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a, admin-header nav#main .navbar-nav .open .dropdown-menu > .disabled > a, admin-header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a, header nav#main ul .open .dropdown-menu > .disabled > a, header nav#admin ul .open .dropdown-menu > .disabled > a, admin-header nav#main ul .open .dropdown-menu > .disabled > a, admin-header nav#admin ul .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:hover, header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a:hover, admin-header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:hover, admin-header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a:hover, header nav#main ul .open .dropdown-menu > .disabled > a:hover, header nav#admin ul .open .dropdown-menu > .disabled > a:hover, admin-header nav#main ul .open .dropdown-menu > .disabled > a:hover, admin-header nav#admin ul .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus, header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:focus, header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a:focus, admin-header nav#main .navbar-nav .open .dropdown-menu > .disabled > a:focus, admin-header nav#admin .navbar-nav .open .dropdown-menu > .disabled > a:focus, header nav#main ul .open .dropdown-menu > .disabled > a:focus, header nav#admin ul .open .dropdown-menu > .disabled > a:focus, admin-header nav#main ul .open .dropdown-menu > .disabled > a:focus, admin-header nav#admin ul .open .dropdown-menu > .disabled > a:focus {
       color: #ccc;
       background-color: transparent; } }
-  .navbar-default .navbar-link, header nav#main .navbar-link {
+  .navbar-default .navbar-link, header nav#main .navbar-link, header nav#admin .navbar-link, admin-header nav#main .navbar-link, admin-header nav#admin .navbar-link {
     color: #777; }
-    .navbar-default .navbar-link:hover, header nav#main .navbar-link:hover {
+    .navbar-default .navbar-link:hover, header nav#main .navbar-link:hover, header nav#admin .navbar-link:hover, admin-header nav#main .navbar-link:hover, admin-header nav#admin .navbar-link:hover {
       color: #333; }
-  .navbar-default .btn-link, header nav#main .btn-link {
+  .navbar-default .btn-link, header nav#main .btn-link, header nav#admin .btn-link, admin-header nav#main .btn-link, admin-header nav#admin .btn-link {
     color: #777; }
-    .navbar-default .btn-link:hover, header nav#main .btn-link:hover, .navbar-default .btn-link:focus, header nav#main .btn-link:focus {
+    .navbar-default .btn-link:hover, header nav#main .btn-link:hover, header nav#admin .btn-link:hover, admin-header nav#main .btn-link:hover, admin-header nav#admin .btn-link:hover, .navbar-default .btn-link:focus, header nav#main .btn-link:focus, header nav#admin .btn-link:focus, admin-header nav#main .btn-link:focus, admin-header nav#admin .btn-link:focus {
       color: #333; }
-    .navbar-default .btn-link[disabled]:hover, header nav#main .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus, header nav#main .btn-link[disabled]:focus, fieldset[disabled] .navbar-default .btn-link:hover, fieldset[disabled] header nav#main .btn-link:hover, header fieldset[disabled] nav#main .btn-link:hover, fieldset[disabled] .navbar-default .btn-link:focus, fieldset[disabled] header nav#main .btn-link:focus, header fieldset[disabled] nav#main .btn-link:focus {
+    .navbar-default .btn-link[disabled]:hover, header nav#main .btn-link[disabled]:hover, header nav#admin .btn-link[disabled]:hover, admin-header nav#main .btn-link[disabled]:hover, admin-header nav#admin .btn-link[disabled]:hover, .navbar-default .btn-link[disabled]:focus, header nav#main .btn-link[disabled]:focus, header nav#admin .btn-link[disabled]:focus, admin-header nav#main .btn-link[disabled]:focus, admin-header nav#admin .btn-link[disabled]:focus, fieldset[disabled] .navbar-default .btn-link:hover, fieldset[disabled] header nav#main .btn-link:hover, header fieldset[disabled] nav#main .btn-link:hover, fieldset[disabled] header nav#admin .btn-link:hover, header fieldset[disabled] nav#admin .btn-link:hover, fieldset[disabled] admin-header nav#main .btn-link:hover, admin-header fieldset[disabled] nav#main .btn-link:hover, fieldset[disabled] admin-header nav#admin .btn-link:hover, admin-header fieldset[disabled] nav#admin .btn-link:hover, fieldset[disabled] .navbar-default .btn-link:focus, fieldset[disabled] header nav#main .btn-link:focus, header fieldset[disabled] nav#main .btn-link:focus, fieldset[disabled] header nav#admin .btn-link:focus, header fieldset[disabled] nav#admin .btn-link:focus, fieldset[disabled] admin-header nav#main .btn-link:focus, admin-header fieldset[disabled] nav#main .btn-link:focus, fieldset[disabled] admin-header nav#admin .btn-link:focus, admin-header fieldset[disabled] nav#admin .btn-link:focus {
       color: #ccc; }
 
 .navbar-inverse {
@@ -4012,15 +4018,15 @@ tbody.collapse.in {
       background-color: transparent; }
   .navbar-inverse .navbar-text {
     color: #9d9d9d; }
-  .navbar-inverse .navbar-nav > li > a, .navbar-inverse header nav#main ul > li > a, header nav#main .navbar-inverse ul > li > a {
+  .navbar-inverse .navbar-nav > li > a, .navbar-inverse header nav#main ul > li > a, header nav#main .navbar-inverse ul > li > a, .navbar-inverse header nav#admin ul > li > a, header nav#admin .navbar-inverse ul > li > a, .navbar-inverse admin-header nav#main ul > li > a, admin-header nav#main .navbar-inverse ul > li > a, .navbar-inverse admin-header nav#admin ul > li > a, admin-header nav#admin .navbar-inverse ul > li > a {
     color: #9d9d9d; }
-    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse header nav#main ul > li > a:hover, header nav#main .navbar-inverse ul > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse header nav#main ul > li > a:focus, header nav#main .navbar-inverse ul > li > a:focus {
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse header nav#main ul > li > a:hover, header nav#main .navbar-inverse ul > li > a:hover, .navbar-inverse header nav#admin ul > li > a:hover, header nav#admin .navbar-inverse ul > li > a:hover, .navbar-inverse admin-header nav#main ul > li > a:hover, admin-header nav#main .navbar-inverse ul > li > a:hover, .navbar-inverse admin-header nav#admin ul > li > a:hover, admin-header nav#admin .navbar-inverse ul > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse header nav#main ul > li > a:focus, header nav#main .navbar-inverse ul > li > a:focus, .navbar-inverse header nav#admin ul > li > a:focus, header nav#admin .navbar-inverse ul > li > a:focus, .navbar-inverse admin-header nav#main ul > li > a:focus, admin-header nav#main .navbar-inverse ul > li > a:focus, .navbar-inverse admin-header nav#admin ul > li > a:focus, admin-header nav#admin .navbar-inverse ul > li > a:focus {
       color: #fff;
       background-color: transparent; }
-  .navbar-inverse .navbar-nav > .active > a, .navbar-inverse header nav#main ul > .active > a, header nav#main .navbar-inverse ul > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse header nav#main ul > .active > a:hover, header nav#main .navbar-inverse ul > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse header nav#main ul > .active > a:focus, header nav#main .navbar-inverse ul > .active > a:focus {
+  .navbar-inverse .navbar-nav > .active > a, .navbar-inverse header nav#main ul > .active > a, header nav#main .navbar-inverse ul > .active > a, .navbar-inverse header nav#admin ul > .active > a, header nav#admin .navbar-inverse ul > .active > a, .navbar-inverse admin-header nav#main ul > .active > a, admin-header nav#main .navbar-inverse ul > .active > a, .navbar-inverse admin-header nav#admin ul > .active > a, admin-header nav#admin .navbar-inverse ul > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse header nav#main ul > .active > a:hover, header nav#main .navbar-inverse ul > .active > a:hover, .navbar-inverse header nav#admin ul > .active > a:hover, header nav#admin .navbar-inverse ul > .active > a:hover, .navbar-inverse admin-header nav#main ul > .active > a:hover, admin-header nav#main .navbar-inverse ul > .active > a:hover, .navbar-inverse admin-header nav#admin ul > .active > a:hover, admin-header nav#admin .navbar-inverse ul > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse header nav#main ul > .active > a:focus, header nav#main .navbar-inverse ul > .active > a:focus, .navbar-inverse header nav#admin ul > .active > a:focus, header nav#admin .navbar-inverse ul > .active > a:focus, .navbar-inverse admin-header nav#main ul > .active > a:focus, admin-header nav#main .navbar-inverse ul > .active > a:focus, .navbar-inverse admin-header nav#admin ul > .active > a:focus, admin-header nav#admin .navbar-inverse ul > .active > a:focus {
     color: #fff;
     background-color: #090909; }
-  .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse header nav#main ul > .disabled > a, header nav#main .navbar-inverse ul > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse header nav#main ul > .disabled > a:hover, header nav#main .navbar-inverse ul > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus, .navbar-inverse header nav#main ul > .disabled > a:focus, header nav#main .navbar-inverse ul > .disabled > a:focus {
+  .navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse header nav#main ul > .disabled > a, header nav#main .navbar-inverse ul > .disabled > a, .navbar-inverse header nav#admin ul > .disabled > a, header nav#admin .navbar-inverse ul > .disabled > a, .navbar-inverse admin-header nav#main ul > .disabled > a, admin-header nav#main .navbar-inverse ul > .disabled > a, .navbar-inverse admin-header nav#admin ul > .disabled > a, admin-header nav#admin .navbar-inverse ul > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse header nav#main ul > .disabled > a:hover, header nav#main .navbar-inverse ul > .disabled > a:hover, .navbar-inverse header nav#admin ul > .disabled > a:hover, header nav#admin .navbar-inverse ul > .disabled > a:hover, .navbar-inverse admin-header nav#main ul > .disabled > a:hover, admin-header nav#main .navbar-inverse ul > .disabled > a:hover, .navbar-inverse admin-header nav#admin ul > .disabled > a:hover, admin-header nav#admin .navbar-inverse ul > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus, .navbar-inverse header nav#main ul > .disabled > a:focus, header nav#main .navbar-inverse ul > .disabled > a:focus, .navbar-inverse header nav#admin ul > .disabled > a:focus, header nav#admin .navbar-inverse ul > .disabled > a:focus, .navbar-inverse admin-header nav#main ul > .disabled > a:focus, admin-header nav#main .navbar-inverse ul > .disabled > a:focus, .navbar-inverse admin-header nav#admin ul > .disabled > a:focus, admin-header nav#admin .navbar-inverse ul > .disabled > a:focus {
     color: #444;
     background-color: transparent; }
   .navbar-inverse .navbar-toggle {
@@ -4032,23 +4038,23 @@ tbody.collapse.in {
   .navbar-inverse .navbar-collapse,
   .navbar-inverse .navbar-form {
     border-color: #101010; }
-  .navbar-inverse .navbar-nav > .open > a, .navbar-inverse header nav#main ul > .open > a, header nav#main .navbar-inverse ul > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse header nav#main ul > .open > a:hover, header nav#main .navbar-inverse ul > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse header nav#main ul > .open > a:focus, header nav#main .navbar-inverse ul > .open > a:focus {
+  .navbar-inverse .navbar-nav > .open > a, .navbar-inverse header nav#main ul > .open > a, header nav#main .navbar-inverse ul > .open > a, .navbar-inverse header nav#admin ul > .open > a, header nav#admin .navbar-inverse ul > .open > a, .navbar-inverse admin-header nav#main ul > .open > a, admin-header nav#main .navbar-inverse ul > .open > a, .navbar-inverse admin-header nav#admin ul > .open > a, admin-header nav#admin .navbar-inverse ul > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse header nav#main ul > .open > a:hover, header nav#main .navbar-inverse ul > .open > a:hover, .navbar-inverse header nav#admin ul > .open > a:hover, header nav#admin .navbar-inverse ul > .open > a:hover, .navbar-inverse admin-header nav#main ul > .open > a:hover, admin-header nav#main .navbar-inverse ul > .open > a:hover, .navbar-inverse admin-header nav#admin ul > .open > a:hover, admin-header nav#admin .navbar-inverse ul > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse header nav#main ul > .open > a:focus, header nav#main .navbar-inverse ul > .open > a:focus, .navbar-inverse header nav#admin ul > .open > a:focus, header nav#admin .navbar-inverse ul > .open > a:focus, .navbar-inverse admin-header nav#main ul > .open > a:focus, admin-header nav#main .navbar-inverse ul > .open > a:focus, .navbar-inverse admin-header nav#admin ul > .open > a:focus, admin-header nav#admin .navbar-inverse ul > .open > a:focus {
     background-color: #090909;
     color: #fff; }
   @media (max-width: 767px) {
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header, .navbar-inverse header nav#main ul .open .dropdown-menu > .dropdown-header, header nav#main .navbar-inverse ul .open .dropdown-menu > .dropdown-header {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header, .navbar-inverse header nav#main ul .open .dropdown-menu > .dropdown-header, header nav#main .navbar-inverse ul .open .dropdown-menu > .dropdown-header, .navbar-inverse header nav#admin ul .open .dropdown-menu > .dropdown-header, header nav#admin .navbar-inverse ul .open .dropdown-menu > .dropdown-header, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .dropdown-header, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .dropdown-header, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .dropdown-header, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .dropdown-header {
       border-color: #090909; }
-    .navbar-inverse .navbar-nav .open .dropdown-menu .divider, .navbar-inverse header nav#main ul .open .dropdown-menu .divider, header nav#main .navbar-inverse ul .open .dropdown-menu .divider {
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider, .navbar-inverse header nav#main ul .open .dropdown-menu .divider, header nav#main .navbar-inverse ul .open .dropdown-menu .divider, .navbar-inverse header nav#admin ul .open .dropdown-menu .divider, header nav#admin .navbar-inverse ul .open .dropdown-menu .divider, .navbar-inverse admin-header nav#main ul .open .dropdown-menu .divider, admin-header nav#main .navbar-inverse ul .open .dropdown-menu .divider, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu .divider, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu .divider {
       background-color: #090909; }
-    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a, .navbar-inverse header nav#admin ul .open .dropdown-menu > li > a, header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > li > a, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > li > a, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > li > a, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a {
       color: #9d9d9d; }
-      .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:focus {
+      .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:hover, .navbar-inverse header nav#admin ul .open .dropdown-menu > li > a:hover, header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a:hover, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > li > a:hover, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:hover, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > li > a:hover, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > li > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:focus, .navbar-inverse header nav#admin ul .open .dropdown-menu > li > a:focus, header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a:focus, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > li > a:focus, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > li > a:focus, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > li > a:focus, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > li > a:focus {
         color: #fff;
         background-color: transparent; }
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:focus {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a, .navbar-inverse header nav#admin ul .open .dropdown-menu > .active > a, header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .active > a, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .active > a, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:hover, .navbar-inverse header nav#admin ul .open .dropdown-menu > .active > a:hover, header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a:hover, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .active > a:hover, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:hover, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .active > a:hover, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > .active > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:focus, .navbar-inverse header nav#admin ul .open .dropdown-menu > .active > a:focus, header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a:focus, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .active > a:focus, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .active > a:focus, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .active > a:focus, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .active > a:focus {
       color: #fff;
       background-color: #090909; }
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:focus {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a, .navbar-inverse header nav#admin ul .open .dropdown-menu > .disabled > a, header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .disabled > a, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .disabled > a, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a:hover, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:hover, .navbar-inverse header nav#admin ul .open .dropdown-menu > .disabled > a:hover, header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a:hover, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .disabled > a:hover, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:hover, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .disabled > a:hover, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus, .navbar-inverse header nav#main ul .open .dropdown-menu > .disabled > a:focus, header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:focus, .navbar-inverse header nav#admin ul .open .dropdown-menu > .disabled > a:focus, header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a:focus, .navbar-inverse admin-header nav#main ul .open .dropdown-menu > .disabled > a:focus, admin-header nav#main .navbar-inverse ul .open .dropdown-menu > .disabled > a:focus, .navbar-inverse admin-header nav#admin ul .open .dropdown-menu > .disabled > a:focus, admin-header nav#admin .navbar-inverse ul .open .dropdown-menu > .disabled > a:focus {
       color: #444;
       background-color: transparent; } }
   .navbar-inverse .navbar-link {
@@ -5839,31 +5845,47 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+/* Admin Theme */
 body {
   font-family: OpenSansRegular !important; }
 
-header {
+header, admin-header {
   background: white;
   position: fixed;
   width: 100%;
   z-index: 10000; }
-  header #logo {
+  header #logo, admin-header #logo {
     background: white;
     width: 100%;
     padding: 2%; }
-  header nav#main {
+  header nav#main, header nav#admin, admin-header nav#main, admin-header nav#admin {
     background: #00a460 !important;
     height: auto !important;
     padding: 0.25% 15%;
     margin-bottom: 0 !important; }
-    header nav#main ul {
+    header nav#main i, header nav#admin i, admin-header nav#main i, admin-header nav#admin i {
+      padding-right: 5px; }
+    header nav#main ul, header nav#admin ul, admin-header nav#main ul, admin-header nav#admin ul {
       margin-bottom: 0 !important; }
-      header nav#main ul li a {
+      header nav#main ul li a, header nav#admin ul li a, admin-header nav#main ul li a, admin-header nav#admin ul li a {
         color: #ffffff !important; }
-      header nav#main ul li.active a {
+      header nav#main ul li.active a, header nav#admin ul li.active a, admin-header nav#main ul li.active a, admin-header nav#admin ul li.active a {
         background: #99dbbf !important; }
-      header nav#main ul li:hover {
+      header nav#main ul li:hover, header nav#admin ul li:hover, admin-header nav#main ul li:hover, admin-header nav#admin ul li:hover {
         background: #99dbbf !important; }
+  header nav#admin, admin-header nav#admin {
+    padding: 0.25%;
+    background: #59ABE3 !important; }
+    header nav#admin ul li.active a, admin-header nav#admin ul li.active a {
+      font-weight: bold;
+      color: black !important;
+      background: none !important;
+      font-size: 1.4em; }
+    header nav#admin ul li:hover, admin-header nav#admin ul li:hover {
+      font-weight: bold;
+      color: black !important;
+      background: none !important;
+      font-size: 1.4em; }
 
 /* Content */
 #content {

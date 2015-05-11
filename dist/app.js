@@ -39,17 +39,12 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
-  "adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-
-      scope.login = function login() {
-
-      }
+	"adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
 
 
-
-    }
-  ]
+		}
+	]
 );
 ;app.controller(
 	"contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -180,9 +175,15 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
   ]
 );
 ;app.directive("header", function() {
-	return {
-		templateUrl: "app/partials/globals/header.html"
-	}
+  return {
+    templateUrl: "app/partials/globals/header.html"
+  }
+});
+
+app.directive("adminHeader", function() {
+  return {
+    templateUrl: "app/partials/admin/header.html"
+  }
 });
 
 // app.directive("carousel", function() {
@@ -191,63 +192,63 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 //   }
 // });
 app.directive('isActiveNav', ['$location', function($location) {
-	return {
-		restrict: 'A',
-		link: function(scope, element) {
-			scope.location = $location;
-			scope.$watch('location.path()', function(currentPath) {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      scope.location = $location;
+      scope.$watch('location.path()', function(currentPath) {
 
-				if ('#' + currentPath == element[0].hash) {
-					element.parent().addClass('active');
-				} else {
-					element.parent().removeClass('active');
-				}
-			});
-		}
-	};
+        if ('#' + currentPath == element[0].hash) {
+          element.parent().addClass('active');
+        } else {
+          element.parent().removeClass('active');
+        }
+      });
+    }
+  };
 }]);
 ;app.config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/");
+	//
+	// For any unmatched url, redirect to /state1
+	$urlRouterProvider.otherwise("/");
 
-  // Now set up the states
-  $stateProvider
-    .state('home', {
-      url: '/',
-      templateUrl: 'app/partials/home/index.html',
-      controller: 'homeCtrl'
-    })
-    .state('about', {
-      url: '/about',
-      templateUrl: 'app/partials/about/index.html',
-      controller: 'aboutCtrl'
-    })
-    .state('services', {
-      url: '/services',
-      templateUrl: 'app/partials/services/index.html',
-      controller: 'servicesCtrl'
-    })
-    .state('news', {
-      url: '/news',
-      templateUrl: 'app/partials/news/index.html',
-      controller: 'newsCtrl'
-    })
-    .state('contact', {
-      url: '/contact',
-      templateUrl: 'app/partials/contact/index.html',
-      controller: 'contactCtrl'
-    })
-    .state('admin', {
-      url: '/admin',
-      templateUrl: 'app/partials/admin/index.html',
-      controller: 'adminCtrl'
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/partials/admin/login.html',
-      controller: 'usersCtrl'
-    });
+	// Now set up the states
+	$stateProvider
+		.state('home', {
+			url: '/',
+			templateUrl: 'app/partials/home/index.html',
+			controller: 'homeCtrl'
+		})
+		.state('about', {
+			url: '/about',
+			templateUrl: 'app/partials/about/index.html',
+			controller: 'aboutCtrl'
+		})
+		.state('services', {
+			url: '/services',
+			templateUrl: 'app/partials/services/index.html',
+			controller: 'servicesCtrl'
+		})
+		.state('news', {
+			url: '/news',
+			templateUrl: 'app/partials/news/index.html',
+			controller: 'newsCtrl'
+		})
+		.state('contact', {
+			url: '/contact',
+			templateUrl: 'app/partials/contact/index.html',
+			controller: 'contactCtrl'
+		})
+		.state('admin', {
+			url: '/admin',
+			templateUrl: 'app/partials/admin/index.html',
+			controller: 'adminCtrl'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'app/partials/admin/login.html',
+			controller: 'usersCtrl'
+		});
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', function(
 	localStorageService, rootScope) {
@@ -269,7 +270,7 @@ app.directive('isActiveNav', ['$location', function($location) {
 	}
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -283,6 +284,52 @@ angular.module("../app/partials/about/index.html", []).run(["$templateCache", fu
     "<div id=\"side-content\" ng-bind-html='content'>\n" +
     "\n" +
     "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/admin/header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/header.html",
+    "<nav id=\"admin\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"content\" ><i class='fa fa-list-ul'></i>Content</a>\n" +
+    "        </li>\n" +
+    "\n" +
+    "\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul class=\"navbar-right\">\n" +
+    "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/admin/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/index.html",
+    "<!-- Here we are -->\n" +
+    "<adminheader>\n" +
+    "\n" +
+    "\n" +
+    "</adminheader>\n" +
     "");
 }]);
 
