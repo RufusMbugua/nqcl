@@ -1,9 +1,16 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5'
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+	'LocalStorageModule'
 ]);
 app.config(function(RestangularProvider) {
-  RestangularProvider.setBaseUrl('http://localhost/nqcl');
-  // RestangularProvider.setRequestSuffix('?format=json');
+	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	// RestangularProvider.setRequestSuffix('?format=json');
+});
+
+app.config(function(localStorageServiceProvider) {
+	localStorageServiceProvider
+		.setStorageType('sessionStorage')
+		.setPrefix('nqcl');
 });
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -146,24 +153,24 @@ app.config(function(RestangularProvider) {
   ]
 );
 ;app.controller(
-	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'md5',
+  "usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'md5', 'localStorageService',
 
-		function(scope, filter, timeout, state, Restangular, md5) {
-			var users = Restangular.all('users');
+    function(scope, filter, timeout, state, Restangular, md5,
+      localStorageService) {
+      var users = Restangular.all('users');
 
 
-			scope.login = function login() {
-				scope.user.password = md5.createHash(scope.user.password || '');
-				users.post(scope.user).then(function(response) {
-					// if (response[0]) {
-					//   state.
-					// }
-				});
-			}
+      scope.login = function login() {
+        scope.user.password = md5.createHash(scope.user.password || '');
+        users.post(scope.user).then(function(response) {
+          console.log(response);
+          localStorageService.set('user', response);
+        });
+      }
 
-		}
-	]
+    }
+  ]
 );
 ;app.directive("header", function() {
 	return {
@@ -306,7 +313,8 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "  </div>\n" +
     "</section>\n" +
-    "<section class=\"full content\" ng-bind-html=\"content.contact\">\n" +
+    "<section class=\"full content\" ng-bind-html=\"content.contact.data_body\">\n" +
+    "\n" +
     "\n" +
     "    </section>\n" +
     "\n" +

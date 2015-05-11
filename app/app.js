@@ -1,7 +1,14 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5'
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+	'LocalStorageModule'
 ]);
 app.config(function(RestangularProvider) {
-  RestangularProvider.setBaseUrl('http://localhost/nqcl');
-  // RestangularProvider.setRequestSuffix('?format=json');
+	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	// RestangularProvider.setRequestSuffix('?format=json');
+});
+
+app.config(function(localStorageServiceProvider) {
+	localStorageServiceProvider
+		.setStorageType('sessionStorage')
+		.setPrefix('nqcl');
 });
