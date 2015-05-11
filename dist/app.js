@@ -1,10 +1,24 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize'
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+	'LocalStorageModule'
 ]);
 app.config(function(RestangularProvider) {
 	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	RestangularProvider.setRequestSuffix('?format=json');
+	// RestangularProvider.setRequestSuffix('?format=json');
 });
+
+app.config(function(localStorageServiceProvider) {
+	localStorageServiceProvider
+		.setStorageType('sessionStorage')
+		.setPrefix('nqcl');
+});
+
+app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
+	'Session',
+	function(localStorageService, rootScope, state, stateParams, Session) {
+		Session.checkIfLogged();
+	}
+]);
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
@@ -40,46 +54,94 @@ app.config(function(RestangularProvider) {
 ;app.controller(
 	"contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
+			scope.content = [];
+			var front = Restangular.all('front?format=json');
+			loadContent();
 
+			function loadContent() {
+				front.getList().then(function(content) {
 
+					angular.forEach(content, function(value, key) {
+						switch (value.data_type) {
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+
+							default:
+
+								break;
+
+						}
+
+					});
+				});
+			}
 		}
 	]
 );
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('front?format=json');
 			loadImages();
+			loadContent();
+			scope.content = [];
 
 			function loadImages() {
 				scope.slides = [{
 					image: 'app/images/slides/1.png',
-					text: 'One'
+					text: ''
 				}, {
 					image: 'app/images/slides/2.png',
-					text: 'Two'
+					text: ''
 				}, {
 					image: 'app/images/slides/3.png',
-					text: 'Three'
+					text: ''
 				}];
 			}
+
+
+			function loadContent() {
+				front.getList().then(function(content) {
+
+					angular.forEach(content, function(value, key) {
+						switch (value.data_type) {
+							case "WELCOME TO NQCL":
+								scope.content.welcome = value;
+								break;
+							case "OUR SERVICES":
+								scope.content.services = value;
+								break;
+							case "CUSTOMERS WHO TRUST IN US":
+								scope.content.customers = value;
+								break;
+							default:
+
+								break;
+
+						}
+
+					});
+				});
+			}
+
 		}
 	]
 );
 ;app.controller(
-	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
+  "newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
 
-			loadContent();
+      loadContent();
 
-			function loadContent() {
-				var Content = Restangular.all('news?format=json');
-				Content.getList().then(function(content) {
-					console.log(content);
-					scope.content = content;
-				});
-			}
-		}
-	]
+      function loadContent() {
+        var Content = Restangular.all('news?format=json');
+        Content.getList().then(function(content) {
+          scope.content = content;
+        });
+      }
+    }
+  ]
 );
 ;app.controller(
   "servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -98,25 +160,24 @@ app.config(function(RestangularProvider) {
   ]
 );
 ;app.controller(
-	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			var users = Restangular.all('users');
+  "usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'md5', 'localStorageService', '$rootScope',
 
+    function(scope, filter, timeout, state, Restangular, md5,
+      localStorageService, rootScope) {
+      var users = Restangular.all('users');
+      var user = [];
 
-			scope.login = function login() {
-				var someData = {
-					email: 'mail@example.com',
-					password: 'tested'
-				}
-				users.post(someData).then(function(response) {
-					console.log(response);
-				});
-			}
+      scope.login = function login() {
+        scope.user.password = md5.createHash(scope.user.password || '');
+        users.post(scope.user).then(function(response) {
+          localStorageService.set('user', response);
+          rootScope.user = response;
+        });
+      }
 
-
-
-		}
-	]
+    }
+  ]
 );
 ;app.directive("header", function() {
 	return {
@@ -188,6 +249,26 @@ app.directive('isActiveNav', ['$location', function($location) {
       controller: 'usersCtrl'
     });
 });
+;app.factory('Session', ['localStorageService', '$rootScope', function(
+	localStorageService, rootScope) {
+
+	return {
+		checkIfLogged: function checkIfLogged() {
+			rootScope.user = [];
+			user = localStorageService.get('user');
+			console.log(user);
+			if (user == null) {
+				rootScope.user = null;
+				status = 'Not Logged In';
+			} else {
+				rootScope.user = user;
+				status = 'Logged In';
+			}
+
+		}
+	}
+
+}]);
 ;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
@@ -207,18 +288,18 @@ angular.module("../app/partials/about/index.html", []).run(["$templateCache", fu
 
 angular.module("../app/partials/admin/login.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/admin/login.html",
-    "<form method=\"post\" id=\"login-form\">\n" +
+    "<form id=\"login-form\">\n" +
     "\n" +
     "  <div class=\"form-group\">\n" +
     "    <label for=\"exampleInputEmail1\">Email address</label>\n" +
-    "    <input type=\"email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "    <input type=\"email\" ng-model=\"user.email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
     "  </div>\n" +
     "  <div class=\"form-group\">\n" +
     "    <label for=\"exampleInputEmail1\">Password</label>\n" +
-    "    <input type=\"password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "    <input type=\"password\" ng-model=\"user.password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
     "    />\n" +
     "  </div>\n" +
-    "  <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\"/>\n" +
+    "  <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\" ng-click=\"login()\"/>\n" +
     "\n" +
     "  <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
     "</form>\n" +
@@ -259,30 +340,9 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "  </div>\n" +
     "</section>\n" +
-    "<section class=\"full content\">\n" +
-    "  <div class=\"main_address\">\n" +
-    "    <div class=\"address\">\n" +
-    "      <div class=\"in_address\" style=\"margin-top:20px;\">\n" +
-    "        <font style=\"text-transform:uppercase; color:#00a460;\">Physical Address:</font><br/><br/> Kenyatta National Hospital Complex, Hospital Road, University of Nairobi,\n" +
-    "        School of Pharmacy Building 2nd Floor, P.O. Box 29726 - 00202 KNH, Nairobi\n" +
-    "      </div>\n" +
-    "      <div class=\"in_address\" style=\"padding-top:20px;\">\n" +
-    "        Tell:&nbsp;&nbsp;<a href=\"callto:+254 020 2726963\">+254 020 2726963</a> /\n" +
-    "        <a href=\"callto:3544525/30\">3544525/30</a> /\n" +
-    "        <a href=\"callto:+254 020 3544525\">+254 020 3544525</a>\n" +
-    "      </div>\n" +
-    "      <div class=\"in_address\" style=\"padding-top:10px;\">\n" +
-    "        Fax:&nbsp;<a href=\"+254 020 2718073\">\n" +
-    "          +254 020 2718073</a>\n" +
+    "<section class=\"full content\" ng-bind-html=\"content.contact.data_body\">\n" +
     "\n" +
-    "        </div>\n" +
-    "        <div class=\"in_address\" style=\"padding-top:10px; padding-bottom:10px;\">\n" +
-    "          Email:&nbsp;&nbsp;<a href=\"mailto:info@nqcl.go.ke\">\n" +
-    "            info@nqcl.go.ke</a>\n" +
-    "          </div>\n" +
-    "        </div>\n" +
     "\n" +
-    "      </div>\n" +
     "    </section>\n" +
     "\n" +
     "\n" +
@@ -298,85 +358,64 @@ angular.module("../app/partials/globals/carousel.html", []).run(["$templateCache
 
 angular.module("../app/partials/globals/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/globals/header.html",
-    "<!-- <img src=\"templates/user/logo/MOH.png\" style=\"float:left; margin-left:5px; height:61px; margin-top:7px;\"/>\n" +
-    "      <img src=\"templates/user/logo/NQCL_logo.png\" style=\"float:right; margin-right:10px; margin-top:7px;\"/> -->\n" +
-    "<!-- <div class=\"logo\">\n" +
-    "        <div class=\"real_logo\">\n" +
-    "          <a href=\"home.php\"><img src=\"templates/user/logo/middle_.png\" style=\"\"/></a>\n" +
-    "          </div>\n" +
-    "                 <div class=\"dater\">\n" +
-    "                   <a href=\"#\">FAQs</a>&nbsp; | <a href=\"#\">WebMail</a>\n" +
-    "                   </div>\n" +
-    "\n" +
-    "                   <div class=\"in_dater\">\n" +
-    "                     <script language=\"JavaScript\">\n" +
-    "          sampleDate1=new Date()\n" +
-    "          document.write (mdy(sampleDate1))\n" +
-    "          </script>\n" +
-    "                   </div>\n" +
+    "<div id=\"logo\">\n" +
+    "  <img src=\"app/images/logo/MOH.png\"/>\n" +
+    "  <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
     "</div>\n" +
     "\n" +
-    "<ul class=''>\n" +
+    "<nav id=\"main\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
     "\n" +
-    "  </ul> -->\n" +
-    "  <div id=\"logo\">\n" +
-    "    <img src=\"app/images/logo/MOH.png\"/>\n" +
-    "    <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
-    "  </div>\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"home\" >Home</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"about\" >About NQCL</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"services\" >Our Services</a>\n" +
+    "        </li>\n" +
     "\n" +
-    "  <nav id=\"main\">\n" +
-    "    <div class=\"container-fluid\">\n" +
-    "      <!-- Brand and toggle get grouped for better mobile display -->\n" +
-    "      <div class=\"navbar-header\">\n" +
-    "        <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
-    "          <span class=\"sr-only\">Toggle navigation</span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "          <span class=\"icon-bar\"></span>\n" +
-    "        </button>\n" +
-    "      </div>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"news\" >News and Events</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"downloads\">Downloads</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"contact\">Contact Us</a>\n" +
+    "        </li>\n" +
     "\n" +
-    "      <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-    "      <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
-    "        <ul>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"home\" >Home</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"about\" >About NQCL</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"services\" >Our Services</a>\n" +
-    "          </li>\n" +
+    "      </ul>\n" +
     "\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"news\" >News and Events</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"downloads\">Downloads</a>\n" +
-    "          </li>\n" +
-    "          <li>\n" +
-    "            <a is-active-nav ui-sref=\"contact\">Contact Us</a>\n" +
-    "          </li>\n" +
-    "\n" +
-    "        </ul>\n" +
-    "\n" +
-    "        <ul class=\"navbar-right\">\n" +
-    "          <li><a href=\"#\"><i></i>Login</a></li>\n" +
-    "          <li class=\"dropdown\">\n" +
-    "            <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
-    "            <ul class=\"dropdown-menu\" role=\"menu\">\n" +
-    "              <li><a href=\"#\">Action</a></li>\n" +
-    "              <li><a href=\"#\">Another action</a></li>\n" +
-    "              <li><a href=\"#\">Something else here</a></li>\n" +
-    "              <li class=\"divider\"></li>\n" +
-    "              <li><a href=\"#\">Separated link</a></li>\n" +
-    "            </ul>\n" +
-    "          </li>\n" +
-    "        </ul>\n" +
-    "      </div><!-- /.navbar-collapse -->\n" +
-    "    </div><!-- /.container-fluid -->\n" +
-    "  </nav>\n" +
+    "      <ul class=\"navbar-right\">\n" +
+    "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i></i>Login</a></li>\n" +
+    "        <li class=\"dropdown\">\n" +
+    "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
+    "          <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "            <li><a href=\"#\">Action</a></li>\n" +
+    "            <li><a href=\"#\">Another action</a></li>\n" +
+    "            <li><a href=\"#\">Something else here</a></li>\n" +
+    "            <li class=\"divider\"></li>\n" +
+    "            <li><a href=\"#\">Separated link</a></li>\n" +
+    "          </ul>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
     "");
 }]);
 
@@ -395,22 +434,20 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "\n" +
     "<div class=\"row\">\n" +
     "  <section class=\"content full\">\n" +
-    "    <h1>Welcome to NQCL</h1>\n" +
-    "    <div class=\"description\">\n" +
-    "      The NQCL was established as a Body Corporate through legislation enacted by Parliament in 1992 and assented to by the President on 28th October, 1992 (Pharmacy and Poisons (Amendment) Act of 1992). In accordance with this Act, the Laboratory is mandated to:\n" +
     "\n" +
-    "1. Examine and test drugs and any material or substance from or with which and the manner in which drugs may be manufactured, processed or treated and ensure the quality control of drugs and medicinal substances\n" +
-    "2. Perform chemical, biological, biochemical, physiological and pharmacological analysis and other pharmaceutical evaluation; and\n" +
-    "3. Test, at the request of PPB and on behalf of the Government, of locally manufactured and imported drugs or medicinal substances with view of determining whether such drugs or medicinal substances comply with this Act.\n" +
+    "    <h1>{{content.welcome.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.welcome.data_body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <h1>Our Services</h1>\n" +
-    "    <div class=\"description\"></div>\n" +
+    "    <h1>{{content.services.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.services.data_body\">\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <h1>News and Events</h1>\n" +
-    "    <div class=\"description\"></div>\n" +
+    "    <h1>{{content.customers.data_type}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.customers.data_body\">\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>Contact Us</h1>\n" +

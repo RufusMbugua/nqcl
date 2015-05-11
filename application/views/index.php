@@ -28,6 +28,8 @@
         <script src='bower_components/angular-moment/angular-moment.js'></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/angular-md5/angular-md5.js"></script>
+        <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
         <script type="text/javascript" src="dist/app.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?AIzaSyA-jsGRlz514y2aFIP-XM0r7GdUHUhCxg8&sensor=true"></script>
   </body>

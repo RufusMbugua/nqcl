@@ -1,80 +1,58 @@
-
-    <!-- <img src="templates/user/logo/MOH.png" style="float:left; margin-left:5px; height:61px; margin-top:7px;"/>
-      <img src="templates/user/logo/NQCL_logo.png" style="float:right; margin-right:10px; margin-top:7px;"/> -->
-<!-- <div class="logo">
-        <div class="real_logo">
-          <a href="home.php"><img src="templates/user/logo/middle_.png" style=""/></a>
-          </div>
-                 <div class="dater">
-                   <a href="#">FAQs</a>&nbsp; | <a href="#">WebMail</a>
-                   </div>
-
-                   <div class="in_dater">
-                     <script language="JavaScript">
-          sampleDate1=new Date()
-          document.write (mdy(sampleDate1))
-          </script>
-                   </div>
+<div id="logo">
+  <img src="app/images/logo/MOH.png"/>
+  <img src="app/images//logo/NQCL_logo.png" style="float:right"/>
 </div>
 
-<ul class=''>
+<nav id="main">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
 
-  </ul> -->
-  <div id="logo">
-    <img src="app/images/logo/MOH.png"/>
-    <img src="app/images//logo/NQCL_logo.png" style="float:right"/>
-  </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul>
+        <li>
+          <a is-active-nav ui-sref="home" >Home</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="about" >About NQCL</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="services" >Our Services</a>
+        </li>
 
-  <nav id="main">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
+        <li>
+          <a is-active-nav ui-sref="news" >News and Events</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="downloads">Downloads</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="contact">Contact Us</a>
+        </li>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul>
-          <li>
-            <a is-active-nav ui-sref="home" >Home</a>
-          </li>
-          <li>
-            <a is-active-nav ui-sref="about" >About NQCL</a>
-          </li>
-          <li>
-            <a is-active-nav ui-sref="services" >Our Services</a>
-          </li>
+      </ul>
 
-          <li>
-            <a is-active-nav ui-sref="news" >News and Events</a>
-          </li>
-          <li>
-            <a is-active-nav ui-sref="downloads">Downloads</a>
-          </li>
-          <li>
-            <a is-active-nav ui-sref="contact">Contact Us</a>
-          </li>
-
-        </ul>
-
-        <ul class="navbar-right">
-          <li><a href="#"><i></i>Login</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
+      <ul class="navbar-right">
+        <li><a href="#" is-active-nav ui-sref="login"><i></i>Login</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
