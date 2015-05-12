@@ -8,6 +8,7 @@ $secondary_green:#90C695;
 
 /* Secondary Menu */
 $main_grey:#ECF0F1;
+$secondary_grey: #BDC3C7;
 $main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
@@ -34,9 +35,7 @@ header,admin-header,secondary-header{
     height:auto !important;
     padding:0.25% 15%;
     margin-bottom:0 !important;
-    i{
-      padding-right:5px;
-    }
+
     ul{
       @extend .nav;
       @extend .navbar-nav;
@@ -186,6 +185,7 @@ table{
   .news-item-date{
     @extend .col-md-4;
     font-style:italic;
+    text-align:right;
   }
 }
 .news-item:last{
@@ -235,4 +235,25 @@ table{
 .btn-add:hover{
   background:$main_green;
   color:white !important;
+}
+span.article-actions{
+  font-size:1em;
+  float:right;
+  a{
+    padding:0 !important;
+    background:none;
+    @extend .btn;
+    color:$secondary_grey;
+  }
+  a:hover{
+    color:black;
+  }
+}
+/* GLobal Item Style */
+i{
+  padding-right:5px;
+}
+/* Header Styles */
+h1,h2,h3,h4,h5,h6{
+  font-family:'Bree Serif',serif !important;
 }

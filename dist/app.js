@@ -544,12 +544,18 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
 
 angular.module("../app/partials/articles/articles.items.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.items.html",
+    "<h2>Latest Articles</h2>\n" +
     "<div ng-repeat=\"item in content\" class='news-item' >\n" +
-    "    <h3>{{item.title}}</h3>\n" +
+    "    <h3>{{item.title}}\n" +
+    "      <span class=\"article-actions\">\n" +
+    "        <a href=\"\"><i class=\"ion-edit\"></i></a>\n" +
+    "        <a href=\"\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "      </span>\n" +
+    "      </h3>\n" +
     "    <div class=\"row\">\n" +
     "      <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
-    "      <div class=\"news-item-type\">{{item.type}}</div>\n" +
-    "      <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
+    "      <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
+    "      <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "");
@@ -558,6 +564,7 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
 angular.module("../app/partials/articles/articles.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.list.html",
     "<nav>\n" +
+    "  <h4><i class=\"fa fa-archive\"></i>Archive</h4>\n" +
     "  <li ng-repeat=\"item in content\">\n" +
     "    <a href=\"\">{{item.title}}</a>\n" +
     "  </li>\n" +
