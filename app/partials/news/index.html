@@ -1,10 +1,10 @@
 <div id="side-content">
   <h1>NEWS ARTICLES AND UPCOMING EVENTS</h1>
   <div ng-repeat="item in content" class='news-item' >
-      <h3>{{item.news_head}}</h3>
+      <h3>{{item.title}}</h3>
       <div class="row">
-        <div class="news-item-content" ng-bind-html="item.news_body"></div>
-        <div class="news-item-type">{{item.news_type}}</div>
+        <div class="news-item-content" ng-bind-html="item.body"></div>
+        <div class="news-item-type">{{item.type}}</div>
         <div class="news-item-date">{{item.time_posted}}</div>
       </div>
   </div>
@@ -13,7 +13,7 @@
   <h1>RECENT POSTS</h1>
   <nav>
     <li ng-repeat="item in content">
-      <a href="">{{item.news_head}}</a>
+      <a href="">{{item.title}}</a>
     </li>
   </nav>
 </div>

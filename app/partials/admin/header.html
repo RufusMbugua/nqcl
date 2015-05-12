@@ -1,0 +1,41 @@
+<nav id="admin">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul>
+        <li>
+          <a is-active-nav ui-sref="home" >Dashboard</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="content" ><i class='fa fa-list-ul'></i>Page Content</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="articles" ><i class='fa fa-list-ul'></i>Articles</a>
+        </li>
+
+
+      </ul>
+
+      <ul class="navbar-right">
+        <li>
+          <a>
+            <i class='fa fa-user'></i>
+            <span>{{user[0].f_name}}</span>
+            <span>{{user[0].l_name}}</span>
+          </a>
+        </li>
+        <li><a href="#" is-active-nav ui-sref="login"><i class='fa fa-sign-out'></i>Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

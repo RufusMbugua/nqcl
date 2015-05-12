@@ -1,10 +1,23 @@
 @import "bootstrap";
 $main-green:#00a460;
 $light-green:#99dbbf;
+
+/* Admin Theme */
+$main_blue:#2C3E50;
+$secondary_green:#90C695;
+
+/* Secondary Menu */
+$main_grey:#ECF0F1;
+$secondary_grey: #BDC3C7;
+$main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
 }
-header{
+secondary-header{
+    position:relative !important;
+}
+
+header,admin-header,secondary-header{
   background:white;
   position:fixed;
   width:100%;
@@ -15,13 +28,14 @@ header{
     padding:2%;
     //height:10%;
   }
-  nav#main{
+  nav#main,nav#admin,nav#secondary{
     @extend .navbar;
     @extend .navbar-default;
     background:$main-green !important;
     height:auto !important;
     padding:0.25% 15%;
     margin-bottom:0 !important;
+
     ul{
       @extend .nav;
       @extend .navbar-nav;
@@ -35,20 +49,63 @@ header{
       li.active{
         a{
           background:$light-green !important;
+          font-weight:bold;
         }
       }
       li:hover{
         background:$light-green !important;
+        font-weight:bold;
       }
     }
   }
-
+  nav#admin{
+    padding:0.25%;
+    background:$main_blue !important;
+    ul{
+      li.active{
+        a{
+          font-weight:bold;
+          background:none !important;
+          color:$secondary_green !important;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:$secondary_green !important;
+        background:none !important;
+      }
+    }
+  }
+  nav#secondary{
+    margin:0 !important;
+    padding:0.1%;
+    background:$main_grey !important;
+    ul{
+      li{
+        a{
+          color:black !important;
+        }
+      }
+      li.active{
+        a{
+          font-weight:bold;
+          background:none !important;
+          color:$main_red !important;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:$main_red !important;
+        background:none !important;
+      }
+    }
+  }
 }
 
 /* Content */
 #content{
   width:100%;
-  padding:15% 15% 0 15%;
+  padding:5% 5% 0 5%;
 
   /* Carousel */
   #carousel-container{
@@ -83,9 +140,16 @@ header{
     @extend .nav;
     @extend .nav-pills;
     @extend .nav-stacked;
-    li.active{
-      background:$main_green !important;
+    a.active{
+      background:$secondary_green !important;
       color:white !important;
+    }
+    a{
+      background:none !important;
+      .active{
+        background:$secondary_green !important;
+        color:white !important;
+      }
     }
   }
 }
@@ -101,6 +165,10 @@ table{
   @extend .table;
   @extend .table-responsive;
   @extend .table-hover;
+  thead{
+    background:$secondary_green;
+    color:white;
+  }
 }
 
 .news-item{
@@ -117,6 +185,7 @@ table{
   .news-item-date{
     @extend .col-md-4;
     font-style:italic;
+    text-align:right;
   }
 }
 .news-item:last{
@@ -150,4 +219,41 @@ table{
     box-shadow:0 0 0.5px 0.5px $main_green;
     border-color:$main_green;
   }
+}
+
+/* Button Edits */
+.btn{
+  i{
+    padding-right:5px;
+  }
+}
+/* Custom Button Classes */
+.btn-add{
+  background:$secondary_green !important;
+  color:white !important;
+}
+.btn-add:hover{
+  background:$main_green;
+  color:white !important;
+}
+span.article-actions{
+  font-size:1em;
+  float:right;
+  a{
+    padding:0 !important;
+    background:none;
+    @extend .btn;
+    color:$secondary_grey;
+  }
+  a:hover{
+    color:black;
+  }
+}
+/* GLobal Item Style */
+i{
+  padding-right:5px;
+}
+/* Header Styles */
+h1,h2,h3,h4,h5,h6{
+  font-family:'Bree Serif',serif !important;
 }
