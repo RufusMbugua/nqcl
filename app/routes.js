@@ -56,5 +56,37 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					controller: 'contentCtrl'
 				}
 			}
+		})
+		.state('articles', {
+			url: '/articles',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/articles/index.html',
+					controller: 'contentCtrl'
+				}
+			}
+		})
+		.state('articles.add', {
+			url: '/add',
+			controller: 'contentCtrl',
+			templateUrl: 'app/partials/articles/articles.add.html'
+		})
+		.state('articles.published', {
+			url: '/published',
+			views: {
+				'': {
+					templateUrl: 'app/partials/articles/articles.published.html',
+					controller: 'contentCtrl'
+				},
+				'list@articles.published': {
+					templateUrl: 'app/partials/articles/articles.list.html',
+					controller: 'contentCtrl'
+				},
+				'detail@articles.published': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
 		});
 });

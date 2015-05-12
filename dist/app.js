@@ -75,20 +75,63 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
-	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			menu = Restangular.all('content?format=json');
-			scope.menu = [];
-			getMenuItems();
+  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      /**
+       * [menu description]
+       * @type {[type]}
+       */
+      var Menu = Restangular.all('content?format=json');
 
-			function getMenuItems() {
-				console.log('Working');
-				menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
-		}
-	]
+      /**
+       * [article description]
+       * @type {[type]}
+       */
+      var Articles = Restangular.all('news?format=json');
+      /**
+       * [menu description]
+       * @type {Array}
+       */
+      scope.menu = [];
+
+      getMenuItems();
+
+      loadArticles();
+
+      /**
+       * [getMenuItems description]
+       */
+      function getMenuItems() {
+        Menu.getList().then(function(menu) {
+          scope.list = menu;
+        });
+      }
+
+      /**
+       * [addArticle description]
+       */
+      scope.addArticle = function addArticle() {
+
+        console.log(scope.article);
+
+        Articles.post(scope.article).then(function(response) {
+          localStorageService.set('news', response);
+          console.log(response);
+        });
+      }
+
+
+      /**
+       * [loadArticles description]
+       */
+      function loadArticles() {
+        var Content = Restangular.all('news?format=json');
+        Content.getList().then(function(content) {
+          scope.content = content;
+        });
+      }
+    }
+  ]
 );
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -281,6 +324,38 @@ app.directive('isActiveNav', ['$location', function($location) {
 					controller: 'contentCtrl'
 				}
 			}
+		})
+		.state('articles', {
+			url: '/articles',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/articles/index.html',
+					controller: 'contentCtrl'
+				}
+			}
+		})
+		.state('articles.add', {
+			url: '/add',
+			controller: 'contentCtrl',
+			templateUrl: 'app/partials/articles/articles.add.html'
+		})
+		.state('articles.published', {
+			url: '/published',
+			views: {
+				'': {
+					templateUrl: 'app/partials/articles/articles.published.html',
+					controller: 'contentCtrl'
+				},
+				'list@articles.published': {
+					templateUrl: 'app/partials/articles/articles.list.html',
+					controller: 'contentCtrl'
+				},
+				'detail@articles.published': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
 		});
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', function(
@@ -302,7 +377,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   }
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -396,6 +471,81 @@ angular.module("../app/partials/admin/login.html", []).run(["$templateCache", fu
     "\n" +
     "  <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
     "</form>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/articles/articles.add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.add.html",
+    "<form action=\"\">\n" +
+    "  <div class=\"form-group\">\n" +
+    "    <label>Title</label>\n" +
+    "    <div class=\"input-group\">\n" +
+    "      <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
+    "      <input type=\"email\" ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
+    "\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"form-group\">\n" +
+    "    <label>Body</label>\n" +
+    "      <textarea rows=\"5\" type=\"email\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\" />\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div class=\"form-group\">\n" +
+    "    <label>Type</label>\n" +
+    "    <div class=\"input-group\">\n" +
+    "      <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
+    "      <input type=\"email\" ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
+    "\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
+    "</form>\n" +
+    "\n" +
+    "{{scope.article}}\n" +
+    "");
+}]);
+
+angular.module("../app/partials/articles/articles.items.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.items.html",
+    "<div ng-repeat=\"item in content\" class='news-item' >\n" +
+    "    <h3>{{item.title}}</h3>\n" +
+    "    <div class=\"row\">\n" +
+    "      <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "      <div class=\"news-item-type\">{{item.type}}</div>\n" +
+    "      <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/articles/articles.list.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.list.html",
+    "<nav>\n" +
+    "  <li ng-repeat=\"item in content\">\n" +
+    "    <a href=\"\">{{item.title}}</a>\n" +
+    "  </li>\n" +
+    "</nav>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/articles/articles.published.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.published.html",
+    "<!--  -->\n" +
+    "<div id=\"side-content\" ui-view=\"detail\">\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--  -->\n" +
+    "<div id=\"side-menu\" ui-view=\"list\">\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/articles/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/index.html",
+    "<div ui-view></div>\n" +
     "");
 }]);
 
@@ -613,10 +763,10 @@ angular.module("../app/partials/news/index.html", []).run(["$templateCache", fun
     "<div id=\"side-content\">\n" +
     "  <h1>NEWS ARTICLES AND UPCOMING EVENTS</h1>\n" +
     "  <div ng-repeat=\"item in content\" class='news-item' >\n" +
-    "      <h3>{{item.news_head}}</h3>\n" +
+    "      <h3>{{item.title}}</h3>\n" +
     "      <div class=\"row\">\n" +
-    "        <div class=\"news-item-content\" ng-bind-html=\"item.news_body\"></div>\n" +
-    "        <div class=\"news-item-type\">{{item.news_type}}</div>\n" +
+    "        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "        <div class=\"news-item-type\">{{item.type}}</div>\n" +
     "        <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
     "      </div>\n" +
     "  </div>\n" +
@@ -625,7 +775,7 @@ angular.module("../app/partials/news/index.html", []).run(["$templateCache", fun
     "  <h1>RECENT POSTS</h1>\n" +
     "  <nav>\n" +
     "    <li ng-repeat=\"item in content\">\n" +
-    "      <a href=\"\">{{item.news_head}}</a>\n" +
+    "      <a href=\"\">{{item.title}}</a>\n" +
     "    </li>\n" +
     "  </nav>\n" +
     "</div>\n" +

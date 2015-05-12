@@ -5956,4 +5956,13 @@ table thead {
     box-shadow: 0 0 0.5px 0.5px #00a460;
     border-color: #00a460; }
 
+/* Custom Button Classes */
+.btn-add {
+  background: #90C695 !important;
+  color: white !important; }
+
+.btn-add:hover {
+  background: #00a460;
+  color: white !important; }
+
 /*# sourceMappingURL=styles.css.map */

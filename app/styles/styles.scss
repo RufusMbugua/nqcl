@@ -4,7 +4,7 @@ $light-green:#99dbbf;
 
 /* Admin Theme */
 $main_blue:#2C3E50;
-$main_red:#90C695;
+$secondary_green:#90C695;
 body{
   font-family:OpenSansRegular !important;
 }
@@ -57,12 +57,12 @@ header,admin-header{
         a{
           font-weight:bold;
           background:none !important;
-          color:$main_red !important;
+          color:$secondary_green !important;
         }
       }
       li:hover{
         font-weight:bold;
-        color:$main_red !important;
+        color:$secondary_green !important;
         background:none !important;
       }
     }
@@ -108,13 +108,13 @@ header,admin-header{
     @extend .nav-pills;
     @extend .nav-stacked;
     a.active{
-      background:$main_red !important;
+      background:$secondary_green !important;
       color:white !important;
     }
     a{
       background:none !important;
       .active{
-        background:$main_red !important;
+        background:$secondary_green !important;
         color:white !important;
       }
     }
@@ -133,7 +133,7 @@ table{
   @extend .table-responsive;
   @extend .table-hover;
   thead{
-    background:$main_red;
+    background:$secondary_green;
     color:white;
   }
 }
@@ -185,4 +185,14 @@ table{
     box-shadow:0 0 0.5px 0.5px $main_green;
     border-color:$main_green;
   }
+}
+
+/* Custom Button Classes */
+.btn-add{
+  background:$secondary_green !important;
+  color:white !important;
+}
+.btn-add:hover{
+  background:$main_green;
+  color:white !important;
 }
