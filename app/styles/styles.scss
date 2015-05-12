@@ -12,6 +12,10 @@ $main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
 }
+secondary-header{
+    position:relative !important;
+}
+
 header,admin-header,secondary-header{
   background:white;
   position:fixed;
@@ -23,7 +27,7 @@ header,admin-header,secondary-header{
     padding:2%;
     //height:10%;
   }
-  nav#main,nav#admin{
+  nav#main,nav#admin,nav#secondary{
     @extend .navbar;
     @extend .navbar-default;
     background:$main-green !important;
@@ -46,10 +50,12 @@ header,admin-header,secondary-header{
       li.active{
         a{
           background:$light-green !important;
+          font-weight:bold;
         }
       }
       li:hover{
         background:$light-green !important;
+        font-weight:bold;
       }
     }
   }
@@ -73,9 +79,14 @@ header,admin-header,secondary-header{
   }
   nav#secondary{
     margin:0 !important;
-    padding:0.25%;
+    padding:0.1%;
     background:$main_grey !important;
     ul{
+      li{
+        a{
+          color:black !important;
+        }
+      }
       li.active{
         a{
           font-weight:bold;
@@ -210,6 +221,12 @@ table{
   }
 }
 
+/* Button Edits */
+.btn{
+  i{
+    padding-right:5px;
+  }
+}
 /* Custom Button Classes */
 .btn-add{
   background:$secondary_green !important;

@@ -75,69 +75,94 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
-	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
+  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
 
-			scope.myHtml = "<h1>Hello World</h1>"
-			scope.froalaOptions = {
-					buttons: ["bold", "italic", "underline", "sep", "align",
-						"insertOrderedList", "insertUnorderedList"
-					]
-				}
-				/**
-				 * [menu description]
-				 * @type {[type]}
-				 */
-			var Menu = Restangular.all('content?format=json');
+      scope.myHtml = "<h1>Hello World</h1>"
+      scope.froalaOptions = {
+          buttons: ["bold", "italic", "underline", "sep", "align",
+            "insertOrderedList", "insertUnorderedList"
+          ]
+        }
+        /**
+         * [menu description]
+         * @type {[type]}
+         */
+      var Menu = Restangular.all('content?format=json');
 
-			/**
-			 * [article description]
-			 * @type {[type]}
-			 */
-			var Articles = Restangular.all('news?format=json');
-			/**
-			 * [menu description]
-			 * @type {Array}
-			 */
-			scope.menu = [];
+      /**
+       * [article description]
+       * @type {[type]}
+       */
+      var Articles = Restangular.all('news?format=json');
+      /**
+       * [menu description]
+       * @type {Array}
+       */
+      scope.menu = [];
 
-			getMenuItems();
+      /**
+       * [article_menu description]
+       * @type {Array}
+       */
+      scope.article_menu = [];
 
-			loadArticles();
+      getMenuItems();
 
-			/**
-			 * [getMenuItems description]
-			 */
-			function getMenuItems() {
-				Menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
+      loadArticles();
 
-			/**
-			 * [addArticle description]
-			 */
-			scope.addArticle = function addArticle() {
+      setArticleMenu();
+      /**
+       * [getMenuItems description]
+       */
+      function getMenuItems() {
+        Menu.getList().then(function(menu) {
+          scope.list = menu;
+        });
+      }
 
-				console.log(scope.article);
+      /**
+       * [addArticle description]
+       */
+      scope.addArticle = function addArticle() {
 
-				Articles.post(scope.article).then(function(response) {
-					console.log(response);
-				});
-			}
+        console.log(scope.article);
+
+        Articles.post(scope.article).then(function(response) {
+          console.log(response);
+        });
+      }
 
 
-			/**
-			 * [loadArticles description]
-			 */
-			function loadArticles() {
-				var Content = Restangular.all('news?format=json');
-				Content.getList().then(function(content) {
-					scope.content = content;
-				});
-			}
-		}
-	]
+      /**
+       * [loadArticles description]
+       */
+      function loadArticles() {
+        var Content = Restangular.all('news?format=json');
+        Content.getList().then(function(content) {
+          scope.content = content;
+        });
+      }
+
+      /**
+       * [loadArticles description]
+       */
+      function setArticleMenu() {
+        article_menu = [{
+          'name': 'Add',
+          'ui_sref': 'articles.add',
+          'icon_class': 'fa fa-plus'
+        }, {
+          'name': 'Published',
+          'ui_sref': 'articles.published',
+          'icon_class': 'fa fa-newspaper-o'
+        }];
+
+        scope.article_menu = article_menu;
+        console.log(article_menu);
+      }
+    }
+  ]
 );
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -388,7 +413,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   }
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/globals/secondary_menu.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -732,15 +757,15 @@ angular.module("../app/partials/globals/header.html", []).run(["$templateCache",
     "");
 }]);
 
-angular.module("../app/partials/globals/secondary_menu.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("../app/partials/globals/secondary_menu.html",
+angular.module("../app/partials/globals/secondary_header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/secondary_header.html",
     "<nav id=\"secondary\">\n" +
     "  <div class=\"container-fluid\">\n" +
     "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
     "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
     "      <ul>\n" +
-    "        <li>\n" +
-    "          <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
+    "        <li ng-repeat=\"item in article_menu\">\n" +
+    "          <a is-active-nav ui-sref=\"{{item.ui_sref}}\" ><i class=\"{{item.icon_class}}\"></i>{{item.name}}</a>\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +

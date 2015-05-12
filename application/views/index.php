@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/font-awesome.css">
   <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_style.css">
   <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_editor.css">
+  <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
 
   <link rel="stylesheet" href="dist/styles.css" media="screen" title="no title" charset="utf-8">
 </head>
