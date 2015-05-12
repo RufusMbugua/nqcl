@@ -3,6 +3,10 @@
   <title></title>
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="bower_components/webfont-opensans/css/stylesheet.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/font-awesome.css">
+  <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_style.css">
+  <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_editor.css">
+
   <link rel="stylesheet" href="dist/styles.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
@@ -15,6 +19,10 @@
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+
+  <!-- Froala Packages-->
+  <script src="bower_components/FroalaWysiwygEditor/js/froala_editor.min.js"></script>
+
   <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
   <script src="bower_components/lodash/dist/lodash.js"></script>
@@ -22,15 +30,17 @@
   <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
   <script src="bower_components/Chart.js/Chart.min.js"></script>
   <script src="bower_components/angular-chart.js/dist/angular-chart.js"></script>
-  <!--script src='bower_components/textAngular/dist/textAngular-rangy.min.js'></script-->
-  <script src='bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
-  <script src='bower_components/textAngular/dist/textAngular.min.js'></script>
+  <script src='bower_components/angular-froala/src/angular-froala.js'></script>
+  <script src='bower_components/angular-froala/src/froala-sanitize.js'></script>
   <script src='bower_components/moment/moment.js'></script>
   <script src='bower_components/angular-moment/angular-moment.js'></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+
+
+
   <script type="text/javascript" src="dist/app.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?AIzaSyA-jsGRlz514y2aFIP-XM0r7GdUHUhCxg8&sensor=true"></script>
 </body>

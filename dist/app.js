@@ -1,23 +1,23 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-	'LocalStorageModule'
+  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+  'LocalStorageModule', 'froala'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	// RestangularProvider.setRequestSuffix('?format=json');
+  RestangularProvider.setBaseUrl('http://localhost/nqcl');
+  // RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-	localStorageServiceProvider
-		.setStorageType('sessionStorage')
-		.setPrefix('nqcl');
+  localStorageServiceProvider
+    .setStorageType('sessionStorage')
+    .setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-	'Session',
-	function(localStorageService, rootScope, state, stateParams, Session) {
-		Session.checkIfLogged();
-	}
+  'Session',
+  function(localStorageService, rootScope, state, stateParams, Session) {
+    Session.checkIfLogged();
+  }
 ]);
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -75,63 +75,69 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
-  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      /**
-       * [menu description]
-       * @type {[type]}
-       */
-      var Menu = Restangular.all('content?format=json');
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
 
-      /**
-       * [article description]
-       * @type {[type]}
-       */
-      var Articles = Restangular.all('news?format=json');
-      /**
-       * [menu description]
-       * @type {Array}
-       */
-      scope.menu = [];
+			scope.myHtml = "<h1>Hello World</h1>"
+			scope.froalaOptions = {
+					buttons: ["bold", "italic", "underline", "sep", "align",
+						"insertOrderedList", "insertUnorderedList"
+					]
+				}
+				/**
+				 * [menu description]
+				 * @type {[type]}
+				 */
+			var Menu = Restangular.all('content?format=json');
 
-      getMenuItems();
+			/**
+			 * [article description]
+			 * @type {[type]}
+			 */
+			var Articles = Restangular.all('news?format=json');
+			/**
+			 * [menu description]
+			 * @type {Array}
+			 */
+			scope.menu = [];
 
-      loadArticles();
+			getMenuItems();
 
-      /**
-       * [getMenuItems description]
-       */
-      function getMenuItems() {
-        Menu.getList().then(function(menu) {
-          scope.list = menu;
-        });
-      }
+			loadArticles();
 
-      /**
-       * [addArticle description]
-       */
-      scope.addArticle = function addArticle() {
+			/**
+			 * [getMenuItems description]
+			 */
+			function getMenuItems() {
+				Menu.getList().then(function(menu) {
+					scope.list = menu;
+				});
+			}
 
-        console.log(scope.article);
+			/**
+			 * [addArticle description]
+			 */
+			scope.addArticle = function addArticle() {
 
-        Articles.post(scope.article).then(function(response) {
-          localStorageService.set('news', response);
-          console.log(response);
-        });
-      }
+				console.log(scope.article);
+
+				Articles.post(scope.article).then(function(response) {
+					console.log(response);
+				});
+			}
 
 
-      /**
-       * [loadArticles description]
-       */
-      function loadArticles() {
-        var Content = Restangular.all('news?format=json');
-        Content.getList().then(function(content) {
-          scope.content = content;
-        });
-      }
-    }
-  ]
+			/**
+			 * [loadArticles description]
+			 */
+			function loadArticles() {
+				var Content = Restangular.all('news?format=json');
+				Content.getList().then(function(content) {
+					scope.content = content;
+				});
+			}
+		}
+	]
 );
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -481,28 +487,28 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
     "    <label>Title</label>\n" +
     "    <div class=\"input-group\">\n" +
     "      <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
-    "      <input type=\"email\" ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
+    "      <input ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
     "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "\n" +
-    "  <div class=\"form-group\">\n" +
     "    <label>Body</label>\n" +
-    "      <textarea rows=\"5\" type=\"email\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\" />\n" +
-    "  </div>\n" +
+    "    <textarea froala=\"froalaOptions\" ng-model=\"article.body\"></textarea>\n" +
+    "      <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
+    "\n" +
     "\n" +
     "  <div class=\"form-group\">\n" +
     "    <label>Type</label>\n" +
     "    <div class=\"input-group\">\n" +
     "      <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
-    "      <input type=\"email\" ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
+    "      <input ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
     "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
     "</form>\n" +
     "\n" +
-    "{{scope.article}}\n" +
+    "{{article}}\n" +
     "");
 }]);
 
