@@ -5,10 +5,14 @@ $light-green:#99dbbf;
 /* Admin Theme */
 $main_blue:#2C3E50;
 $secondary_green:#90C695;
+
+/* Secondary Menu */
+$main_grey:#ECF0F1;
+$main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
 }
-header,admin-header{
+header,admin-header,secondary-header{
   background:white;
   position:fixed;
   width:100%;
@@ -63,6 +67,25 @@ header,admin-header{
       li:hover{
         font-weight:bold;
         color:$secondary_green !important;
+        background:none !important;
+      }
+    }
+  }
+  nav#secondary{
+    margin:0 !important;
+    padding:0.25%;
+    background:$main_grey !important;
+    ul{
+      li.active{
+        a{
+          font-weight:bold;
+          background:none !important;
+          color:$main_red !important;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:$main_red !important;
         background:none !important;
       }
     }

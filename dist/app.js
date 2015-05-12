@@ -239,7 +239,7 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
     }
   ]
 );
-;app.directive("header", function() {
+;app.directive("mainHeader", function() {
   return {
     templateUrl: "app/partials/globals/header.html"
   }
@@ -248,6 +248,11 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 app.directive("adminHeader", function() {
   return {
     templateUrl: "app/partials/admin/header.html"
+  }
+});
+app.directive("secondaryHeader", function() {
+  return {
+    templateUrl: "app/partials/globals/secondary_header.html"
   }
 });
 
@@ -383,7 +388,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   }
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/globals/carousel.html', '../app/partials/globals/header.html', '../app/partials/globals/secondary_menu.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/services/index.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -551,6 +556,7 @@ angular.module("../app/partials/articles/articles.published.html", []).run(["$te
 
 angular.module("../app/partials/articles/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/index.html",
+    "<secondary-header></secondary-header>\n" +
     "<div ui-view></div>\n" +
     "");
 }]);
@@ -718,6 +724,23 @@ angular.module("../app/partials/globals/header.html", []).run(["$templateCache",
     "            <li class=\"divider\"></li>\n" +
     "            <li><a href=\"#\">Separated link</a></li>\n" +
     "          </ul>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/globals/secondary_menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/secondary_menu.html",
+    "<nav id=\"secondary\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
     "        </li>\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +
