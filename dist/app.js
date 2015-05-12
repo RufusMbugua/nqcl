@@ -1,23 +1,23 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-  'LocalStorageModule', 'froala'
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+	'LocalStorageModule', 'froala'
 ]);
 app.config(function(RestangularProvider) {
-  RestangularProvider.setBaseUrl('http://localhost/nqcl');
-  // RestangularProvider.setRequestSuffix('?format=json');
+	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	// RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-  localStorageServiceProvider
-    .setStorageType('sessionStorage')
-    .setPrefix('nqcl');
+	localStorageServiceProvider
+		.setStorageType('sessionStorage')
+		.setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-  'Session',
-  function(localStorageService, rootScope, state, stateParams, Session) {
-    Session.checkIfLogged();
-  }
+	'Session',
+	function(localStorageService, rootScope, state, stateParams, Session) {
+		Session.checkIfLogged();
+	}
 ]);
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -75,95 +75,116 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 	]
 );
 ;app.controller(
-  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'$http',
+		function(scope, filter, timeout, state, Restangular, http) {
 
-      scope.myHtml = "<h1>Hello World</h1>"
-      scope.froalaOptions = {
-          buttons: ["bold", "italic", "underline", "sep", "align",
-            "insertOrderedList", "insertUnorderedList"
-          ]
-        }
-        /**
-         * [menu description]
-         * @type {[type]}
-         */
-      var Menu = Restangular.all('content?format=json');
+			scope.myHtml = "<h1>Hello World</h1>"
+			scope.froalaOptions = {
+					buttons: ["bold", "italic", "underline", "sep", "align",
+						"insertOrderedList", "insertUnorderedList"
+					]
+				}
+				/**
+				 * [menu description]
+				 * @type {[type]}
+				 */
+			var Menu = Restangular.all('content?format=json');
 
-      /**
-       * [article description]
-       * @type {[type]}
-       */
-      var Articles = Restangular.all('news?format=json');
-      /**
-       * [menu description]
-       * @type {Array}
-       */
-      scope.menu = [];
+			/**
+			 * [article description]
+			 * @type {[type]}
+			 */
+			var Articles = Restangular.all('news?format=json');
+			/**
+			 * [menu description]
+			 * @type {Array}
+			 */
+			scope.menu = [];
 
-      /**
-       * [article_menu description]
-       * @type {Array}
-       */
-      scope.article_menu = [];
+			/**
+			 * [article_menu description]
+			 * @type {Array}
+			 */
+			scope.article_menu = [];
 
-      getMenuItems();
+			/**
+			 * [content description]
+			 * @type {Array}
+			 */
+			scope.content = [];
 
-      loadArticles();
+			getMenuItems();
 
-      setArticleMenu();
-      /**
-       * [getMenuItems description]
-       */
-      function getMenuItems() {
-        Menu.getList().then(function(menu) {
-          scope.list = menu;
-        });
-      }
+			loadArticles();
 
-      /**
-       * [addArticle description]
-       */
-      scope.addArticle = function addArticle() {
+			setArticleMenu();
+			/**
+			 * [getMenuItems description]
+			 */
+			function getMenuItems() {
+				Menu.getList().then(function(menu) {
+					scope.list = menu;
+				});
+			}
 
-        console.log(scope.article);
+			/**
+			 * [loadArticles description]
+			 */
+			function loadArticles() {
 
-        Articles.post(scope.article).then(function(response) {
-          console.log(response);
-        });
-      }
+				http.get('news?format=json').
+				success(function(data, status, headers, config) {
+					scope.content = data;
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+			}
 
 
-      /**
-       * [loadArticles description]
-       */
-      function loadArticles() {
-        var Content = Restangular.all('news?format=json');
-        Content.getList().then(function(content) {
-          scope.content = content;
-        });
-      }
+			/**
+			 * [setArticleMenu description]
+			 */
+			function setArticleMenu() {
+				article_menu = [{
+					'name': 'Add',
+					'ui_sref': 'articles.add',
+					'icon_class': 'fa fa-plus'
+				}, {
+					'name': 'Published',
+					'ui_sref': 'articles.published',
+					'icon_class': 'fa fa-newspaper-o'
+				}];
 
-      /**
-       * [loadArticles description]
-       */
-      function setArticleMenu() {
-        article_menu = [{
-          'name': 'Add',
-          'ui_sref': 'articles.add',
-          'icon_class': 'fa fa-plus'
-        }, {
-          'name': 'Published',
-          'ui_sref': 'articles.published',
-          'icon_class': 'fa fa-newspaper-o'
-        }];
+				scope.article_menu = article_menu;
+			}
 
-        scope.article_menu = article_menu;
-        console.log(article_menu);
-      }
-    }
-  ]
-);
+			/**
+			 * [addArticle description]
+			 */
+			scope.addArticle = function addArticle() {
+				Articles.post(scope.article).then(function(response) {});
+			}
+
+			/**
+			 * [editArticle description]
+			 */
+			scope.editArticle = function editArticle(item) {
+				scope.article = item;
+
+			}
+
+			/**
+			 * [disableArticle description]
+			 */
+			scope.disableArticle = function disableArticle() {
+
+			}
+
+		}
+	]);
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
@@ -544,19 +565,24 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
 
 angular.module("../app/partials/articles/articles.items.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.items.html",
-    "<h2>Latest Articles</h2>\n" +
-    "<div ng-repeat=\"item in content\" class='news-item' >\n" +
-    "    <h3>{{item.title}}\n" +
-    "      <span class=\"article-actions\">\n" +
-    "        <a href=\"\"><i class=\"ion-edit\"></i></a>\n" +
-    "        <a href=\"\"><i class=\"ion-minus-circled\"></i></a>\n" +
-    "      </span>\n" +
+    "<h2><i class='ion-ios-paper'></i>Latest Articles</h2>\n" +
+    "<div ng-repeat=\"(year,months) in content track by $index\" ng-if=\"$last\">\n" +
+    "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
+    "    <div ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" class=\"news-item\">\n" +
+    "      <h3>{{item.title}}\n" +
+    "        <span class=\"article-actions\">\n" +
+    "          <a href=\"\" ng-click=\"editArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "        </span>\n" +
     "      </h3>\n" +
-    "    <div class=\"row\">\n" +
-    "      <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
-    "      <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
-    "      <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "        <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
+    "        <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
+    "      </div>\n" +
     "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
     "</div>\n" +
     "");
 }]);
@@ -564,10 +590,41 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
 angular.module("../app/partials/articles/articles.list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.list.html",
     "<nav>\n" +
-    "  <h4><i class=\"fa fa-archive\"></i>Archive</h4>\n" +
-    "  <li ng-repeat=\"item in content\">\n" +
-    "    <a href=\"\">{{item.title}}</a>\n" +
-    "  </li>\n" +
+    "  <h3><i class=\"fa fa-archive\"></i>Archive</h3>\n" +
+    "  <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
+    "    <div class=\"panel panel-default\" ng-repeat=\"(year,months) in content track by $index | orderBy: year : reverse\">\n" +
+    "      <div class=\"panel-heading\" role=\"tab\" id=\"heading_{{$index}}\">\n" +
+    "        <h4 class=\"panel-title\">\n" +
+    "          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{year}}\" aria-controls=\"{{year}}\">\n" +
+    "            {{year}}\n" +
+    "          </a>\n" +
+    "        </h4>\n" +
+    "      </div>\n" +
+    "      <div id=\"{{year}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
+    "        <div class=\"panel-body\">\n" +
+    "\n" +
+    "          <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
+    "            <div class=\"panel panel-default\" ng-repeat=\"(month,articles) in months track by $index\">\n" +
+    "              <div class=\"panel-heading\" role=\"tab\" id=\"heading_month_{{$index}}\">\n" +
+    "                <h4 class=\"panel-title\">\n" +
+    "                  <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{month}}\" aria-controls=\"{{month}}\">\n" +
+    "                    {{month}}\n" +
+    "                  </a>\n" +
+    "                </h4>\n" +
+    "              </div>\n" +
+    "              <div id=\"{{month}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
+    "                <div class=\"panel-body\">\n" +
+    "                  <li ng-repeat=\"article in articles\">\n" +
+    "                    <a href=\"\">{{article.title}}</a>\n" +
+    "                  </li>\n" +
+    "                </div>\n" +
+    "              </div>\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
     "</nav>\n" +
     "");
 }]);

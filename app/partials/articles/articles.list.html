@@ -1,6 +1,37 @@
 <nav>
   <h3><i class="fa fa-archive"></i>Archive</h3>
-  <li ng-repeat="item in content">
-    <a href="">{{item.title}}</a>
-  </li>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default" ng-repeat="(year,months) in content track by $index | orderBy: year : reverse">
+      <div class="panel-heading" role="tab" id="heading_{{$index}}">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#{{year}}" aria-controls="{{year}}">
+            {{year}}
+          </a>
+        </h4>
+      </div>
+      <div id="{{year}}" class="panel-collapse collapse in" role="tabpanel">
+        <div class="panel-body">
+
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default" ng-repeat="(month,articles) in months track by $index">
+              <div class="panel-heading" role="tab" id="heading_month_{{$index}}">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#{{month}}" aria-controls="{{month}}">
+                    {{month}}
+                  </a>
+                </h4>
+              </div>
+              <div id="{{month}}" class="panel-collapse collapse in" role="tabpanel">
+                <div class="panel-body">
+                  <li ng-repeat="article in articles">
+                    <a href="">{{article.title}}</a>
+                  </li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
