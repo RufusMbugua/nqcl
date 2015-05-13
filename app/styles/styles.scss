@@ -276,3 +276,7 @@ h1,h2,h3,h4,h5,h6{
     color:$main_red;
   }
 }
+/* Froala Editing */
+.froala-editor, .froala-wrapper.f-basic{
+  border-color:$main_blue !important;
+}

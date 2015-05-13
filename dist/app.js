@@ -1,24 +1,28 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-	'LocalStorageModule', 'froala'
+  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+  'LocalStorageModule', 'froala'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	// RestangularProvider.setRequestSuffix('?format=json');
+  RestangularProvider.setBaseUrl('http://localhost/nqcl');
+  // RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-	localStorageServiceProvider
-		.setStorageType('sessionStorage')
-		.setPrefix('nqcl');
+  localStorageServiceProvider
+    .setStorageType('sessionStorage')
+    .setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-	'Session',
-	function(localStorageService, rootScope, state, stateParams, Session) {
-		Session.checkIfLogged();
-	}
+  'Session',
+  function(localStorageService, rootScope, state, stateParams, Session) {
+    Session.checkIfLogged();
+  }
 ]);
+app.value('froalaConfig', {
+  inlineMode: false,
+  placeholder: 'Enter Text Here'
+});
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
@@ -80,11 +84,12 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 		function(scope, filter, timeout, state, Restangular, http) {
 
 			scope.myHtml = "<h1>Hello World</h1>"
-			scope.froalaOptions = {
-					buttons: ["bold", "italic", "underline", "sep", "align",
-						"insertOrderedList", "insertUnorderedList"
-					]
-				}
+				// scope.froalaOptions = {
+				// 		buttons: ["bold", "italic", "underline", "sep", "align",
+				// 			"insertOrderedList", "insertUnorderedList", 'undo', 'redo',
+				// 			'table'
+				// 		]
+				// 	}
 				/**
 				 * [menu description]
 				 * @type {[type]}
@@ -113,6 +118,8 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 			 * @type {Array}
 			 */
 			scope.content = [];
+
+			scope.alerts = [];
 
 			getMenuItems();
 
@@ -165,7 +172,16 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 			 * [addArticle description]
 			 */
 			scope.addArticle = function addArticle() {
-				Articles.post(scope.article).then(function(response) {});
+				Articles.post(scope.article).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+					timeout(function() {
+						state.go('articles.published')
+					}, 1000);
+				});
 			}
 
 			/**
@@ -182,6 +198,12 @@ app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
 			scope.disableArticle = function disableArticle() {
 
 			}
+
+
+
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
 
 		}
 	]);
@@ -544,7 +566,7 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
     "  </div>\n" +
     "\n" +
     "    <label>Body</label>\n" +
-    "    <textarea froala=\"froalaOptions\" ng-model=\"article.body\"></textarea>\n" +
+    "    <textarea froala ng-model=\"article.body\"></textarea>\n" +
     "      <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
     "\n" +
     "\n" +
@@ -558,8 +580,7 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
     "  </div>\n" +
     "  <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
     "</form>\n" +
-    "\n" +
-    "{{article}}\n" +
+    "<alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
     "");
 }]);
 

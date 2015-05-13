@@ -4,11 +4,12 @@ app.controller(
 		function(scope, filter, timeout, state, Restangular, http) {
 
 			scope.myHtml = "<h1>Hello World</h1>"
-			scope.froalaOptions = {
-					buttons: ["bold", "italic", "underline", "sep", "align",
-						"insertOrderedList", "insertUnorderedList"
-					]
-				}
+				// scope.froalaOptions = {
+				// 		buttons: ["bold", "italic", "underline", "sep", "align",
+				// 			"insertOrderedList", "insertUnorderedList", 'undo', 'redo',
+				// 			'table'
+				// 		]
+				// 	}
 				/**
 				 * [menu description]
 				 * @type {[type]}
@@ -37,6 +38,8 @@ app.controller(
 			 * @type {Array}
 			 */
 			scope.content = [];
+
+			scope.alerts = [];
 
 			getMenuItems();
 
@@ -89,7 +92,16 @@ app.controller(
 			 * [addArticle description]
 			 */
 			scope.addArticle = function addArticle() {
-				Articles.post(scope.article).then(function(response) {});
+				Articles.post(scope.article).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+					timeout(function() {
+						state.go('articles.published')
+					}, 1000);
+				});
 			}
 
 			/**
@@ -106,6 +118,12 @@ app.controller(
 			scope.disableArticle = function disableArticle() {
 
 			}
+
+
+
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
 
 		}
 	]);

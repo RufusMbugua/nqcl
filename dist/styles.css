@@ -6064,4 +6064,8 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     color: #F64747; }
 
+/* Froala Editing */
+.froala-editor, .froala-wrapper.f-basic {
+  border-color: #2C3E50 !important; }
+
 /*# sourceMappingURL=styles.css.map */
