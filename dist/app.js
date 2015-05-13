@@ -593,7 +593,7 @@ angular.module("../app/partials/articles/articles.list.html", []).run(["$templat
     "  <h3><i class=\"fa fa-archive\"></i>Archive</h3>\n" +
     "  <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
     "    <div class=\"panel panel-default\" ng-repeat=\"(year,months) in content track by $index | orderBy: year : reverse\">\n" +
-    "      <div class=\"panel-heading\" role=\"tab\" id=\"heading_{{$index}}\">\n" +
+    "      <div class=\"panel-heading main-heading\" role=\"tab\" id=\"heading_{{$index}}\">\n" +
     "        <h4 class=\"panel-title\">\n" +
     "          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{year}}\" aria-controls=\"{{year}}\">\n" +
     "            {{year}}\n" +
@@ -604,9 +604,9 @@ angular.module("../app/partials/articles/articles.list.html", []).run(["$templat
     "        <div class=\"panel-body\">\n" +
     "\n" +
     "          <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
-    "            <div class=\"panel panel-default\" ng-repeat=\"(month,articles) in months track by $index\">\n" +
-    "              <div class=\"panel-heading\" role=\"tab\" id=\"heading_month_{{$index}}\">\n" +
-    "                <h4 class=\"panel-title\">\n" +
+    "            <div class=\"panel panel-default sub-panel\" ng-repeat=\"(month,articles) in months track by $index\">\n" +
+    "              <div class=\"panel-heading sub-heading\" role=\"tab\" id=\"heading_month_{{$index}}\">\n" +
+    "                <h4 class=\"panel-title\" >\n" +
     "                  <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{month}}\" aria-controls=\"{{month}}\">\n" +
     "                    {{month}}\n" +
     "                  </a>\n" +

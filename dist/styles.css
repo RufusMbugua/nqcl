@@ -6048,4 +6048,20 @@ i {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Bree Serif',serif !important; }
 
+/* Panel Styling */
+.main-heading {
+  background: #ECF0F1 !important; }
+
+.sub-heading {
+  background: none !important; }
+
+.sub-panel {
+  border: none !important; }
+  .sub-panel a {
+    color: #2C3E50; }
+  .sub-panel a:hover {
+    text-decoration: none;
+    font-weight: bold;
+    color: #F64747; }
+
 /*# sourceMappingURL=styles.css.map */
