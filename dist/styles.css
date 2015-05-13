@@ -5932,6 +5932,7 @@ header, admin-header, secondary-header {
       background: none !important; }
   header nav#secondary, admin-header nav#secondary, secondary-header nav#secondary {
     margin: 0 !important;
+    margin-bottom: 10px !important;
     padding: 0.1%;
     background: #ECF0F1 !important; }
     header nav#secondary ul li a, admin-header nav#secondary ul li a, secondary-header nav#secondary ul li a {
@@ -6047,6 +6048,11 @@ i {
 /* Header Styles */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Bree Serif',serif !important; }
+
+/* Label Styling */
+span.label {
+  font-family: OpenSansRegular !important;
+  font-size: 0.5em !important; }
 
 /* Panel Styling */
 .main-heading {

@@ -78,6 +78,7 @@ header,admin-header,secondary-header{
   }
   nav#secondary{
     margin:0 !important;
+    margin-bottom:10px !important;
     padding:0.1%;
     background:$main_grey !important;
     ul{
@@ -256,8 +257,13 @@ i{
 /* Header Styles */
 h1,h2,h3,h4,h5,h6{
   font-family:'Bree Serif',serif !important;
-}
 
+}
+/* Label Styling */
+span.label{
+  font-family:OpenSansRegular !important;
+  font-size:0.5em !important;
+}
 /* Panel Styling */
 .main-heading{
   background: $main_grey !important;

@@ -79,134 +79,128 @@ app.value('froalaConfig', {
 	]
 );
 ;app.controller(
-	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'$http',
-		function(scope, filter, timeout, state, Restangular, http) {
+  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    '$http',
+    function(scope, filter, timeout, state, Restangular, http) {
+      /**
+       * [menu description]
+       * @type {[type]}
+       */
+      var Menu = Restangular.all('content?format=json');
 
-			scope.myHtml = "<h1>Hello World</h1>"
-				// scope.froalaOptions = {
-				// 		buttons: ["bold", "italic", "underline", "sep", "align",
-				// 			"insertOrderedList", "insertUnorderedList", 'undo', 'redo',
-				// 			'table'
-				// 		]
-				// 	}
-				/**
-				 * [menu description]
-				 * @type {[type]}
-				 */
-			var Menu = Restangular.all('content?format=json');
+      /**
+       * [article description]
+       * @type {[type]}
+       */
+      var Articles = Restangular.all('news?format=json');
+      /**
+       * [menu description]
+       * @type {Array}
+       */
+      scope.menu = [];
 
-			/**
-			 * [article description]
-			 * @type {[type]}
-			 */
-			var Articles = Restangular.all('news?format=json');
-			/**
-			 * [menu description]
-			 * @type {Array}
-			 */
-			scope.menu = [];
+      /**
+       * [article_menu description]
+       * @type {Array}
+       */
+      scope.article_menu = [];
 
-			/**
-			 * [article_menu description]
-			 * @type {Array}
-			 */
-			scope.article_menu = [];
+      /**
+       * [content description]
+       * @type {Array}
+       */
+      scope.content = [];
 
-			/**
-			 * [content description]
-			 * @type {Array}
-			 */
-			scope.content = [];
+      scope.alerts = [];
 
-			scope.alerts = [];
+      getMenuItems();
 
-			getMenuItems();
+      loadArticles();
 
-			loadArticles();
+      setArticleMenu();
 
-			setArticleMenu();
-			/**
-			 * [getMenuItems description]
-			 */
-			function getMenuItems() {
-				Menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
+      /**
+       * [getMenuItems description]
+       */
+      function getMenuItems() {
+        Menu.getList().then(function(menu) {
+          scope.list = menu;
+        });
+      }
 
-			/**
-			 * [loadArticles description]
-			 */
-			function loadArticles() {
-
-				http.get('news?format=json').
-				success(function(data, status, headers, config) {
-					scope.content = data;
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-				});
-			}
+      /**
+       * [loadArticles description]
+       */
+      function loadArticles() {
+        http.get('news?format=json').
+        success(function(data, status, headers, config) {
+          scope.content = data;
+        }).
+        error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+      }
 
 
-			/**
-			 * [setArticleMenu description]
-			 */
-			function setArticleMenu() {
-				article_menu = [{
-					'name': 'Add',
-					'ui_sref': 'articles.add',
-					'icon_class': 'fa fa-plus'
-				}, {
-					'name': 'Published',
-					'ui_sref': 'articles.published',
-					'icon_class': 'fa fa-newspaper-o'
-				}];
+      /**
+       * [setArticleMenu description]
+       */
+      function setArticleMenu() {
+        article_menu = [{
+          'name': 'Add',
+          'ui_sref': 'articles.add',
+          'icon_class': 'fa fa-plus'
+        }, {
+          'name': 'Published',
+          'ui_sref': 'articles.published',
+          'icon_class': 'fa fa-newspaper-o'
+        }];
 
-				scope.article_menu = article_menu;
-			}
+        scope.article_menu = article_menu;
+      }
 
-			/**
-			 * [addArticle description]
-			 */
-			scope.addArticle = function addArticle() {
-				Articles.post(scope.article).then(function(response) {
-					var alert = {
-						type: 'success',
-						msg: response
-					}
-					scope.alerts.push(alert);
-					timeout(function() {
-						state.go('articles.published')
-					}, 1000);
-				});
-			}
+      /**
+       * [addArticle description]
+       */
+      scope.addArticle = function addArticle() {
+        Articles.post(scope.article).then(function(response) {
+          var alert = {
+            type: 'success',
+            msg: response
+          }
+          scope.alerts.push(alert);
+          timeout(function() {
+            state.go('articles.published')
+          }, 1000);
+        });
+      }
 
-			/**
-			 * [editArticle description]
-			 */
-			scope.editArticle = function editArticle(item) {
-				scope.article = item;
+      /**
+       * [editArticle description]
+       */
+      scope.editArticle = function editArticle(item) {
+        scope.article = item;
 
-			}
+      }
 
-			/**
-			 * [disableArticle description]
-			 */
-			scope.disableArticle = function disableArticle() {
+      /**
+       * [disableArticle description]
+       */
+      scope.disableArticle = function disableArticle() {
 
-			}
+      }
 
+      /**
+       * [closeAlert description]
+       * @param {[type]} index [description]
+       */
+      scope.closeAlert = function(index) {
+        scope.alerts.splice(index, 1);
+      };
 
-
-			scope.closeAlert = function(index) {
-				scope.alerts.splice(index, 1);
-			};
-
-		}
-	]);
+    }
+  ]);
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
@@ -555,32 +549,35 @@ angular.module("../app/partials/admin/login.html", []).run(["$templateCache", fu
 
 angular.module("../app/partials/articles/articles.add.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.add.html",
-    "<form action=\"\">\n" +
-    "  <div class=\"form-group\">\n" +
-    "    <label>Title</label>\n" +
-    "    <div class=\"input-group\">\n" +
-    "      <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
-    "      <input ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
+    "<div class=\"content full\">\n" +
+    "  <form action=\"\">\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label>Title</label>\n" +
+    "      <div class=\"input-group\">\n" +
+    "        <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
+    "        <input ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
     "\n" +
+    "      </div>\n" +
     "    </div>\n" +
-    "  </div>\n" +
     "\n" +
     "    <label>Body</label>\n" +
     "    <textarea froala ng-model=\"article.body\"></textarea>\n" +
-    "      <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
+    "    <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
     "\n" +
     "\n" +
-    "  <div class=\"form-group\">\n" +
-    "    <label>Type</label>\n" +
-    "    <div class=\"input-group\">\n" +
-    "      <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
-    "      <input ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label>Type</label>\n" +
+    "      <div class=\"input-group\">\n" +
+    "        <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
+    "        <input ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
     "\n" +
+    "      </div>\n" +
     "    </div>\n" +
-    "  </div>\n" +
-    "  <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
-    "</form>\n" +
-    "<alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "    <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
+    "  </form>\n" +
+    "\n" +
+    "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "</div>\n" +
     "");
 }]);
 
@@ -591,6 +588,9 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
     "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
     "    <div ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" class=\"news-item\">\n" +
     "      <h3>{{item.title}}\n" +
+    "        <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
+    "          New\n" +
+    "        </span>\n" +
     "        <span class=\"article-actions\">\n" +
     "          <a href=\"\" ng-click=\"editArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
     "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
@@ -604,6 +604,9 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
     "    </div>\n" +
     "  </div>\n" +
     "\n" +
+    "</div>\n" +
+    "<div ng-if=\"!content\">\n" +
+    "  No articles for now.\n" +
     "</div>\n" +
     "");
 }]);

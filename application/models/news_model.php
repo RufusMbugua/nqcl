@@ -8,9 +8,19 @@ class News_Model extends CI_Model{
   */
   public function getItems(){
     $result = $this->db->order_by('time_posted','DESC')->get('news')->result_array();
-
+    $newResult=array();
     foreach ($result as $key => $value) {
+
+      $today=new DateTime();
+
       $time = new DateTime($value['time_posted']);
+
+
+      $interval = $today->diff($time);
+      $interval = $interval->format('%h');
+      if($interval<3){
+        $value['new']=true;
+      }
       // echo date($value['time_posted']);die;
       $year =$time->format('Y');
       $year = (int) $year;
@@ -20,7 +30,7 @@ class News_Model extends CI_Model{
     }
 
     $result=$newResult;
-// var_dump($result);die;
+    // var_dump($result);die;
     return $result;
   }
 
