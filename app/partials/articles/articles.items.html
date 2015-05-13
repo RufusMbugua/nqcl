@@ -3,6 +3,9 @@
   <div ng-repeat="(month,articles) in months track by $index" ng-if="$last">
     <div ng-repeat="item in articles track by $index | orderBy:time_posted : reverse" class="news-item">
       <h3>{{item.title}}
+        <span class="label label-danger" ng-if="item.new">
+          New
+        </span>
         <span class="article-actions">
           <a href="" ng-click="editArticle(item)"><i class="ion-edit"></i></a>
           <a href="" ng-click="disableArticle(item)"><i class="ion-minus-circled"></i></a>
@@ -16,4 +19,7 @@
     </div>
   </div>
 
+</div>
+<div ng-if="!content">
+  No articles for now.
 </div>

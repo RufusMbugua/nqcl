@@ -1,27 +1,29 @@
-<form action="">
-  <div class="form-group">
-    <label>Title</label>
-    <div class="input-group">
-      <span class="input-group-addon"><i class="fa fa-header"></i></span>
-      <input ng-model="article.title" class="form-control" required="required" placeholder="Title" />
+<div class="content full">
+  <form action="">
+    <div class="form-group">
+      <label>Title</label>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-header"></i></span>
+        <input ng-model="article.title" class="form-control" required="required" placeholder="Title" />
 
+      </div>
     </div>
-  </div>
 
     <label>Body</label>
-    <textarea froala="froalaOptions" ng-model="article.body"></textarea>
-      <!-- <textarea froala rows="5" ng-model="article.body" class="form-control"  required="required" placeholder="Body"></textarea> -->
+    <textarea froala ng-model="article.body"></textarea>
+    <!-- <textarea froala rows="5" ng-model="article.body" class="form-control"  required="required" placeholder="Body"></textarea> -->
 
 
-  <div class="form-group">
-    <label>Type</label>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon1"><i class="fa fa-tag"></i></span>
-      <input ng-model="article.type" class="form-control"  required="required" placeholder="Type" />
+    <div class="form-group">
+      <label>Type</label>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><i class="fa fa-tag"></i></span>
+        <input ng-model="article.type" class="form-control"  required="required" placeholder="Type" />
 
+      </div>
     </div>
-  </div>
-  <a href="" class="btn btn-add" ng-click="addArticle()"><i class='fa fa-plus'></i>Add Article</a>
-</form>
+    <a href="" class="btn btn-add" ng-click="addArticle()"><i class='fa fa-plus'></i>Add Article</a>
+  </form>
 
-{{article}}
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
