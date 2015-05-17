@@ -14,7 +14,7 @@ body{
   font-family:OpenSansRegular !important;
 }
 secondary-header{
-    position:relative !important;
+  position:relative !important;
 }
 
 header,admin-header,secondary-header{
@@ -104,6 +104,16 @@ header,admin-header,secondary-header{
 }
 
 /* Content */
+#public-content{
+  width:100%;
+  padding:10% 15% 0 15%;
+
+  /* Carousel */
+  #carousel-container{
+    width:100%;
+    /* height:40% !important; */
+  }
+}
 #content{
   width:100%;
   padding:5% 5% 0 5%;
@@ -204,24 +214,30 @@ table{
 
 
 /* Login */
-#login-form{
-  margin:auto;
-  width:40%;
-  padding:5%;
-  box-shadow:0 0 5px 1px $main_green;
-  .btn{
-    background:$main_green;
-    color:white;
+#login{
+  a{
+    color:white !important;
   }
-  .btn:hover{
-    background:$light_green;
-  }
-  input[type='password']:focus,input[type='email']:focus{
-    box-shadow:0 0 0.5px 0.5px $main_green;
-    border-color:$main_green;
+  height:100%;
+  padding:15%;
+  background:$main_green;
+  #login-form{
+    margin:auto;
+    width:40%;
+    padding:5%;
+
+    .btn{
+      color:white;
+    }
+    .btn:hover{
+      /* background:$light_green; */
+    }
+    input[type='password']:focus,input[type='email']:focus{
+      box-shadow:0 0 0.5px 0.5px $main_green;
+      border-color:$main_green;
+    }
   }
 }
-
 /* Button Edits */
 .btn{
   i{

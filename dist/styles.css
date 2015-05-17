@@ -5947,6 +5947,14 @@ header, admin-header, secondary-header {
       background: none !important; }
 
 /* Content */
+#public-content {
+  width: 100%;
+  padding: 10% 15% 0 15%;
+  /* Carousel */ }
+  #public-content #carousel-container {
+    width: 100%;
+    /* height:40% !important; */ }
+
 #content {
   width: 100%;
   padding: 5% 5% 0 5%;
@@ -6004,19 +6012,23 @@ table thead {
   display: block; }
 
 /* Login */
-#login-form {
-  margin: auto;
-  width: 40%;
-  padding: 5%;
-  box-shadow: 0 0 5px 1px #00a460; }
-  #login-form .btn, #login-form span.article-actions a, span.article-actions #login-form a {
-    background: #00a460;
-    color: white; }
-  #login-form .btn:hover, #login-form span.article-actions a:hover, span.article-actions #login-form a:hover {
-    background: #99dbbf; }
-  #login-form input[type='password']:focus, #login-form input[type='email']:focus {
-    box-shadow: 0 0 0.5px 0.5px #00a460;
-    border-color: #00a460; }
+#login {
+  height: 100%;
+  padding: 15%;
+  background: #00a460; }
+  #login a {
+    color: white !important; }
+  #login #login-form {
+    margin: auto;
+    width: 40%;
+    padding: 5%; }
+    #login #login-form .btn, #login #login-form span.article-actions a, span.article-actions #login #login-form a {
+      color: white; }
+    #login #login-form .btn:hover, #login #login-form span.article-actions a:hover, span.article-actions #login #login-form a:hover {
+      /* background:$light_green; */ }
+    #login #login-form input[type='password']:focus, #login #login-form input[type='email']:focus {
+      box-shadow: 0 0 0.5px 0.5px #00a460;
+      border-color: #00a460; }
 
 /* Button Edits */
 .btn i, span.article-actions a i {

@@ -12,10 +12,7 @@
   <link rel="stylesheet" href="dist/styles.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
-  <admin-header>
-
-  </admin-header>
-  <section id="content" ui-view>
+  <section ui-view>
 
   </section>
 
@@ -46,7 +43,7 @@
   <script src="bower_components/FroalaWysiwygEditor/js/plugins/font_size.min.js"></script>
   <script src="bower_components/FroalaWysiwygEditor/js/plugins/font_family.min.js"></script>
   <script src="bower_components/FroalaWysiwygEditor/js/plugins/urls.min.js"></script>
-  
+
   <script type="text/javascript" src="dist/app.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?AIzaSyA-jsGRlz514y2aFIP-XM0r7GdUHUhCxg8&sensor=true"></script>
 </body>

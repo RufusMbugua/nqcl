@@ -1,18 +1,18 @@
 app.directive("mainHeader", function() {
-  return {
-    templateUrl: "app/partials/globals/header.html"
-  }
+	return {
+		templateUrl: "app/partials/globals/header.html"
+	}
 });
 
-app.directive("adminHeader", function() {
-  return {
-    templateUrl: "app/partials/admin/header.html"
-  }
-});
+// app.directive("adminHeader", function() {
+//   return {
+//     templateUrl: "app/partials/admin/header.html"
+//   }
+// });
 app.directive("secondaryHeader", function() {
-  return {
-    templateUrl: "app/partials/globals/secondary_header.html"
-  }
+	return {
+		templateUrl: "app/partials/globals/secondary_header.html"
+	}
 });
 
 // app.directive("carousel", function() {
@@ -21,18 +21,18 @@ app.directive("secondaryHeader", function() {
 //   }
 // });
 app.directive('isActiveNav', ['$location', function($location) {
-  return {
-    restrict: 'A',
-    link: function(scope, element) {
-      scope.location = $location;
-      scope.$watch('location.path()', function(currentPath) {
+	return {
+		restrict: 'A',
+		link: function(scope, element) {
+			scope.location = $location;
+			scope.$watch('location.path()', function(currentPath) {
 
-        if ('#' + currentPath == element[0].hash) {
-          element.parent().addClass('active');
-        } else {
-          element.parent().removeClass('active');
-        }
-      });
-    }
-  };
+				if ('#' + currentPath == element[0].hash) {
+					element.parent().addClass('active');
+				} else {
+					element.parent().removeClass('active');
+				}
+			});
+		}
+	};
 }]);

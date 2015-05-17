@@ -17,8 +17,8 @@ class News_Model extends CI_Model{
 
 
       $interval = $today->diff($time);
-      $interval = $interval->format('%h');
-      if($interval<3){
+      $interval = $interval->format('%i');
+      if($interval<10){
         $value['new']=true;
       }
       // echo date($value['time_posted']);die;
