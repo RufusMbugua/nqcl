@@ -5973,8 +5973,6 @@ header, admin-header, secondary-header {
   font-size: 30px; }
 
 /*  */
-#side-menu h1 {
-  color: #00a460; }
 #side-menu nav a.active {
   background: #90C695 !important;
   color: white !important; }
@@ -5983,9 +5981,6 @@ header, admin-header, secondary-header {
   #side-menu nav a .active {
     background: #90C695 !important;
     color: white !important; }
-
-#side-content h1 {
-  color: #00a460; }
 
 /* Table */
 table thead {
@@ -6059,6 +6054,7 @@ i {
 
 /* Header Styles */
 h1, h2, h3, h4, h5, h6 {
+  color: black !important;
   font-family: 'Bree Serif',serif !important; }
 
 /* Label Styling */

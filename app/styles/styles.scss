@@ -144,9 +144,6 @@ header,admin-header,secondary-header{
 /*  */
 #side-menu{
   @extend .col-md-4;
-  h1{
-    color:$main_green;
-  }
   nav{
     @extend .nav;
     @extend .nav-pills;
@@ -166,9 +163,6 @@ header,admin-header,secondary-header{
 }
 #side-content{
   @extend .col-md-8;
-  h1{
-    color:$main_green;
-  }
 }
 
 /* Table */
@@ -272,6 +266,7 @@ i{
 }
 /* Header Styles */
 h1,h2,h3,h4,h5,h6{
+  color:black !important;
   font-family:'Bree Serif',serif !important;
 
 }
