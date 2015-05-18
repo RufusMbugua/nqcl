@@ -1,27 +1,27 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-	'LocalStorageModule', 'froala'
+  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+  'LocalStorageModule', 'froala'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	// RestangularProvider.setRequestSuffix('?format=json');
+  RestangularProvider.setBaseUrl('http://localhost/nqcl');
+  // RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-	localStorageServiceProvider
-		.setStorageType('sessionStorage')
-		.setPrefix('nqcl');
+  localStorageServiceProvider
+    .setStorageType('sessionStorage')
+    .setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-	'Session',
-	function(localStorageService, rootScope, state, stateParams, Session) {
-		// Session.checkIfLogged();
-	}
+  'Session',
+  function(localStorageService, rootScope, state, stateParams, Session) {
+    rootScope.level = 'public';
+  }
 ]);
 app.value('froalaConfig', {
-	inlineMode: false,
-	placeholder: 'Enter Text Here'
+  inlineMode: false,
+  placeholder: 'Enter Text Here'
 });
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -48,6 +48,7 @@ app.value('froalaConfig', {
 		function(scope, filter, timeout, state, Restangular, Session) {
 			var status;
 			redirect();
+			checkCurrent();
 
 			function redirect() {
 				status = Session.checkIfLogged();
@@ -58,6 +59,10 @@ app.value('froalaConfig', {
 				} else {
 
 				}
+			}
+
+			function checkCurrent() {
+				var current = Session.identify();
 			}
 		}
 	]
@@ -278,20 +283,19 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      scope.links = [];
-      loadContent();
+	"servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			scope.links = [];
+			loadContent();
 
-      function loadContent() {
-        var Content = Restangular.all('services?format=json');
-        Content.getList().then(function(content) {
-          console.log(content);
-          scope.content = content[0];
-        });
-      }
-    }
-  ]
+			function loadContent() {
+				var Content = Restangular.all('services?format=json');
+				Content.getList().then(function(content) {
+					scope.content = content[0];
+				});
+			}
+		}
+	]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -353,135 +357,139 @@ app.directive('isActiveNav', ['$location', function($location) {
 	};
 }]);
 ;app.config(function($stateProvider, $urlRouterProvider) {
-  //
-  // For any unmatched url, redirect to /state1
-  $urlRouterProvider.otherwise("/public/home");
+	//
+	// For any unmatched url, redirect to /state1
+	$urlRouterProvider.otherwise("/public/home");
 
-  // Now set up the states
-  $stateProvider
-    .state('public', {
-      url: '/public',
-      views: {
-        '': {
-          templateUrl: 'app/partials/public/index.html',
-        },
-        'header@public': {
-          templateUrl: 'app/partials/public/header.html'
-        }
-      }
-    })
-    .state('public.home', {
-      url: '/home',
-      templateUrl: 'app/partials/home/index.html',
-      controller: 'homeCtrl'
-    })
-    .state('public.about', {
-      url: '/about',
-      templateUrl: 'app/partials/about/index.html',
-      controller: 'aboutCtrl'
-    })
-    .state('public.services', {
-      url: '/services',
-      templateUrl: 'app/partials/services/index.html',
-      controller: 'servicesCtrl'
-    })
-    .state('public.news', {
-      url: '/news',
-      views: {
-        '': {
-          templateUrl: 'app/partials/articles/articles.published.html',
-          controller: 'contentCtrl'
-        },
-        'list@public.news': {
-          templateUrl: 'app/partials/articles/articles.list.html',
-          controller: 'contentCtrl'
-        },
-        'detail@public.news': {
-          templateUrl: 'app/partials/articles/articles.items.html',
-          controller: 'contentCtrl'
-        }
-      }
-    })
-    .state('public.contact', {
-      url: '/contact',
-      templateUrl: 'app/partials/contact/index.html',
-      controller: 'contactCtrl'
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'app/partials/admin/login.html',
-      controller: 'usersCtrl'
-    })
-    .state('admin.content', {
-      url: '/content',
-      views: {
-        // Main
-        '': {
-          templateUrl: 'app/partials/content/content.html'
-        },
-        'table@admin.content': {
-          templateUrl: 'app/partials/content/table.html',
-          controller: 'contentCtrl'
-        },
-        'menu@admin.content': {
-          templateUrl: 'app/partials/content/menu.html',
-          controller: 'contentCtrl'
-        }
-      }
-    })
-    .state('admin', {
-      url: '/admin',
-      views: {
-        // Main
-        '': {
-          templateUrl: 'app/partials/admin/index.html',
-          controller: 'adminCtrl'
-        },
-        'header@admin': {
-          templateUrl: 'app/partials/admin/header.html'
-        }
+	// Now set up the states
+	$stateProvider
+		.state('public', {
+			url: '/public',
+			views: {
+				'': {
+					templateUrl: 'app/partials/public/index.html',
+				},
+				'header@public': {
+					templateUrl: 'app/partials/public/header.html'
+				}
+			}
+		})
+		.state('public.home', {
+			url: '/home',
+			templateUrl: 'app/partials/home/index.html',
+			controller: 'homeCtrl'
+		})
+		.state('public.about', {
+			url: '/about',
+			templateUrl: 'app/partials/about/index.html',
+			controller: 'aboutCtrl'
+		})
+		.state('public.services', {
+			url: '/services',
+			templateUrl: 'app/partials/services/index.html',
+			controller: 'servicesCtrl'
+		})
+		.state('public.news', {
+			url: '/news',
+			views: {
+				'': {
+					templateUrl: 'app/partials/articles/articles.published.html',
+					controller: 'contentCtrl'
+				},
+				'list@public.news': {
+					templateUrl: 'app/partials/articles/articles.list.html',
+					controller: 'contentCtrl'
+				},
+				'detail@public.news': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
+		})
+		.state('public.contact', {
+			url: '/contact',
+			templateUrl: 'app/partials/contact/index.html',
+			controller: 'contactCtrl'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'app/partials/admin/login.html',
+			controller: 'usersCtrl'
+		})
+		.state('logout', {
+			url: '/logout',
+			controller: 'adminCtrl'
+		})
+		.state('admin.content', {
+			url: '/content',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/content/content.html'
+				},
+				'table@admin.content': {
+					templateUrl: 'app/partials/content/table.html',
+					controller: 'contentCtrl'
+				},
+				'menu@admin.content': {
+					templateUrl: 'app/partials/content/menu.html',
+					controller: 'contentCtrl'
+				}
+			}
+		})
+		.state('admin', {
+			url: '/admin',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/admin/index.html',
+					controller: 'adminCtrl'
+				},
+				'header@admin': {
+					templateUrl: 'app/partials/admin/header.html'
+				}
 
-      }
-    })
-    .state('admin.articles', {
-      url: '/articles',
-      views: {
-        // Main
-        '': {
-          templateUrl: 'app/partials/articles/index.html',
-          controller: 'contentCtrl'
-        },
-        'header@admin.articles': {
-          templateUrl: 'app/partials/admin/header.html'
-        }
+			}
+		})
+		.state('admin.articles', {
+			url: '/articles',
+			views: {
+				// Main
+				'': {
+					templateUrl: 'app/partials/articles/index.html',
+					controller: 'contentCtrl'
+				},
+				'header@admin.articles': {
+					templateUrl: 'app/partials/admin/header.html'
+				}
 
-      }
-    })
-    .state('admin.articles.add', {
-      url: '/add',
-      controller: 'contentCtrl',
-      templateUrl: 'app/partials/articles/articles.add.html'
-    })
-    .state('admin.articles.published', {
-      url: '/published',
-      views: {
-        '': {
-          templateUrl: 'app/partials/articles/articles.published.html',
-          controller: 'contentCtrl'
-        },
-        'list@admin.articles.published': {
-          templateUrl: 'app/partials/articles/articles.list.html',
-          controller: 'contentCtrl'
-        },
-        'detail@admin.articles.published': {
-          templateUrl: 'app/partials/articles/articles.items.html',
-          controller: 'contentCtrl'
-        }
-      }
-    });
+			}
+		})
+		.state('admin.articles.add', {
+			url: '/add',
+			controller: 'contentCtrl',
+			templateUrl: 'app/partials/articles/articles.add.html'
+		})
+		.state('admin.articles.published', {
+			url: '/published',
+			views: {
+				'': {
+					templateUrl: 'app/partials/articles/articles.published.html',
+					controller: 'contentCtrl'
+				},
+				'list@admin.articles.published': {
+					templateUrl: 'app/partials/articles/articles.list.html',
+					controller: 'contentCtrl'
+				},
+				'detail@admin.articles.published': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
+		});
 });
-;app.factory('Session', ['localStorageService', '$rootScope', function(
-  localStorageService, rootScope) {
+;app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
+  localStorageService, rootScope, state) {
   var Session = {};
 
   Session.checkIfLogged = function checkIfLogged() {
@@ -489,13 +497,30 @@ app.directive('isActiveNav', ['$location', function($location) {
     user = localStorageService.get('user');
     if (user == null) {
       rootScope.user = null;
+      rootScope.level = 'public'
       status = 'false';
     } else {
       rootScope.user = user;
+      rootScope.level = 'admin'
       status = 'true';
     }
     return status;
 
+  }
+
+  Session.identify = function identify() {
+    var currentState = state.current;
+
+    if (currentState.name == 'logout') {
+      destroy();
+      state.go('public.home');
+    }
+    return 'Done';
+  }
+
+  function destroy() {
+    rootScope.user = null;
+    localStorageService.remove('user');
   }
   return Session;
 
@@ -555,7 +580,7 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "            <span>{{user[0].l_name}}</span>\n" +
     "          </a>\n" +
     "        </li>\n" +
-    "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
+    "        <li><a href=\"#\" is-active-nav ui-sref=\"logout\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +
     "  </div><!-- /.container-fluid -->\n" +
@@ -641,7 +666,7 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
     "        <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
     "          New\n" +
     "        </span>\n" +
-    "        <span class=\"article-actions\">\n" +
+    "        <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
     "          <a href=\"\" ng-click=\"editArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
     "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
     "        </span>\n" +

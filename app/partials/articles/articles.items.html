@@ -6,7 +6,7 @@
         <span class="label label-danger" ng-if="item.new">
           New
         </span>
-        <span class="article-actions">
+        <span class="article-actions" ng-if="(level == 'admin')">
           <a href="" ng-click="editArticle(item)"><i class="ion-edit"></i></a>
           <a href="" ng-click="disableArticle(item)"><i class="ion-minus-circled"></i></a>
         </span>

@@ -4,6 +4,7 @@ app.controller(
 		function(scope, filter, timeout, state, Restangular, Session) {
 			var status;
 			redirect();
+			checkCurrent();
 
 			function redirect() {
 				status = Session.checkIfLogged();
@@ -14,6 +15,10 @@ app.controller(
 				} else {
 
 				}
+			}
+
+			function checkCurrent() {
+				var current = Session.identify();
 			}
 		}
 	]
