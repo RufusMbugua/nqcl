@@ -581,6 +581,7 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "          </a>\n" +
     "        </li>\n" +
     "        <li><a href=\"#\" is-active-nav ui-sref=\"logout\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
+    "\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +
     "  </div><!-- /.container-fluid -->\n" +
@@ -604,6 +605,7 @@ angular.module("../app/partials/admin/index.html", []).run(["$templateCache", fu
 angular.module("../app/partials/admin/login.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/admin/login.html",
     "<div id=\"login\">\n" +
+    "  <h2>NQCL Admin Login </h2>\n" +
     "  <form id=\"login-form\">\n" +
     "    <div class=\"form-group\">\n" +
     "      <label for=\"exampleInputEmail1\">Email address</label>\n" +
@@ -755,42 +757,47 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "  <section id=\"map\">\n" +
     "\n" +
-    "  <script type=\"text/javascript\">\n" +
-    "  var LGS=new google.maps.LatLng(-1.303227,36.807026);\n" +
-    "  function initialize()\n" +
-    "  {\n" +
-    "    var mapProp = {\n" +
-    "      center:new google.maps.LatLng(-1.303227,36.807026),\n" +
-    "      zoom:15,\n" +
-    "      mapTypeId:google.maps.MapTypeId.ROADMAP\n" +
-    "    };\n" +
-    "    var map=new google.maps.Map(document.getElementById(\"map_canvas\")\n" +
-    "    ,mapProp);\n" +
-    "    var marker=new google.maps.Marker({position:LGS,});\n" +
+    "    <script type=\"text/javascript\">\n" +
+    "    var google;\n" +
     "\n" +
-    "    marker.setMap(map);\n" +
-    "    var infowindow1 = new google.maps.InfoWindow({\n" +
-    "      content:'<div id=\"MapLocation\"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'\n" +
-    "    });\n" +
+    "    if(google){\n" +
+    "      var LGS=new google.maps.LatLng(-1.303227,36.807026);\n" +
+    "      function initialize()\n" +
+    "      {\n" +
+    "        var mapProp = {\n" +
+    "          center:new google.maps.LatLng(-1.303227,36.807026),\n" +
+    "          zoom:15,\n" +
+    "          mapTypeId:google.maps.MapTypeId.ROADMAP\n" +
+    "        };\n" +
+    "        var map=new google.maps.Map(document.getElementById(\"map_canvas\")\n" +
+    "        ,mapProp);\n" +
+    "        var marker=new google.maps.Marker({position:LGS,});\n" +
     "\n" +
-    "    infowindow1.open(map,marker);\n" +
-    "  }\n" +
+    "        marker.setMap(map);\n" +
+    "        var infowindow1 = new google.maps.InfoWindow({\n" +
+    "          content:'<div id=\"MapLocation\"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'\n" +
+    "        });\n" +
     "\n" +
-    "  google.maps.event.addDomListener(window, 'load', initialize);\n" +
-    "  </script>\n" +
-    "\n" +
-    "  <div id=\"map_canvas\">\n" +
-    "\n" +
-    "  </div>\n" +
-    "</section>\n" +
-    "<section class=\"full content\" ng-bind-html=\"content.contact.data_body\">\n" +
+    "        infowindow1.open(map,marker);\n" +
+    "      }\n" +
     "\n" +
     "\n" +
-    "    </section>\n" +
+    "      google.maps.event.addDomListener(window, 'load', initialize);\n" +
+    "    }\n" +
+    "    </script>\n" +
+    "\n" +
+    "    <div id=\"map_canvas\">\n" +
+    "\n" +
+    "    </div>\n" +
+    "  </section>\n" +
+    "  <section class=\"full content\" ng-bind-html=\"content.contact.data_body\">\n" +
+    "\n" +
+    "\n" +
+    "  </section>\n" +
     "\n" +
     "\n" +
     "\n" +
-    "  </div>\n" +
+    "</div>\n" +
     "");
 }]);
 
@@ -940,6 +947,7 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\">\n" +
     "  <img src=\"app/images/logo/MOH.png\"/>\n" +
+    "  <h2>National Quality Control Lab for Drugs and Medical Services</h2>\n" +
     "  <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
     "</div>\n" +
     "\n" +
@@ -980,17 +988,18 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
     "      </ul>\n" +
     "\n" +
     "      <ul class=\"navbar-right\">\n" +
-    "        <li><a href=\"#\" is-active-nav ui-sref=\"login\"><i></i>Login</a></li>\n" +
-    "        <li class=\"dropdown\">\n" +
-    "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\n" +
+    "        <li ng-if=\"user\" class='dropdown'>\n" +
+    "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n" +
+    "            <i class='fa fa-user'></i>\n" +
+    "            <span>{{user[0].f_name}}</span>\n" +
+    "            <span>{{user[0].l_name}}</span>\n" +
+    "            <span class=\"caret\"></span>\n" +
+    "          </a>\n" +
     "          <ul class=\"dropdown-menu\" role=\"menu\">\n" +
-    "            <li><a href=\"#\">Action</a></li>\n" +
-    "            <li><a href=\"#\">Another action</a></li>\n" +
-    "            <li><a href=\"#\">Something else here</a></li>\n" +
-    "            <li class=\"divider\"></li>\n" +
-    "            <li><a href=\"#\">Separated link</a></li>\n" +
+    "            <li><a href=\"#\"><i class=\"ion-gear\"></i>Back to Admin Page</a></li>\n" +
     "          </ul>\n" +
     "        </li>\n" +
+    "        <li ng-if=\"!user\"><a href=\"#\" is-active-nav ui-sref=\"login\"><i class=\"fa fa-sign-in\"></i>Login to CMS</a></li>\n" +
     "      </ul>\n" +
     "    </div><!-- /.navbar-collapse -->\n" +
     "  </div><!-- /.container-fluid -->\n" +
