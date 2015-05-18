@@ -5904,6 +5904,9 @@ header, admin-header, secondary-header {
     background: white;
     width: 100%;
     padding: 2%; }
+    header #logo h2, header #logo img, admin-header #logo h2, admin-header #logo img, secondary-header #logo h2, secondary-header #logo img {
+      display: inline-block;
+      vertical-align: middle; }
   header nav#main, header nav#admin, header nav#secondary, admin-header nav#main, admin-header nav#admin, admin-header nav#secondary, secondary-header nav#main, secondary-header nav#admin, secondary-header nav#secondary {
     background: #00a460 !important;
     height: auto !important;
@@ -5969,12 +5972,14 @@ header, admin-header, secondary-header {
 
 /* Full Size */
 /* Small Size*/
-.content.small h1 {
-  font-size: 30px; }
+.content.small {
+  text-overflow: ellipsis;
+  height: 20em !important;
+  overflow: hidden; }
+  .content.small h1 {
+    font-size: 30px; }
 
 /*  */
-#side-menu h1 {
-  color: #00a460; }
 #side-menu nav a.active {
   background: #90C695 !important;
   color: white !important; }
@@ -5983,9 +5988,6 @@ header, admin-header, secondary-header {
   #side-menu nav a .active {
     background: #90C695 !important;
     color: white !important; }
-
-#side-content h1 {
-  color: #00a460; }
 
 /* Table */
 table thead {
@@ -6016,7 +6018,10 @@ table thead {
   height: 100%;
   padding: 15%;
   background: #00a460; }
-  #login a {
+  #login h2 {
+    width: 100%;
+    text-align: center; }
+  #login a, #login h2 {
     color: white !important; }
   #login #login-form {
     margin: auto;
@@ -6059,6 +6064,7 @@ i {
 
 /* Header Styles */
 h1, h2, h3, h4, h5, h6 {
+  color: black !important;
   font-family: 'Bree Serif',serif !important; }
 
 /* Label Styling */

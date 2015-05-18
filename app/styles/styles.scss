@@ -26,6 +26,10 @@ header,admin-header,secondary-header{
     background:white;
     width:100%;
     padding:2%;
+    h2,img{
+      display: inline-block;
+      vertical-align:middle;
+    }
     //height:10%;
   }
   nav#main,nav#admin,nav#secondary{
@@ -137,6 +141,9 @@ header,admin-header,secondary-header{
 /* Small Size*/
 .content.small{
   @extend .col-md-4;
+  text-overflow:ellipsis;
+  height:20em !important;
+  overflow:hidden;
   h1{
     font-size:30px;
   }
@@ -144,9 +151,6 @@ header,admin-header,secondary-header{
 /*  */
 #side-menu{
   @extend .col-md-4;
-  h1{
-    color:$main_green;
-  }
   nav{
     @extend .nav;
     @extend .nav-pills;
@@ -166,9 +170,6 @@ header,admin-header,secondary-header{
 }
 #side-content{
   @extend .col-md-8;
-  h1{
-    color:$main_green;
-  }
 }
 
 /* Table */
@@ -215,7 +216,11 @@ table{
 
 /* Login */
 #login{
-  a{
+  h2{
+    width:100%;
+    text-align:center;
+  }
+  a,h2{
     color:white !important;
   }
   height:100%;
@@ -272,6 +277,7 @@ i{
 }
 /* Header Styles */
 h1,h2,h3,h4,h5,h6{
+  color:black !important;
   font-family:'Bree Serif',serif !important;
 
 }
