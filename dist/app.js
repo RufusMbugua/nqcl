@@ -55,7 +55,7 @@ app.value('froalaConfig', {
 				if (status == 'false') {
 					state.go('login');
 				} else if (status == 'true') {
-					state.go('admin');
+					state.go('admin.content');
 				} else {
 
 				}
