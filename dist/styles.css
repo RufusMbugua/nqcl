@@ -5949,7 +5949,7 @@ header, admin-header, secondary-header {
 /* Content */
 #public-content {
   width: 100%;
-  padding: 10% 15% 0 15%;
+  padding: 15% 15% 0 15%;
   /* Carousel */ }
   #public-content #carousel-container {
     width: 100%;

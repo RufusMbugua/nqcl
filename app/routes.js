@@ -38,11 +38,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: 'app/partials/articles/articles.published.html',
           controller: 'contentCtrl'
         },
-        'list@published.news': {
+        'list@public.news': {
           templateUrl: 'app/partials/articles/articles.list.html',
           controller: 'contentCtrl'
         },
-        'detail@published.news': {
+        'detail@public.news': {
           templateUrl: 'app/partials/articles/articles.items.html',
           controller: 'contentCtrl'
         }
@@ -81,7 +81,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         // Main
         '': {
           templateUrl: 'app/partials/admin/index.html',
-          controller: 'contentCtrl'
+          controller: 'adminCtrl'
         },
         'header@admin': {
           templateUrl: 'app/partials/admin/header.html'
