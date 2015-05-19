@@ -30,5 +30,193 @@
             "BSD"
         ],
         "homepage": "http://vfs.bovigo.org/"
+    },
+    {
+        "name": "knplabs/gaufrette",
+        "version": "v0.1.9",
+        "version_normalized": "0.1.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/KnpLabs/Gaufrette.git",
+            "reference": "4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c",
+            "reference": "4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "amazonwebservices/aws-sdk-for-php": "1.5.*",
+            "aws/aws-sdk-php": "~2",
+            "doctrine/dbal": ">=2.3",
+            "dropbox-php/dropbox-php": "*",
+            "google/apiclient": "~1.1",
+            "herzult/php-ssh": "*",
+            "microsoft/windowsazure": "dev-master",
+            "mikey179/vfsstream": "~1.2.0",
+            "phpseclib/phpseclib": "dev-master",
+            "phpspec/phpspec": "2.0.*",
+            "phpunit/phpunit": "3.7.*",
+            "rackspace/php-opencloud": "1.9.*"
+        },
+        "suggest": {
+            "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
+            "aws/aws-sdk-php": "to use the Amazon S3 adapter",
+            "doctrine/dbal": "to use the Doctrine DBAL adapter",
+            "dropbox-php/dropbox-php": "to use the Dropbox adapter",
+            "ext-apc": "to use the APC adapter",
+            "ext-curl": "*",
+            "ext-fileinfo": "This extension is used to automatically detect the content-type of a file in the AwsS3, OpenCloud, AzureBlogStorage and GoogleCloudStorage adapters",
+            "ext-mbstring": "*",
+            "ext-mongo": "*",
+            "ext-zip": "to use the Zip adapter",
+            "google/apiclient": "to use GoogleCloudStorage adapter",
+            "herzult/php-ssh": "to use SFtp adapter",
+            "knplabs/knp-gaufrette-bundle": "to use with Symfony2",
+            "microsoft/windowsazure": "to use Microsoft Azure Blob Storage adapter",
+            "phpseclib/phpseclib": "to use PhpseclibSftp adapter",
+            "rackspace/php-opencloud": "to use Opencloud adapter"
+        },
+        "time": "2015-03-09 08:06:57",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Gaufrette": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "The contributors",
+                "homepage": "http://github.com/knplabs/Gaufrette/contributors"
+            },
+            {
+                "name": "KnpLabs Team",
+                "homepage": "http://knplabs.com"
+            }
+        ],
+        "description": "PHP5 library that provides a filesystem abstraction layer",
+        "homepage": "http://knplabs.com",
+        "keywords": [
+            "abstraction",
+            "file",
+            "filesystem",
+            "media"
+        ]
+    },
+    {
+        "name": "siriusphp/validation",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/siriusphp/validation.git",
+            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/siriusphp/validation/zipball/f7308fd7249442594145e80b55a8f8ccb8d16ebd",
+            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7",
+            "satooshi/php-coveralls": "dev-master"
+        },
+        "time": "2015-05-17 07:11:18",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "autoload.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adrian Miu",
+                "email": "adrian@adrianmiu.ro"
+            }
+        ],
+        "description": "Data validation library. Validate arrays, array objects, domain models etc using a simple API. Easily add your own validators on top of the already dozens built-in validation rules",
+        "keywords": [
+            "form",
+            "modeling",
+            "sanitization",
+            "security",
+            "validation"
+        ]
+    },
+    {
+        "name": "siriusphp/upload",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/siriusphp/upload.git",
+            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/siriusphp/upload/zipball/46901ef5dda62fa81a93e0cb764ca74e075134a4",
+            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3",
+            "siriusphp/validation": "~2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7",
+            "satooshi/php-coveralls": "dev-master"
+        },
+        "suggest": {
+            "knplabs/gaufrette": "Alternative filesystem abstraction library for upload destinations",
+            "league/flysystem": "To upload to different destinations, not just to the local file system"
+        },
+        "time": "2015-05-17 08:38:33",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "autoload.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adrian Miu",
+                "email": "adrian@adrianmiu.ro"
+            }
+        ],
+        "description": "Framework agnostic upload library",
+        "keywords": [
+            "file",
+            "form",
+            "upload",
+            "validation"
+        ]
     }
 ]
