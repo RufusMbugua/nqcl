@@ -9,4 +9,10 @@ class Content_Model extends CI_Model{
     $result = $this->db->get('menus')->result_array();
     return $result;
   }
+
+  public function getContent(){
+    $result = $this->db->join('menus','menu_id = menus.id')
+    ->get('content')->result_array();
+    return $result;
+  }
 }

@@ -13,4 +13,8 @@ class Content extends MY_Controller {
     $items = $this->content_model->getMenus();
     $this->response($items);
   }
+  function content_get(){
+    $items = $this->content_model->getContent();
+    $this->response($items);
+  }
 }
