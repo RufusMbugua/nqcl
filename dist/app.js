@@ -854,7 +854,7 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
     "      </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
-    "  <tfoot><td>Feet</td></tfoot>\n" +
+    "  <tfoot><td></td></tfoot>\n" +
     "</table>\n" +
     "");
 }]);
@@ -947,7 +947,7 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\">\n" +
     "  <img src=\"app/images/logo/MOH.png\"/>\n" +
-    "  <h2>National Quality Control Lab for Drugs and Medical Services</h2>\n" +
+    "  <h3>National Quality Control Lab for Drugs and Medical Services</h3>\n" +
     "  <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
     "</div>\n" +
     "\n" +
