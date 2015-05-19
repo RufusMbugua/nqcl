@@ -239,7 +239,21 @@ app.value('froalaConfig', {
 
     }
   ]);
-;;app.controller(
+;app.controller(
+  "downloadCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      Files = Restangular.all('Downloads?format=json');
+      loadFileList();
+
+      function loadFileList() {
+        Files.getList().then(function(files) {
+          scope.files = files;
+        });
+      }
+    }
+  ]
+);
+;app.controller(
   "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
     function(scope, filter, timeout, state, Restangular) {
       var front = Restangular.all('content/content?format=json');
@@ -888,6 +902,26 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
 angular.module("../app/partials/downloads/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/downloads/index.html",
     "<h3>Downloads Page</h3>\n" +
+    "\n" +
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <tr>\n" +
+    "      <th>Name</th>\n" +
+    "      <th>Source</th>\n" +
+    "    </tr>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"file in files\">\n" +
+    "      <td>{{file.name}}</td>\n" +
+    "      <td>\n" +
+    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg' \"src=\"{{file.url}}\" alt=\"\">\n" +
+    "\n" +
+    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.url}}\">{{file.name}}</a>\n" +
+    "        </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot></tfoot>\n" +
+    "</table>\n" +
     "");
 }]);
 

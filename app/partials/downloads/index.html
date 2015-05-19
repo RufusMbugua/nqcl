@@ -1,1 +1,21 @@
 <h3>Downloads Page</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="file in files">
+      <td>{{file.name}}</td>
+      <td>
+        <img class="img-responsive" ng-if="file.mime == 'image/png' || file.mime == 'image/jpeg' "src="{{file.url}}" alt="">
+
+          <a ng-if="file.mime == 'application/pdf' " href="{{file.url}}">{{file.name}}</a>
+        </td>
+    </tr>
+  </tbody>
+  <tfoot></tfoot>
+</table>
