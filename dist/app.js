@@ -246,7 +246,8 @@ app.value('froalaConfig', {
       loadFileList();
 
       function loadFileList() {
-        Files.getList().then(function(files) {
+        Files.customGET().then(function(files) {
+          console.log(files);
           scope.files = files;
         });
       }
@@ -911,7 +912,7 @@ angular.module("../app/partials/downloads/index.html", []).run(["$templateCache"
     "    </tr>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
-    "    <tr ng-repeat=\"file in files\">\n" +
+    "    <tr ng-repeat=\"file in files.data\">\n" +
     "      <td>{{file.name}}</td>\n" +
     "      <td>\n" +
     "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg' \"src=\"{{file.url}}\" alt=\"\">\n" +

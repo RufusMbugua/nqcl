@@ -8,12 +8,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="file in files">
-      <td>{{file.name}}</td>
+    <tr ng-repeat="file in files.data" ng-if="file.name.path!=''">
+      <td>{{file.name.name}}</td>
       <td>
-        <img class="img-responsive" ng-if="file.mime == 'image/png' || file.mime == 'image/jpeg' "src="{{file.url}}" alt="">
+        <img class="img-responsive" ng-if="file.mime == 'image/png' || file.mime == 'image/jpeg'
+        "src="{{file.uri}}" alt="">
 
-          <a ng-if="file.mime == 'application/pdf' " href="{{file.url}}">{{file.name}}</a>
+          <a ng-if="file.mime == 'application/pdf' " href="{{file.uri}}">{{file.name.name}}</a>
         </td>
     </tr>
   </tbody>

@@ -4,66 +4,59 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6040f457bce96172d18ac79221bd869f",
+    "hash": "bdca13d473b5b6b3e6a6570d10e1c7a8",
     "packages": [
         {
-            "name": "knplabs/gaufrette",
-            "version": "v0.1.9",
+            "name": "league/flysystem",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/KnpLabs/Gaufrette.git",
-                "reference": "4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c"
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c",
-                "reference": "4c73bb66ff41d7c9beb57372a82047cf5dcc6d1c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.2"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "amazonwebservices/aws-sdk-for-php": "1.5.*",
-                "aws/aws-sdk-php": "~2",
-                "doctrine/dbal": ">=2.3",
-                "dropbox-php/dropbox-php": "*",
-                "google/apiclient": "~1.1",
-                "herzult/php-ssh": "*",
-                "microsoft/windowsazure": "dev-master",
-                "mikey179/vfsstream": "~1.2.0",
-                "phpseclib/phpseclib": "dev-master",
-                "phpspec/phpspec": "2.0.*",
-                "phpunit/phpunit": "3.7.*",
-                "rackspace/php-opencloud": "1.9.*"
+                "ext-fileinfo": "*",
+                "league/phpunit-coverage-listener": "~1.1",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "~2.0",
+                "phpspec/prophecy-phpunit": "~1.0",
+                "phpunit/phpunit": "~4.1",
+                "predis/predis": "~1.0",
+                "tedivm/stash": "~0.12.0"
             },
             "suggest": {
-                "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
-                "aws/aws-sdk-php": "to use the Amazon S3 adapter",
-                "doctrine/dbal": "to use the Doctrine DBAL adapter",
-                "dropbox-php/dropbox-php": "to use the Dropbox adapter",
-                "ext-apc": "to use the APC adapter",
-                "ext-curl": "*",
-                "ext-fileinfo": "This extension is used to automatically detect the content-type of a file in the AwsS3, OpenCloud, AzureBlogStorage and GoogleCloudStorage adapters",
-                "ext-mbstring": "*",
-                "ext-mongo": "*",
-                "ext-zip": "to use the Zip adapter",
-                "google/apiclient": "to use GoogleCloudStorage adapter",
-                "herzult/php-ssh": "to use SFtp adapter",
-                "knplabs/knp-gaufrette-bundle": "to use with Symfony2",
-                "microsoft/windowsazure": "to use Microsoft Azure Blob Storage adapter",
-                "phpseclib/phpseclib": "to use PhpseclibSftp adapter",
-                "rackspace/php-opencloud": "to use Opencloud adapter"
+                "ext-fileinfo": "Required for MimeType",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-copy": "Allows you to use Copy.com storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+                "predis/predis": "Allows you to use Predis for caching"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.2.x-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Gaufrette": "src/"
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -72,23 +65,92 @@
             ],
             "authors": [
                 {
-                    "name": "The contributors",
-                    "homepage": "http://github.com/knplabs/Gaufrette/contributors"
-                },
-                {
-                    "name": "KnpLabs Team",
-                    "homepage": "http://knplabs.com"
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
                 }
             ],
-            "description": "PHP5 library that provides a filesystem abstraction layer",
-            "homepage": "http://knplabs.com",
+            "description": "Many filesystems, one API.",
             "keywords": [
-                "abstraction",
-                "file",
+                "Cloud Files",
+                "WebDAV",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
                 "filesystem",
-                "media"
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
             ],
-            "time": "2015-03-09 08:06:57"
+            "time": "2015-03-29 14:01:43"
+        },
+        {
+            "name": "league/fractal",
+            "version": "0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/fractal.git",
+                "reference": "0a51dcb6398dc2377d086210d0624996a1df8322"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/0a51dcb6398dc2377d086210d0624996a1df8322",
+                "reference": "0a51dcb6398dc2377d086210d0624996a1df8322",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "illuminate/contracts": "~5.0",
+                "mockery/mockery": "~0.9",
+                "pagerfanta/pagerfanta": "~1.0.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5",
+                "zendframework/zend-paginator": "~2.3"
+            },
+            "suggest": {
+                "illuminate/pagination": "The Illuminate Pagination component.",
+                "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+                "zendframework/zend-paginator": "Zend Framework Paginator"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Fractal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Sturgeon",
+                    "email": "me@philsturgeon.uk",
+                    "homepage": "http://philsturgeon.uk/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Handle the output of complex data structures ready for API output.",
+            "homepage": "http://fractal.thephpleague.com/",
+            "keywords": [
+                "api",
+                "json",
+                "league",
+                "rest"
+            ],
+            "time": "2015-03-19 15:16:43"
         },
         {
             "name": "siriusphp/upload",

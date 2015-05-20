@@ -5,7 +5,8 @@ app.controller(
       loadFileList();
 
       function loadFileList() {
-        Files.getList().then(function(files) {
+        Files.customGET().then(function(files) {
+          console.log(files);
           scope.files = files;
         });
       }
