@@ -49,9 +49,10 @@ class News extends MY_Controller {
   function index_post(){
     $post_data = file_get_contents("php://input");
     $post_data = json_decode($post_data,true);
-    $result = $this->news_model->addArticle($post_data);
+
+    $article = Article::firstOrCreate($post_data);
 
 
-    $this->response($result);
+    $this->response($article);
   }
 }

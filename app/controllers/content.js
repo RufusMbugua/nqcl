@@ -3,10 +3,10 @@ app.controller(
 		'$http',
 		function(scope, filter, timeout, state, Restangular, http) {
 			/**
-			 * [menu description]
+			 * [Pages description]
 			 * @type {[type]}
 			 */
-			var Menu = Restangular.all('content?format=json');
+			var Pages = Restangular.all('pages?format=json');
 
 			/**
 			 * [article description]
@@ -14,11 +14,6 @@ app.controller(
 			 */
 			var Articles = Restangular.all('news?format=json');
 
-			/**
-			 * [Content description]
-			 * @type {RegExp}
-			 */
-			var Content = Restangular.all('content/content?format=json');
 			/**
 			 * [menu description]
 			 * @type {Array}
@@ -45,21 +40,13 @@ app.controller(
 
 			setArticleMenu();
 
-			/**
-			 * [getMenuItems description]
-			 */
-			function getMenuItems() {
-				Menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
 
 			/**
 			 * [loadArticles description]
 			 */
 			function loadArticles() {
 				Articles.customGET().then(function(articles) {
-					console.log(articles);
+					// console.log(articles);
 					scope.list = articles;
 				});
 			}
@@ -129,7 +116,8 @@ app.controller(
 			 */
 			function loadSiteContent() {
 				scope.list = {};
-				Content.getList().then(function(content) {
+				Pages.customGET().then(function(content) {
+					console.log(content);
 					scope.list = content;
 					// console.log(scope.list);
 				});

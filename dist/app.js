@@ -100,10 +100,10 @@ app.value('froalaConfig', {
 		'$http',
 		function(scope, filter, timeout, state, Restangular, http) {
 			/**
-			 * [menu description]
+			 * [Pages description]
 			 * @type {[type]}
 			 */
-			var Menu = Restangular.all('content?format=json');
+			var Pages = Restangular.all('pages?format=json');
 
 			/**
 			 * [article description]
@@ -111,11 +111,6 @@ app.value('froalaConfig', {
 			 */
 			var Articles = Restangular.all('news?format=json');
 
-			/**
-			 * [Content description]
-			 * @type {RegExp}
-			 */
-			var Content = Restangular.all('content/content?format=json');
 			/**
 			 * [menu description]
 			 * @type {Array}
@@ -142,21 +137,13 @@ app.value('froalaConfig', {
 
 			setArticleMenu();
 
-			/**
-			 * [getMenuItems description]
-			 */
-			function getMenuItems() {
-				Menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
 
 			/**
 			 * [loadArticles description]
 			 */
 			function loadArticles() {
 				Articles.customGET().then(function(articles) {
-					console.log(articles);
+					// console.log(articles);
 					scope.list = articles;
 				});
 			}
@@ -226,7 +213,8 @@ app.value('froalaConfig', {
 			 */
 			function loadSiteContent() {
 				scope.list = {};
-				Content.getList().then(function(content) {
+				Pages.customGET().then(function(content) {
+					console.log(content);
 					scope.list = content;
 					// console.log(scope.list);
 				});
@@ -250,54 +238,54 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      var front = Restangular.all('content/content?format=json');
-      loadImages();
-      loadContent();
-      scope.content = [];
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('pages?format=json');
+			loadImages();
+			loadContent();
+			scope.content = [];
 
-      function loadImages() {
-        scope.slides = [{
-          image: 'app/images/slides/1.png',
-          text: ''
-        }, {
-          image: 'app/images/slides/2.png',
-          text: ''
-        }, {
-          image: 'app/images/slides/3.png',
-          text: ''
-        }];
-      }
+			function loadImages() {
+				scope.slides = [{
+					image: 'app/images/slides/1.png',
+					text: ''
+				}, {
+					image: 'app/images/slides/2.png',
+					text: ''
+				}, {
+					image: 'app/images/slides/3.png',
+					text: ''
+				}];
+			}
 
 
-      function loadContent() {
+			function loadContent() {
 
-        front.getList().then(function(content) {
-          console.log(content);
-          angular.forEach(content, function(value, key) {
-            switch (value.name) {
-              case "Welcome to NQCL":
-                scope.content.welcome = value;
-                break;
-              case "Our Services":
-                scope.content.services = value;
-                break;
-              case "Contact Us":
-                scope.content.contact = value;
-                break;
-              default:
+				front.getList().then(function(content) {
+					console.log(content);
+					angular.forEach(content, function(value, key) {
+						switch (value.name) {
+							case "Welcome to NQCL":
+								scope.content.welcome = value;
+								break;
+							case "Our Services":
+								scope.content.services = value;
+								break;
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+							default:
 
-                break;
+								break;
 
-            }
+						}
 
-          });
-        });
-      }
+					});
+				});
+			}
 
-    }
-  ]
+		}
+	]
 );
 ;app.controller(
 	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -308,7 +296,6 @@ app.value('froalaConfig', {
 			function loadContent() {
 				var Content = Restangular.all('news?format=json');
 				Content.getList().then(function(content) {
-					console.log(content.data);
 					scope.content = content.data;
 				});
 			}
@@ -829,7 +816,7 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "\n" +
     "    </div>\n" +
     "  </section>\n" +
-    "  <section class=\"full content\" ng-bind-html=\"content.contact.body\">\n" +
+    "  <section class=\"full content\" ng-bind-html=\"content.contact.content[0].body\">\n" +
     "\n" +
     "\n" +
     "  </section>\n" +
@@ -881,7 +868,7 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
     "  <tbody>\n" +
     "    <tr ng-repeat=\"item in list\">\n" +
     "      <td>{{item.name}}</td>\n" +
-    "      <td><textarea froala ng-model=\"item.body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
+    "      <td><textarea froala ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
     "      <td>{{item.active}}</td>\n" +
     "      <td>\n" +
     "        <div class=\"btn-group btn-group-sm\">\n" +
@@ -962,22 +949,22 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "  <section class=\"content full\">\n" +
     "\n" +
     "    <h1>{{content.welcome.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.welcome.body\">\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.services.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.services.body\">\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.services.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.customers.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.customers.body\">\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.customers.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.contact.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.contact.body\"></div>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
     "  </section>\n" +
     "</div>\n" +
     "");
@@ -1088,7 +1075,7 @@ angular.module("../app/partials/services/index.html", []).run(["$templateCache",
   $templateCache.put("../app/partials/services/index.html",
     "<div class=\"row\">\n" +
     "\n" +
-    "  <section class=\"content full\" ng-bind-html=\"content.body\">\n" +
+    "  <section class=\"content full\" ng-bind-html=\"content.content[0].body\">\n" +
     "  </section>\n" +
     "</div>\n" +
     "");

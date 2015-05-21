@@ -1,10 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-class Content_Model extends CI_Model{
+use \Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Content extends Eloquent{
 
   /**
   * Get all Links for About Page
   */
+  public function menu()
+     {
+         return $this->belongsTo('Menu');
+     }
+
+
   public function getMenus(){
     $result = $this->db->get('menus')->result_array();
     return $result;
