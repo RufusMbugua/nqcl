@@ -96,149 +96,144 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    '$http',
-    function(scope, filter, timeout, state, Restangular, http) {
-      /**
-       * [menu description]
-       * @type {[type]}
-       */
-      var Menu = Restangular.all('content?format=json');
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'$http',
+		function(scope, filter, timeout, state, Restangular, http) {
+			/**
+			 * [menu description]
+			 * @type {[type]}
+			 */
+			var Menu = Restangular.all('content?format=json');
 
-      /**
-       * [article description]
-       * @type {[type]}
-       */
-      var Articles = Restangular.all('news?format=json');
+			/**
+			 * [article description]
+			 * @type {[type]}
+			 */
+			var Articles = Restangular.all('news?format=json');
 
-      /**
-       * [Content description]
-       * @type {RegExp}
-       */
-      var Content = Restangular.all('content/content?format=json');
-      /**
-       * [menu description]
-       * @type {Array}
-       */
-      scope.menu = [];
+			/**
+			 * [Content description]
+			 * @type {RegExp}
+			 */
+			var Content = Restangular.all('content/content?format=json');
+			/**
+			 * [menu description]
+			 * @type {Array}
+			 */
+			scope.menu = [];
 
-      /**
-       * [article_menu description]
-       * @type {Array}
-       */
-      scope.article_menu = [];
+			/**
+			 * [article_menu description]
+			 * @type {Array}
+			 */
+			scope.article_menu = [];
 
-      /**
-       * [content description]
-       * @type {Array}
-       */
-      scope.content = [];
+			/**
+			 * [content description]
+			 * @type {Array}
+			 */
+			scope.content = [];
 
-      scope.alerts = [];
+			scope.alerts = [];
 
-      // getMenuItems();
-      loadSiteContent();
-      loadArticles();
+			// getMenuItems();
+			loadSiteContent();
+			loadArticles();
 
-      setArticleMenu();
+			setArticleMenu();
 
-      /**
-       * [getMenuItems description]
-       */
-      function getMenuItems() {
-        Menu.getList().then(function(menu) {
-          scope.list = menu;
-        });
-      }
+			/**
+			 * [getMenuItems description]
+			 */
+			function getMenuItems() {
+				Menu.getList().then(function(menu) {
+					scope.list = menu;
+				});
+			}
 
-      /**
-       * [loadArticles description]
-       */
-      function loadArticles() {
-        http.get('news?format=json').
-        success(function(data, status, headers, config) {
-          scope.content = data;
-        }).
-        error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
-      }
+			/**
+			 * [loadArticles description]
+			 */
+			function loadArticles() {
+				Articles.customGET().then(function(articles) {
+					console.log(articles);
+					scope.list = articles;
+				});
+			}
 
 
-      /**
-       * [setArticleMenu description]
-       */
-      function setArticleMenu() {
-        article_menu = [{
-          'name': 'Add',
-          'ui_sref': 'admin.articles.add',
-          'icon_class': 'fa fa-plus'
-        }, {
-          'name': 'Published',
-          'ui_sref': 'admin.articles.published',
-          'icon_class': 'fa fa-newspaper-o'
-        }];
+			/**
+			 * [setArticleMenu description]
+			 */
+			function setArticleMenu() {
+				article_menu = [{
+					'name': 'Add',
+					'ui_sref': 'admin.articles.add',
+					'icon_class': 'fa fa-plus'
+				}, {
+					'name': 'Published',
+					'ui_sref': 'admin.articles.published',
+					'icon_class': 'fa fa-newspaper-o'
+				}];
 
-        scope.article_menu = article_menu;
-      }
+				scope.article_menu = article_menu;
+			}
 
-      /**
-       * [addArticle description]
-       */
-      scope.addArticle = function addArticle() {
-        Articles.post(scope.article).then(function(response) {
-          var alert = {
-            type: 'success',
-            msg: response
-          }
-          scope.alerts.push(alert);
-          timeout(function() {
-            state.go('articles.published')
-          }, 1000);
-        });
-      }
+			/**
+			 * [addArticle description]
+			 */
+			scope.addArticle = function addArticle() {
+				Articles.post(scope.article).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+					timeout(function() {
+						state.go('articles.published')
+					}, 1000);
+				});
+			}
 
-      /**
-       * [editArticle description]
-       */
-      scope.editArticle = function editArticle(item) {
-        scope.article = item;
+			/**
+			 * [editArticle description]
+			 */
+			scope.editArticle = function editArticle(item) {
+				scope.article = item;
 
-      }
+			}
 
-      /**
-       * [disableArticle description]
-       */
-      scope.disableArticle = function disableArticle() {
+			/**
+			 * [disableArticle description]
+			 */
+			scope.disableArticle = function disableArticle() {
 
-      }
+			}
 
-      /**
-       * [closeAlert description]
-       * @param {[type]} index [description]
-       */
-      scope.closeAlert = function(index) {
-        scope.alerts.splice(index, 1);
-      };
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
 
 
-      // Content
+			// Content
 
-      /**
-       * [loadSiteContent description]
-       */
-      function loadSiteContent() {
-        console.log(scope.list);
-        scope.list = {};
-        Content.getList().then(function(content) {
-          scope.list = content;
-          console.log(scope.list);
-        });
-      }
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadSiteContent() {
+				scope.list = {};
+				Content.getList().then(function(content) {
+					scope.list = content;
+					// console.log(scope.list);
+				});
+			}
 
-    }
-  ]);
+		}
+	]);
 ;app.controller(
   "downloadCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
     function(scope, filter, timeout, state, Restangular) {
@@ -305,19 +300,20 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
+	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
 
-      loadContent();
+			loadContent();
 
-      function loadContent() {
-        var Content = Restangular.all('news?format=json');
-        Content.getList().then(function(content) {
-          scope.content = content;
-        });
-      }
-    }
-  ]
+			function loadContent() {
+				var Content = Restangular.all('news?format=json');
+				Content.getList().then(function(content) {
+					console.log(content.data);
+					scope.content = content.data;
+				});
+			}
+		}
+	]
 );
 ;app.controller(
 	"servicesCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -912,12 +908,13 @@ angular.module("../app/partials/downloads/index.html", []).run(["$templateCache"
     "    </tr>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
-    "    <tr ng-repeat=\"file in files.data\">\n" +
-    "      <td>{{file.name}}</td>\n" +
+    "    <tr ng-repeat=\"file in files.data\" ng-if=\"file.name.path!=''\">\n" +
+    "      <td>{{file.name.name}}</td>\n" +
     "      <td>\n" +
-    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg' \"src=\"{{file.url}}\" alt=\"\">\n" +
+    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg'\n" +
+    "        \"src=\"{{file.uri}}\" alt=\"\">\n" +
     "\n" +
-    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.url}}\">{{file.name}}</a>\n" +
+    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
     "        </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +

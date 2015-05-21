@@ -1,15 +1,16 @@
 app.controller(
-  "newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
+	"newsCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
 
-      loadContent();
+			loadContent();
 
-      function loadContent() {
-        var Content = Restangular.all('news?format=json');
-        Content.getList().then(function(content) {
-          scope.content = content;
-        });
-      }
-    }
-  ]
+			function loadContent() {
+				var Content = Restangular.all('news?format=json');
+				Content.getList().then(function(content) {
+					console.log(content.data);
+					scope.content = content.data;
+				});
+			}
+		}
+	]
 );
