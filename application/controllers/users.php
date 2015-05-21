@@ -5,13 +5,12 @@ class Users extends MY_Controller {
 
   public function __construct(){
     parent::__construct();
-    $this->load->model('users_model');
   }
 
 
   function index_get(){
 
-    $content = $this->users_model->getUsers();
+    $content = User::find(2);
     $this->response($content);
   }
 

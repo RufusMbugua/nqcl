@@ -5,12 +5,11 @@ class News extends MY_Controller {
 
   public function __construct(){
     parent::__construct();
-      $this->load->model('news_model');
   }
 
 
   function index_get(){
-    $items = $this->news_model->getItems();
+    $items = Article::all()->all();
     $this->response($items);
   }
 

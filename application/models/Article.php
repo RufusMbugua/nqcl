@@ -1,13 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Africa/Nairobi');
-class News_Model extends CI_Model{
+use \Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Article extends Eloquent{
 
   /**
   * Get all Links for About Page
   */
-  public function getItems(){
-    $result = $this->db->order_by('time_posted','DESC')->get('news')->result_array();
+  public function scopeAll(){
+    $result = Article::orderBy('time_posted','DESC')->get('news')->toArray();
     $newResult=array();
     foreach ($result as $key => $value) {
 

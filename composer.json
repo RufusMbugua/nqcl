@@ -1,14 +1,23 @@
 {
-	"description" : "The CodeIgniter framework",
-	"name" : "codeigniter/framework",
-	"license": "MIT",
-	"require": {
-		"php": ">=5.2.4",
-		"siriusphp/upload": "~2.0",
-		"league/fractal": "0.12.*",
-		"league/flysystem": "~1.0"
-	},
-	"require-dev": {
-		"mikey179/vfsStream": "1.1.*"
-	}
+  "description": "The CodeIgniter framework",
+  "name": "codeigniter/framework",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.2.4",
+    "siriusphp/upload": "~2.0",
+    "league/fractal": "0.12.*",
+    "league/flysystem": "~1.0",
+    "illuminate/database": "~5.0",
+    "illuminate/console": "~5.0"
+  },
+  "require-dev": {
+    "mikey179/vfsStream": "1.1.*"
+  },
+  "autoload": {
+    "classmap": [
+      "application/core",
+      "application/models",
+      "application/libraries"
+    ]
+  }
 }

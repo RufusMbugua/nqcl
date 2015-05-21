@@ -7,4 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'org\\bovigo\\vfs' => array($vendorDir . '/mikey179/vfsStream/src/main/php'),
+    'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
+    'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
+    'Doctrine\\Common\\Inflector\\' => array($vendorDir . '/doctrine/inflector/lib'),
+    'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
 );

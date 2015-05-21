@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+use Illuminate\Database\Capsule\Manager as Capsule;
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -83,3 +83,19 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+// Eloquent
+$capsule = new Capsule;
+
+$capsule->addConnection(array(
+    'driver'    => 'mysql',
+    'host'      => $db['default']['hostname'],
+    'database'  => $db['default']['database'],
+    'username'  => $db['default']['username'],
+    'password'  => $db['default']['password'],
+    'charset'   => 'utf8',
+    'collation' => 'utf8_unicode_ci',
+    'prefix'    => $db['default']['dbprefix'],
+));
+$capsule->setAsGlobal();
+$capsule->bootEloquent();

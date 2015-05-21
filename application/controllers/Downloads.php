@@ -25,20 +25,30 @@ class Downloads extends MY_Controller{
     $uploadHandler->addRule('imageratio', ['ratio' => 1], '{label} should be a sqare image', 'Valid File');
 
     $files = $this->filesystem->listContents();
-// echo'<pre>';print_r($files);die;
+
     $resource = new Collection($files, function(array $file) {
-        return [
-            'name' => [
-              'name'=>$file['path'],
-              'path'=>$file['filename']
-            ],
-            'uri'  => $this->directory.$file['path'],
-            'mime' => get_mime_by_extension($file['path'])
-        ];
+      return [
+        'name' => [
+          'name'=>$file['path'],
+          'path'=>$file['filename']
+        ],
+        'uri'  => $this->directory.$file['path'],
+        'mime' => get_mime_by_extension($file['path'])
+      ];
     });
 
     $data = $this->fractal->createData($resource)->toArray();
 
     $this->response($data);
+  }
+
+  function index_post(){
+    $upload_name='upload';
+    $stream = fopen($_FILES[$upload_name]['tmp_name'], 'r+');
+  if($filesystem->writeStream($this->directory.$_FILES[$upload_name]['name'], $stream)){
+
+  };
+    fclose($stream);
+
   }
 }
