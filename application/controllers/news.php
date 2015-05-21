@@ -50,9 +50,19 @@ class News extends MY_Controller {
     $post_data = file_get_contents("php://input");
     $post_data = json_decode($post_data,true);
 
-    $article = Article::firstOrCreate($post_data);
+    $article = new Article();
+
+    $article->title = $post_data['title'];
+    $article->type = $post_data['type'];
+    $article->body = $post_data['body'];
 
 
-    $this->response($article);
+    if($article->save()){
+      $this->response('Article Saved');
+    }
+    else{
+      $this->response('Article Not Saved');
+    }
+
   }
 }

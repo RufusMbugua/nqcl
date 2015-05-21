@@ -45,10 +45,18 @@ app.controller(
 			 * [loadArticles description]
 			 */
 			function loadArticles() {
-				scope.list = {};
-				Articles.customGET().then(function(article) {
-					scope.list = article;
+				scope.list = [];
+				http.get('news?format=json').
+				success(function(data, status, headers, config) {
+					scope.list = data;
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
 				});
+				// Articles.customGET().then(function(article) {
+				// 	scope.list = article;
+				// });
 			}
 
 
@@ -80,7 +88,7 @@ app.controller(
 					}
 					scope.alerts.push(alert);
 					timeout(function() {
-						state.go('articles.published')
+						state.go('admin.articles.published')
 					}, 1000);
 				});
 			}
@@ -115,7 +123,7 @@ app.controller(
 			 * [loadSiteContent description]
 			 */
 			function loadSiteContent() {
-				scope.content = {};
+				scope.content = [];
 				Pages.customGET().then(function(content) {
 					scope.content = content;
 				});

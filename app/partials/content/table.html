@@ -6,7 +6,7 @@
     <th>Action</th>
   </thead>
   <tbody>
-    <tr ng-repeat="item in list">
+    <tr ng-repeat="item in content">
       <td>{{item.name}}</td>
       <td>
         <textarea froala ng-model="item.content[0].body" ng-bind-html="item.body"></textarea></td>
