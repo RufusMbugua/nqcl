@@ -45,9 +45,9 @@ app.controller(
 			 * [loadArticles description]
 			 */
 			function loadArticles() {
-				Articles.customGET().then(function(articles) {
-					// console.log(articles);
-					scope.list = articles;
+				scope.list = {};
+				Articles.customGET().then(function(article) {
+					scope.list = article;
 				});
 			}
 
@@ -115,11 +115,9 @@ app.controller(
 			 * [loadSiteContent description]
 			 */
 			function loadSiteContent() {
-				scope.list = {};
+				scope.content = {};
 				Pages.customGET().then(function(content) {
-					console.log(content);
-					scope.list = content;
-					// console.log(scope.list);
+					scope.content = content;
 				});
 			}
 

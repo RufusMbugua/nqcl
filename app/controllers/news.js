@@ -7,7 +7,7 @@ app.controller(
 			function loadContent() {
 				var Content = Restangular.all('news?format=json');
 				Content.getList().then(function(content) {
-					scope.content = content.data;
+					scope.content = content;
 				});
 			}
 		}

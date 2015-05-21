@@ -8,7 +8,8 @@
   <tbody>
     <tr ng-repeat="item in list">
       <td>{{item.name}}</td>
-      <td><textarea froala ng-model="item.content[0].body" ng-bind-html="item.body"></textarea></td>
+      <td>
+        <textarea froala ng-model="item.content[0].body" ng-bind-html="item.body"></textarea></td>
       <td>{{item.active}}</td>
       <td>
         <div class="btn-group btn-group-sm">
