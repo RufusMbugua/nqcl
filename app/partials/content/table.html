@@ -1,16 +1,15 @@
 <table>
   <thead>
     <th>Name</th>
-    <th>Order</th>
-    <th>Linked Content</th>
+    <th>Body</th>
     <th>Active</th>
     <th>Action</th>
   </thead>
   <tbody>
-    <tr ng-repeat="item in list">
+    <tr ng-repeat="item in content">
       <td>{{item.name}}</td>
-      <td>{{item.order}}</td>
-      <td>{{item.content_id}}</td>
+      <td>
+        <textarea froala ng-model="item.content[0].body" ng-bind-html="item.body"></textarea></td>
       <td>{{item.active}}</td>
       <td>
         <div class="btn-group btn-group-sm">

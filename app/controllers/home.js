@@ -1,7 +1,7 @@
 app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
-			var front = Restangular.all('front?format=json');
+			var front = Restangular.all('pages?format=json');
 			loadImages();
 			loadContent();
 			scope.content = [];
@@ -21,18 +21,19 @@ app.controller(
 
 
 			function loadContent() {
-				front.getList().then(function(content) {
 
+				front.getList().then(function(content) {
+					console.log(content);
 					angular.forEach(content, function(value, key) {
-						switch (value.data_type) {
-							case "WELCOME TO NQCL":
+						switch (value.name) {
+							case "Welcome to NQCL":
 								scope.content.welcome = value;
 								break;
-							case "OUR SERVICES":
+							case "Our Services":
 								scope.content.services = value;
 								break;
-							case "CUSTOMERS WHO TRUST IN US":
-								scope.content.customers = value;
+							case "Contact Us":
+								scope.content.contact = value;
 								break;
 							default:
 

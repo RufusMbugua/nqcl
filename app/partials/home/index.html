@@ -12,22 +12,22 @@
 <div class="row">
   <section class="content full">
 
-    <h1>{{content.welcome.data_type}}</h1>
-    <div class="description" ng-bind-html="content.welcome.data_body">
+    <h1>{{content.welcome.name}}</h1>
+    <div class="description" ng-bind-html="content.welcome.content[0].body">
     </div>
   </section>
   <section class="content small">
-    <h1>{{content.services.data_type}}</h1>
-    <div class="description" ng-bind-html="content.services.data_body">
+    <h1>{{content.services.name}}</h1>
+    <div class="description" ng-bind-html="content.services.content[0].body">
     </div>
   </section>
   <section class="content small">
-    <h1>{{content.customers.data_type}}</h1>
-    <div class="description" ng-bind-html="content.customers.data_body">
+    <h1>{{content.customers.name}}</h1>
+    <div class="description" ng-bind-html="content.customers.content[0].body">
     </div>
   </section>
   <section class="content small">
-    <h1>Contact Us</h1>
-    <div class="description"></div>
+    <h1>{{content.contact.name}}</h1>
+    <div class="description" ng-bind-html="content.contact.content[0].body"></div>
   </section>
 </div>

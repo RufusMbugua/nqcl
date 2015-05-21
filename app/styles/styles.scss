@@ -176,7 +176,6 @@ header,admin-header,secondary-header{
 table{
   @extend .table;
   @extend .table-responsive;
-  @extend .table-hover;
   thead{
     background:$secondary_green;
     color:white;

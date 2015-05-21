@@ -3,16 +3,17 @@ app.controller(
 		'$http',
 		function(scope, filter, timeout, state, Restangular, http) {
 			/**
-			 * [menu description]
+			 * [Pages description]
 			 * @type {[type]}
 			 */
-			var Menu = Restangular.all('content?format=json');
+			var Pages = Restangular.all('pages?format=json');
 
 			/**
 			 * [article description]
 			 * @type {[type]}
 			 */
 			var Articles = Restangular.all('news?format=json');
+
 			/**
 			 * [menu description]
 			 * @type {Array}
@@ -33,33 +34,29 @@ app.controller(
 
 			scope.alerts = [];
 
-			getMenuItems();
-
+			// getMenuItems();
+			loadSiteContent();
 			loadArticles();
 
 			setArticleMenu();
 
-			/**
-			 * [getMenuItems description]
-			 */
-			function getMenuItems() {
-				Menu.getList().then(function(menu) {
-					scope.list = menu;
-				});
-			}
 
 			/**
 			 * [loadArticles description]
 			 */
 			function loadArticles() {
+				scope.list = [];
 				http.get('news?format=json').
 				success(function(data, status, headers, config) {
-					scope.content = data;
+					scope.list = data;
 				}).
 				error(function(data, status, headers, config) {
 					// called asynchronously if an error occurs
 					// or server returns response with an error status.
 				});
+				// Articles.customGET().then(function(article) {
+				// 	scope.list = article;
+				// });
 			}
 
 
@@ -91,7 +88,7 @@ app.controller(
 					}
 					scope.alerts.push(alert);
 					timeout(function() {
-						state.go('articles.published')
+						state.go('admin.articles.published')
 					}, 1000);
 				});
 			}
@@ -118,6 +115,19 @@ app.controller(
 			scope.closeAlert = function(index) {
 				scope.alerts.splice(index, 1);
 			};
+
+
+			// Content
+
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadSiteContent() {
+				scope.content = [];
+				Pages.customGET().then(function(content) {
+					scope.content = content;
+				});
+			}
 
 		}
 	]);

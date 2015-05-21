@@ -1,5 +1,5 @@
-<h2><i class='ion-ios-paper'></i>Latest Articles</h2>
-<div ng-repeat="(year,months) in content track by $index" ng-if="$last">
+<h2><i class='ion-ios-paper'></i>News and Articles</h2>
+<div ng-repeat="(year,months) in list track by $index" ng-if="$last">
   <div ng-repeat="(month,articles) in months track by $index" ng-if="$last">
     <div ng-repeat="item in articles track by $index | orderBy:time_posted : reverse" class="news-item">
       <h3>{{item.title}}
