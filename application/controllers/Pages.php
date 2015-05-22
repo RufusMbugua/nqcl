@@ -21,4 +21,14 @@ class Pages extends MY_Controller {
     $content->save();
     $this->response($content);
   }
+
+  function index_delete(){
+
+    $data=$this->delete();
+    var_dump($data);die;
+    $menu = Menu::find($data['id']);
+    $menu->active=0;
+    $menu->save();
+    $this->response($menu);
+  }
 }

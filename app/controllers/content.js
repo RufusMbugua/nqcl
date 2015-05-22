@@ -117,9 +117,12 @@ app.controller(
       };
 
       scope.editSiteContent = function editSiteContent(content) {
-          console.log(content);
+        Pages.customPUT(content);
+      }
+
+      scope.disableSiteContent = function disableSiteContent(content) {
           console.log(Pages);
-          Pages.customPUT(content);
+          Pages.customDELETE(content);
         }
         // Content
 

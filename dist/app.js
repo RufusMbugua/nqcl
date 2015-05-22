@@ -214,9 +214,12 @@ app.value('froalaConfig', {
       };
 
       scope.editSiteContent = function editSiteContent(content) {
-          console.log(content);
+        Pages.customPUT(content);
+      }
+
+      scope.disableSiteContent = function disableSiteContent(content) {
           console.log(Pages);
-          Pages.customPUT(content);
+          Pages.customDELETE(content);
         }
         // Content
 
@@ -916,7 +919,7 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
     "      <td>\n" +
     "        <div class=\"btn-group btn-group-sm\">\n" +
     "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
-    "          <a href=\"\" class=\"btn btn-danger\">Disable</a>\n" +
+    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
     "        </div>\n" +
     "      </td>\n" +
     "    </tr>\n" +
