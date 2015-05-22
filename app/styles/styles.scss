@@ -257,6 +257,10 @@ table{
   background:$main_green;
   color:white !important;
 }
+.btn-view{
+  background:$main_blue !important;
+  color:white !important;
+}
 span.article-actions{
   font-size:1em;
   float:right;
@@ -306,4 +310,13 @@ span.label{
 /* Froala Editing */
 .froala-editor, .froala-wrapper.f-basic{
   border-color:$main_blue !important;
+}
+
+.drop-box{
+  margin-top:10px;
+  text-align:center;
+  padding:20%;
+  width:100%;
+  height:50%;
+  background: whitesmoke;
 }

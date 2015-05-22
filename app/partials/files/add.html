@@ -1,8 +1,8 @@
 <div ng-controller="fileCtrl">
-  watching model:
-  <div class="btn" ngf-select ng-model="files">Upload using model $watch</div>
-  <div class="btn" ngf-select ngf-change="upload($files)">Upload on file change</div>
-  Drop File:
+
+  <a class="btn btn-add" ngf-select ng-model="files"><i class="fa fa-upload"></i>Upload File</a>
+  <a class="btn btn-view" ui-sref="admin.files.list" href=""><i class="ion-eye"></i>View Files</a>
+  <!-- <div class="btn" ngf-select ngf-change="upload($files)">Upload on file change</div> -->
   <div ngf-drop ng-model="files" class="drop-box"
   ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
   ngf-accept="'.jpg,.png,.pdf'">Drop Images or PDFs files here</div>

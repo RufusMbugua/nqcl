@@ -925,10 +925,10 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
 angular.module("../app/partials/files/add.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/files/add.html",
     "<div ng-controller=\"fileCtrl\">\n" +
-    "  watching model:\n" +
-    "  <div class=\"btn\" ngf-select ng-model=\"files\">Upload using model $watch</div>\n" +
-    "  <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div>\n" +
-    "  Drop File:\n" +
+    "\n" +
+    "  <a class=\"btn btn-add\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
+    "  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
+    "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
     "  <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
     "  ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
     "  ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
