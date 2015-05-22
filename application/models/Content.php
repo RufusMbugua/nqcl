@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 use \Illuminate\Database\Eloquent\Model as Eloquent;
-
+date_default_timezone_set('Africa/Nairobi');
 class Content extends Eloquent{
 
   /**
