@@ -1102,7 +1102,7 @@ figure {
 img {
   vertical-align: middle; }
 
-.img-responsive {
+.img-responsive, .image-thumbnail img {
   display: block;
   max-width: 100%;
   height: auto; }
@@ -1543,7 +1543,7 @@ pre {
   .row:after {
     clear: both; }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, #side-content, .news-item .news-item-type, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .content.full, .news-item .news-item-content, #map, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .image-thumbnail, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, #side-content, .news-item .news-item-type, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .drop-box-container, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .content.full, .news-item .news-item-content, #map, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -1862,7 +1862,7 @@ pre {
   .col-sm-offset-12 {
     margin-left: 100%; } }
 @media (min-width: 992px) {
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-md-5, .col-md-6, .col-md-7, .col-md-8, #side-content, .news-item .news-item-type, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .content.full, .news-item .news-item-content, #map {
+  .col-md-1, .col-md-2, .col-md-3, .image-thumbnail, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-md-5, .col-md-6, .col-md-7, .col-md-8, #side-content, .news-item .news-item-type, .col-md-9, .drop-box-container, .col-md-10, .col-md-11, .col-md-12, .content.full, .news-item .news-item-content, #map {
     float: left; }
 
   .col-md-1 {
@@ -1871,7 +1871,7 @@ pre {
   .col-md-2 {
     width: 16.66667%; }
 
-  .col-md-3 {
+  .col-md-3, .image-thumbnail {
     width: 25%; }
 
   .col-md-4, .content.small, #side-menu, .news-item .news-item-date {
@@ -1889,7 +1889,7 @@ pre {
   .col-md-8, #side-content, .news-item .news-item-type {
     width: 66.66667%; }
 
-  .col-md-9 {
+  .col-md-9, .drop-box-container {
     width: 75%; }
 
   .col-md-10 {
@@ -4352,7 +4352,7 @@ a.badge:hover, a.badge:focus {
       .jumbotron .h1 {
         font-size: 63px; } }
 
-.thumbnail {
+.thumbnail, .image-thumbnail img {
   display: block;
   padding: 4px;
   margin-bottom: 20px;
@@ -4363,14 +4363,15 @@ a.badge:hover, a.badge:focus {
   -webkit-transition: border 0.2s ease-in-out;
   -o-transition: border 0.2s ease-in-out;
   transition: border 0.2s ease-in-out; }
-  .thumbnail > img,
-  .thumbnail a > img {
+  .thumbnail > img, .image-thumbnail img > img,
+  .thumbnail a > img,
+  .image-thumbnail img a > img {
     display: block;
     max-width: 100%;
     height: auto;
     margin-left: auto;
     margin-right: auto; }
-  .thumbnail .caption {
+  .thumbnail .caption, .image-thumbnail img .caption {
     padding: 9px;
     color: #333333; }
 
@@ -6091,11 +6092,15 @@ span.label {
 .froala-editor, .froala-wrapper.f-basic {
   border-color: #2C3E50 !important; }
 
-.drop-box {
-  margin-top: 10px;
+.row {
+  margin-top: 10px; }
+
+/**
+* Upload Styles
+*/
+.drop-box-container .drop-box {
   text-align: center;
   padding: 20%;
-  width: 100%;
   height: 50%;
   background: whitesmoke; }
 

@@ -926,17 +926,25 @@ angular.module("../app/partials/files/add.html", []).run(["$templateCache", func
   $templateCache.put("../app/partials/files/add.html",
     "<div ng-controller=\"fileCtrl\">\n" +
     "\n" +
-    "  <a class=\"btn btn-add\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
     "  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
     "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
-    "  <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
-    "  ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
-    "  ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
-    "  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
+    "  <div class=\"row\">\n" +
     "\n" +
-    "  Image thumbnail: <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
-    "<!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
-    "Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
+    "    <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
+    "    ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
+    "    ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
+    "    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
+    "\n" +
+    "    <div class=\"image thumbnail\">\n" +
+    "      <h4>Image thumbnail:</h4>\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
+    "  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
     "</div>\n" +
     "");
 }]);

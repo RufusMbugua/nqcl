@@ -1,14 +1,22 @@
 <div ng-controller="fileCtrl">
 
-  <a class="btn btn-add" ngf-select ng-model="files"><i class="fa fa-upload"></i>Upload File</a>
+  <a class="btn btn-add" ngf-multiple="true" ngf-select ng-model="files"><i class="fa fa-upload"></i>Upload File</a>
   <a class="btn btn-view" ui-sref="admin.files.list" href=""><i class="ion-eye"></i>View Files</a>
   <!-- <div class="btn" ngf-select ngf-change="upload($files)">Upload on file change</div> -->
-  <div ngf-drop ng-model="files" class="drop-box"
-  ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-  ngf-accept="'.jpg,.png,.pdf'">Drop Images or PDFs files here</div>
-  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+  <div class="row">
+    <div class="drop-box-container">
+      <div ngf-drop ng-model="files" class="drop-box"
+      ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+      ngf-accept="'.jpg,.png,.pdf'">Drop Images or PDFs files here</div>
+      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+    </div>
+    <div class="image-thumbnail">
+      <h4>Image thumbnail:</h4>
+      <img ngf-src="files[0]" ngf-default-src="/thumb.jpg">
+    </div>
 
-  Image thumbnail: <img ngf-src="files[0]" ngf-default-src="/thumb.jpg">
-<!--   Audio preview: <audio controls ngf-src="files[0]" ngf-accept="audio/*"></audio>
-Video preview: <video controls ngf-src="files[0]" ngf-accept="video/*"></video> -->
+  </div>
+
+  <!--   Audio preview: <audio controls ngf-src="files[0]" ngf-accept="audio/*"></audio>
+  Video preview: <video controls ngf-src="files[0]" ngf-accept="video/*"></video> -->
 </div>

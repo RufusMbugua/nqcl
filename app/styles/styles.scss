@@ -311,12 +311,25 @@ span.label{
 .froala-editor, .froala-wrapper.f-basic{
   border-color:$main_blue !important;
 }
-
-.drop-box{
+.row{
   margin-top:10px;
-  text-align:center;
-  padding:20%;
-  width:100%;
-  height:50%;
-  background: whitesmoke;
+}
+/**
+* Upload Styles
+*/
+.drop-box-container{
+  @extend .col-md-9;
+  .drop-box{
+    text-align:center;
+    padding:20%;
+    height:50%;
+    background: whitesmoke;
+  }
+}
+.image-thumbnail{
+  @extend .col-md-3;
+  img{
+    @extend .img-responsive;
+    @extend .thumbnail;
+  }
 }
