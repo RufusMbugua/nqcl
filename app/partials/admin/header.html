@@ -14,29 +14,31 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul>
         <!-- <li>
-          <a is-active-nav ui-sref="home" >Dashboard</a>
-        </li> -->
-        <li>
-          <a is-active-nav ui-sref="admin.content" ><i class='fa fa-list-ul'></i>Page Content</a>
-        </li>
-        <li>
-          <a is-active-nav ui-sref="admin.articles" ><i class='fa fa-list-ul'></i>Articles</a>
-        </li>
+        <a is-active-nav ui-sref="home" >Dashboard</a>
+      </li> -->
+      <li>
+        <a is-active-nav ui-sref="admin.content" ><i class='fa fa-list-ul'></i>Page Content</a>
+      </li>
+      <li>
+        <a is-active-nav ui-sref="admin.articles" ><i class='fa fa-list-ul'></i>Articles</a>
+      </li>
+      <li>
+        <a is-active-nav ui-sref="admin.files.add" ><i class='ion-document'></i>Files</a>
+      </li>
 
+    </ul>
 
-      </ul>
+    <ul class="navbar-right">
+      <li>
+        <a>
+          <i class='fa fa-user'></i>
+          <span>{{user[0].f_name}}</span>
+          <span>{{user[0].l_name}}</span>
+        </a>
+      </li>
+      <li><a href="#" is-active-nav ui-sref="logout"><i class='fa fa-sign-out'></i>Logout</a></li>
 
-      <ul class="navbar-right">
-        <li>
-          <a>
-            <i class='fa fa-user'></i>
-            <span>{{user[0].f_name}}</span>
-            <span>{{user[0].l_name}}</span>
-          </a>
-        </li>
-        <li><a href="#" is-active-nav ui-sref="logout"><i class='fa fa-sign-out'></i>Logout</a></li>
-
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
 </nav>

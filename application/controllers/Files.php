@@ -6,17 +6,17 @@ use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local as Adapter;
 
 
-class Downloads extends MY_Controller{
+class Files extends MY_Controller{
   var $filesystem,$directory;
   public function __construct(){
     parent::__construct();
-    $this->directory='files/';
+    $this->directory='downloads/';
     $this->filesystem = new Filesystem(new Adapter($this->directory));
   }
 
   function index_get(){
 
-    $uploadHandler = new UploadHandler('files/');
+    $uploadHandler = new UploadHandler($this->directory);
 
     // set up the validation rules
     $uploadHandler->addRule('extension', ['allowed' => 'jpg', 'jpeg', 'png','pdf','doc','docx'],
@@ -43,9 +43,10 @@ class Downloads extends MY_Controller{
   }
 
   function index_post(){
-    $upload_name='upload';
+    // var_dump($_FILES);die;
+    $upload_name='file';
     $stream = fopen($_FILES[$upload_name]['tmp_name'], 'r+');
-  if($filesystem->writeStream($this->directory.$_FILES[$upload_name]['name'], $stream)){
+  if($this->filesystem->writeStream($_FILES[$upload_name]['name'], $stream)){
 
   };
     fclose($stream);

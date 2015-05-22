@@ -37,7 +37,7 @@
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
   <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-
+  <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script> <!-- for no html5 browsers support -->
   <!--  Froala Plugins -->
   <script src="bower_components/FroalaWysiwygEditor/js/plugins/tables.min.js"></script>
   <script src="bower_components/FroalaWysiwygEditor/js/plugins/font_size.min.js"></script>
