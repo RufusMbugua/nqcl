@@ -6099,9 +6099,13 @@ span.label {
 * Upload Styles
 */
 .drop-box-container .drop-box {
+  border: 3px solid transparent;
+  border-radius: 5px;
   text-align: center;
   padding: 20%;
   height: 50%;
   background: whitesmoke; }
+.drop-box-container .drop-box:hover, .drop-box-container .drop-box:focus {
+  border: 3px solid #00a460; }
 
 /*# sourceMappingURL=styles.css.map */

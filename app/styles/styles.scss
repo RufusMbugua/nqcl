@@ -320,10 +320,15 @@ span.label{
 .drop-box-container{
   @extend .col-md-9;
   .drop-box{
+    border:3px solid transparent;
+    border-radius: 5px;
     text-align:center;
     padding:20%;
     height:50%;
     background: whitesmoke;
+  }
+  .drop-box:hover,.drop-box:focus{
+    border:3px solid $main_green;
   }
 }
 .image-thumbnail{
