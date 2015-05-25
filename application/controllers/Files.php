@@ -12,6 +12,7 @@ class Files extends MY_Controller{
     parent::__construct();
     $this->directory='downloads/';
     $this->filesystem = new Filesystem(new Adapter($this->directory));
+    $this->slidesystem = new Filesystem(new Adapter('slides/'));
   }
 
   function index_get(){
@@ -46,9 +47,41 @@ class Files extends MY_Controller{
     // var_dump($_FILES);die;
     $upload_name='file';
     $stream = fopen($_FILES[$upload_name]['tmp_name'], 'r+');
-  if($this->filesystem->writeStream($_FILES[$upload_name]['name'], $stream)){
+    if($this->filesystem->writeStream($_FILES[$upload_name]['name'], $stream)){
 
-  };
+    };
+    fclose($stream);
+
+  }
+
+  function slides_get(){
+    $uploadHandler = new UploadHandler($this->directory);
+
+    $files = $this->slidesystem->listContents();
+
+    $resource = new Collection($files, function(array $file) {
+      return [
+        'uri'  => 'slides/'.$file['path'],
+        'mime' => get_mime_by_extension($file['path']),
+        'name'=>$file['path'],
+        'path'=>$file['filename']
+
+      ];
+    });
+
+    $data = $this->fractal->createData($resource)->toArray();
+
+    $this->response($data);
+
+  }
+
+  function slides_post(){
+    // var_dump($_FILES);die;
+    $upload_name='file';
+    $stream = fopen($_FILES[$upload_name]['tmp_name'], 'r+');
+    if($this->slidesystem->writeStream($_FILES[$upload_name]['name'], $stream)){
+
+    };
     fclose($stream);
 
   }
