@@ -62,7 +62,10 @@ class Files extends MY_Controller{
     $resource = new Collection($files, function(array $file) {
       return [
         'uri'  => 'slides/'.$file['path'],
-        'mime' => get_mime_by_extension($file['path'])
+        'mime' => get_mime_by_extension($file['path']),
+        'name'=>$file['path'],
+        'path'=>$file['filename']
+
       ];
     });
 
@@ -74,7 +77,7 @@ class Files extends MY_Controller{
 
   function slides_post(){
     // var_dump($_FILES);die;
-    $upload_name='slide';
+    $upload_name='file';
     $stream = fopen($_FILES[$upload_name]['tmp_name'], 'r+');
     if($this->slidesystem->writeStream($_FILES[$upload_name]['name'], $stream)){
 

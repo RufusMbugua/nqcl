@@ -4,7 +4,7 @@
   <a href="" class="btn btn-view"><i class="ion-ios-list"></i>List</a>
   <a href="" class="btn btn-view"><i class="ion-grid"></i>Grid</a>
 </div>
-<a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.files.add"><i class='fa fa-plus'></i>Add File</a>
+<a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.slides.add"><i class='fa fa-plus'></i>Add Slide</a>
 
 </h3>
 <table>
@@ -15,13 +15,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="file in files.data" ng-if="file.name.path!=''">
-      <td>{{file.name.name}}</td>
+    <tr ng-repeat="image in slides.data" ng-if="image.path!=''">
+      <td>{{image.name}}</td>
       <td>
-        <img class="img-responsive" ng-if="file.mime == 'image/png' || file.mime == 'image/jpeg'
-        "src="{{file.uri}}" alt="">
+        <img class="img-responsive" ng-if="image.mime == 'image/png' || image.mime == 'image/jpeg'
+        "src="{{image.uri}}" alt="">
 
-          <a ng-if="file.mime == 'application/pdf' " href="{{file.uri}}">{{file.name.name}}</a>
+          <a ng-if="image.mime == 'application/pdf' " href="{{image.uri}}">{{image.name}}</a>
         </td>
     </tr>
   </tbody>

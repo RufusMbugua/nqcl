@@ -1,6 +1,6 @@
 <section id="carousel-container">
   <carousel interval="2000">
-    <slide ng-repeat="slide in slides" active="slide.active">
+    <slide ng-repeat="slide in slides" active="slide.active" ng-if="slide.path!=''">
       <img ng-src="{{slide.uri}}" style="margin:auto;">
       <div class="carousel-caption">
         <p>{{slide.text}}</p>

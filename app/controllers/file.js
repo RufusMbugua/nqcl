@@ -1,52 +1,95 @@
 app.controller(
-	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'Upload', '$rootScope',
+  "fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'Upload', '$rootScope',
 
-		function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
-			Files = Restangular.all('Files?format=json');
-			loadFileList();
-			scope.progress = [];
+    function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
+      Files = Restangular.all('Files?format=json');
+      Slides = Restangular.all('files/slides?format=json');
+      loadFileList();
+      loadSlidesList();
 
-			function loadFileList() {
-				Files.customGET().then(function(files) {
-					console.log(files);
-					scope.files = files;
-				});
-			}
+      scope.progress = [];
+
+      function loadFileList() {
+        Files.customGET().then(function(files) {
+          console.log(files);
+          scope.files = files;
+        });
+      }
+
+      function loadSlidesList() {
+        Slides.customGET().then(function(slides) {
+          scope.slides = slides;
+        });
+      }
 
 
-			scope.$watch('files', function() {
-				scope.upload(scope.files);
-			});
+      scope.$watch('files', function() {
+        scope.upload(scope.files);
+      });
 
-			scope.upload = function(files) {
-				console.log(Upload);
-				if (files && files.length) {
-					for (var i = 0; i < files.length; i++) {
-						var file = files[i];
-						Upload.upload({
-							url: 'files',
-							fields: {
-								'username': rootScope.user.f_name
-							},
-							file: file
-						}).progress(function(evt) {
-							var progressPercentage = parseInt(100.0 * evt.loaded /
-								evt.total);
-							console.log('progress: ' + progressPercentage + '% ' +
-								evt.config.file
-								.name);
-							scope.progress.percentage = progressPercentage;
-							scope.progress.file = evt.config.file.name;
+      scope.$watch('slides', function() {
+        scope.uploadSlides(scope.slides);
+      });
 
-						}).success(function(data, status, headers, config) {
-							console.log('file ' + config.file.name +
-								'uploaded. Response: ' +
-								data);
-						});
-					}
-				}
-			};
-		}
-	]
+      scope.upload = function(files) {
+        console.log(Upload);
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            Upload.upload({
+              url: 'files',
+              fields: {
+                'username': rootScope.user.f_name
+              },
+              file: file
+            }).progress(function(evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded /
+                evt.total);
+              console.log('progress: ' + progressPercentage + '% ' +
+                evt.config.file
+                .name);
+              scope.progress.percentage = progressPercentage;
+              scope.progress.file = evt.config.file.name;
+
+            }).success(function(data, status, headers, config) {
+              console.log('file ' + config.file.name +
+                'uploaded. Response: ' +
+                data);
+            });
+          }
+        }
+      };
+
+
+      scope.uploadSlides = function(files) {
+        console.log(Upload);
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            Upload.upload({
+              url: 'files/slides',
+              fields: {
+                'username': rootScope.user.f_name
+              },
+              file: file
+            }).progress(function(evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded /
+                evt.total);
+              console.log('progress: ' + progressPercentage + '% ' +
+                evt.config.file
+                .name);
+              scope.progress.percentage = progressPercentage;
+              scope.progress.file = evt.config.file.name;
+
+            }).success(function(data, status, headers, config) {
+              console.log('file ' + config.file.name +
+                'uploaded. Response: ' +
+                data);
+            });
+          }
+        }
+      };
+    }
+  ]
 );

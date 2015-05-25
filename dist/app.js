@@ -236,56 +236,99 @@ app.value('froalaConfig', {
     }
   ]);
 ;app.controller(
-	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'Upload', '$rootScope',
+  "fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    'Upload', '$rootScope',
 
-		function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
-			Files = Restangular.all('Files?format=json');
-			loadFileList();
-			scope.progress = [];
+    function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
+      Files = Restangular.all('Files?format=json');
+      Slides = Restangular.all('files/slides?format=json');
+      loadFileList();
+      loadSlidesList();
 
-			function loadFileList() {
-				Files.customGET().then(function(files) {
-					console.log(files);
-					scope.files = files;
-				});
-			}
+      scope.progress = [];
+
+      function loadFileList() {
+        Files.customGET().then(function(files) {
+          console.log(files);
+          scope.files = files;
+        });
+      }
+
+      function loadSlidesList() {
+        Slides.customGET().then(function(slides) {
+          scope.slides = slides;
+        });
+      }
 
 
-			scope.$watch('files', function() {
-				scope.upload(scope.files);
-			});
+      scope.$watch('files', function() {
+        scope.upload(scope.files);
+      });
 
-			scope.upload = function(files) {
-				console.log(Upload);
-				if (files && files.length) {
-					for (var i = 0; i < files.length; i++) {
-						var file = files[i];
-						Upload.upload({
-							url: 'files',
-							fields: {
-								'username': rootScope.user.f_name
-							},
-							file: file
-						}).progress(function(evt) {
-							var progressPercentage = parseInt(100.0 * evt.loaded /
-								evt.total);
-							console.log('progress: ' + progressPercentage + '% ' +
-								evt.config.file
-								.name);
-							scope.progress.percentage = progressPercentage;
-							scope.progress.file = evt.config.file.name;
+      scope.$watch('slides', function() {
+        scope.uploadSlides(scope.slides);
+      });
 
-						}).success(function(data, status, headers, config) {
-							console.log('file ' + config.file.name +
-								'uploaded. Response: ' +
-								data);
-						});
-					}
-				}
-			};
-		}
-	]
+      scope.upload = function(files) {
+        console.log(Upload);
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            Upload.upload({
+              url: 'files',
+              fields: {
+                'username': rootScope.user.f_name
+              },
+              file: file
+            }).progress(function(evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded /
+                evt.total);
+              console.log('progress: ' + progressPercentage + '% ' +
+                evt.config.file
+                .name);
+              scope.progress.percentage = progressPercentage;
+              scope.progress.file = evt.config.file.name;
+
+            }).success(function(data, status, headers, config) {
+              console.log('file ' + config.file.name +
+                'uploaded. Response: ' +
+                data);
+            });
+          }
+        }
+      };
+
+
+      scope.uploadSlides = function(files) {
+        console.log(Upload);
+        if (files && files.length) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            Upload.upload({
+              url: 'files/slides',
+              fields: {
+                'username': rootScope.user.f_name
+              },
+              file: file
+            }).progress(function(evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded /
+                evt.total);
+              console.log('progress: ' + progressPercentage + '% ' +
+                evt.config.file
+                .name);
+              scope.progress.percentage = progressPercentage;
+              scope.progress.file = evt.config.file.name;
+
+            }).success(function(data, status, headers, config) {
+              console.log('file ' + config.file.name +
+                'uploaded. Response: ' +
+                data);
+            });
+          }
+        }
+      };
+    }
+  ]
 );
 ;app.controller(
   "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -659,6 +702,9 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "      </li>\n" +
     "      <li>\n" +
     "        <a is-active-nav ui-sref=\"admin.files.add\" ><i class='ion-document'></i>Files</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a is-active-nav ui-sref=\"admin.slides.add\" ><i class='ion-images'></i>Slides</a>\n" +
     "      </li>\n" +
     "\n" +
     "    </ul>\n" +
@@ -1200,19 +1246,19 @@ angular.module("../app/partials/slides/add.html", []).run(["$templateCache", fun
   $templateCache.put("../app/partials/slides/add.html",
     "<div ng-controller=\"fileCtrl\">\n" +
     "\n" +
-    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
-    "  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload Image</a>\n" +
+    "  <a class=\"btn btn-view\" ui-sref=\"admin.slides.list\" href=\"\"><i class=\"ion-eye\"></i>View Image</a>\n" +
     "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"drop-box-container\">\n" +
     "      <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
     "      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
-    "      ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
+    "      ngf-accept=\"'.jpg,.png'\">Drop Images here</div>\n" +
     "      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
     "    </div>\n" +
     "    <div class=\"image-thumbnail\">\n" +
     "      <h4>Image thumbnail:</h4>\n" +
-    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\" alt=\"Image Thumbnail\">\n" +
     "      <div class=\"progress\">\n" +
     "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
     "          {{progress.percentage}}%\n" +
@@ -1257,13 +1303,13 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "    </tr>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
-    "    <tr ng-repeat=\"file in files.data\" ng-if=\"file.name.path!=''\">\n" +
-    "      <td>{{file.name.name}}</td>\n" +
+    "    <tr ng-repeat=\"image in slides.data\" ng-if=\"file.name.path!=''\">\n" +
+    "      <td>{{image.name}}</td>\n" +
     "      <td>\n" +
-    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg'\n" +
-    "        \"src=\"{{file.uri}}\" alt=\"\">\n" +
+    "        <img class=\"img-responsive\" ng-if=\"image.mime == 'image/png' || image.mime == 'image/jpeg'\n" +
+    "        \"src=\"{{image.uri}}\" alt=\"\">\n" +
     "\n" +
-    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
+    "          <a ng-if=\"image.mime == 'application/pdf' \" href=\"{{image.uri}}\">{{image.name}}</a>\n" +
     "        </td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
