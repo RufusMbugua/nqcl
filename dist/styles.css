@@ -6109,6 +6109,9 @@ span.label {
 .drop-box-container .drop-box:hover, .drop-box-container .drop-box:focus {
   border: 3px solid #00a460; }
 
+.card img {
+  height: 200px !important; }
+
 /* Card Styles */
 .extra.content a {
   color: #ECF0F1 !important;

@@ -59,8 +59,9 @@ class Files extends MY_Controller{
 
     $files = $this->slidesystem->listContents();
     // echo '<pre>';print_r($files);die;
-
+    $slideCounter=1;
     $resource = new Collection($files, function(array $file) {
+
       return [
         'uri'  => 'slides/'.$file['path'],
         'mime' => get_mime_by_extension($file['path']),
@@ -85,5 +86,11 @@ class Files extends MY_Controller{
     };
     fclose($stream);
 
+  }
+  function slides_delete(){
+    // $post_data = file_get_contents("php://input");
+    // $post_data = json_decode($post_data,true);
+    echo '<pre>';
+    print_r($this->delete());
   }
 }

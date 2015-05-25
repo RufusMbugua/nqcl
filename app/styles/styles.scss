@@ -340,7 +340,11 @@ span.label{
     @extend .thumbnail;
   }
 }
-
+.card{
+  img{
+    height:200px !important;
+  }
+}
 /* Card Styles */
 .extra.content{
   a{

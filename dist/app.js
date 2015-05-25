@@ -1,27 +1,33 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-	'LocalStorageModule', 'froala', 'ngFileUpload'
+  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+  'LocalStorageModule', 'froala', 'ngFileUpload'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
-	// RestangularProvider.setRequestSuffix('?format=json');
+  RestangularProvider.setBaseUrl('http://localhost/nqcl');
+  RestangularProvider.setRequestInterceptor(function(elem, operation) {
+    if (operation === "remove") {
+      return undefined;
+    }
+    return elem;
+  });
+  // RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-	localStorageServiceProvider
-		.setStorageType('sessionStorage')
-		.setPrefix('nqcl');
+  localStorageServiceProvider
+    .setStorageType('sessionStorage')
+    .setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-	'Session',
-	function(localStorageService, rootScope, state, stateParams, Session) {
-		rootScope.level = 'public';
-	}
+  'Session',
+  function(localStorageService, rootScope, state, stateParams, Session) {
+    rootScope.level = 'public';
+  }
 ]);
 app.value('froalaConfig', {
-	inlineMode: false,
-	placeholder: 'Enter Text Here'
+  inlineMode: false,
+  placeholder: 'Enter Text Here'
 });
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -237,9 +243,9 @@ app.value('froalaConfig', {
   ]);
 ;app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'Upload', '$rootScope',
+		'Upload', '$rootScope', '$http',
 
-		function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
+		function(scope, filter, timeout, state, Restangular, Upload, rootScope, http) {
 			Files = Restangular.all('Files?format=json');
 			Slides = Restangular.all('files/slides?format=json');
 			loadFileList();
@@ -333,7 +339,12 @@ app.value('froalaConfig', {
 				console.log(slide);
 			};
 			scope.removeSlide = function removeSlide(slide) {
-				console.log(slide);
+				// console.log();
+				//
+				http.delete('files/slides', slide)
+					.success(function(data, response) {
+						console.log(data);
+					});
 			};
 		}
 	]
@@ -1307,14 +1318,14 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "    <div class=\"content\">\n" +
     "      <a class=\"header\">{{image.name}}</a>\n" +
     "      <div class=\"meta\">\n" +
-    "        <span class=\"date\">Joined in 2014</span>\n" +
+    "        <span class=\"date\">Modified <span am-time-ago=\"image.timestamp\" am-preprocess=\"unix\"></span></span>\n" +
     "      </div>\n" +
     "      <div class=\"description\">\n" +
     "      </div>\n" +
     "    </div>\n" +
     "    <div class=\"extra content\">\n" +
-    "      <a href=\"\" ng-click=\"archiveSlide()\"><i class='icon archive'></i>Archive</a>\n" +
-    "      <a href=\"\" ng-click=\"removeSlide()\"><i class='icon remove'></i>Remove</a>\n" +
+    "      <a href=\"\" ng-click=\"archiveSlide(image)\"><i class='icon archive'></i>Archive</a>\n" +
+    "      <a href=\"\" ng-click=\"removeSlide(image)\"><i class='icon remove'></i>Remove</a>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "\n" +
