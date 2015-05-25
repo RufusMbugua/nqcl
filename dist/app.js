@@ -392,169 +392,190 @@ app.directive('isActiveNav', ['$location', function($location) {
 	};
 }]);
 ;app.config(function($stateProvider, $urlRouterProvider) {
-	//
-	// For any unmatched url, redirect to /state1
-	$urlRouterProvider.otherwise("/public/home");
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/public/home");
 
-	// Now set up the states
-	$stateProvider
-		.state('public', {
-			url: '/public',
-			views: {
-				'': {
-					templateUrl: 'app/partials/public/index.html',
-				},
-				'header@public': {
-					templateUrl: 'app/partials/public/header.html'
-				}
-			}
-		})
-		.state('public.home', {
-			url: '/home',
-			templateUrl: 'app/partials/home/index.html',
-			controller: 'homeCtrl'
-		})
-		.state('public.about', {
-			url: '/about',
-			templateUrl: 'app/partials/about/index.html',
-			controller: 'aboutCtrl'
-		})
-		.state('public.downloads', {
-			url: '/downloads',
-			templateUrl: 'app/partials/files/index.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.downloads.add', {
-			url: '/add',
-			templateUrl: 'app/partials/files/add.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.downloads.list', {
-			url: '/list',
-			templateUrl: 'app/partials/files/list.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.services', {
-			url: '/services',
-			templateUrl: 'app/partials/services/index.html',
-			controller: 'homeCtrl'
-		})
-		.state('public.news', {
-			url: '/news',
-			views: {
-				'': {
-					templateUrl: 'app/partials/articles/articles.published.html',
-					controller: 'contentCtrl'
-				},
-				'list@public.news': {
-					templateUrl: 'app/partials/articles/articles.list.html',
-					controller: 'contentCtrl'
-				},
-				'detail@public.news': {
-					templateUrl: 'app/partials/articles/articles.items.html',
-					controller: 'contentCtrl'
-				}
-			}
-		})
-		.state('public.contact', {
-			url: '/contact',
-			templateUrl: 'app/partials/contact/index.html',
-			controller: 'homeCtrl'
-		})
-		.state('login', {
-			url: '/login',
-			templateUrl: 'app/partials/admin/login.html',
-			controller: 'usersCtrl'
-		})
-		.state('logout', {
-			url: '/logout',
-			controller: 'adminCtrl'
-		})
-		.state('admin.content', {
-			url: '/content',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/content/content.html',
-					controller: 'contentCtrl',
-				},
-				'table@admin.content': {
-					templateUrl: 'app/partials/content/table.html'
-				},
-				'menu@admin.content': {
-					templateUrl: 'app/partials/content/menu.html'
-				}
-			}
-		})
-		.state('admin', {
-			url: '/admin',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/admin/index.html',
-					controller: 'adminCtrl'
-				},
-				'header@admin': {
-					templateUrl: 'app/partials/admin/header.html'
-				}
+  // Now set up the states
+  $stateProvider
+    .state('public', {
+      url: '/public',
+      views: {
+        '': {
+          templateUrl: 'app/partials/public/index.html',
+        },
+        'header@public': {
+          templateUrl: 'app/partials/public/header.html'
+        }
+      }
+    })
+    .state('public.home', {
+      url: '/home',
+      templateUrl: 'app/partials/home/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('public.about', {
+      url: '/about',
+      templateUrl: 'app/partials/about/index.html',
+      controller: 'aboutCtrl'
+    })
+    .state('public.downloads', {
+      url: '/downloads',
+      templateUrl: 'app/partials/files/index.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.downloads.add', {
+      url: '/add',
+      templateUrl: 'app/partials/files/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.downloads.list', {
+      url: '/list',
+      templateUrl: 'app/partials/files/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.services', {
+      url: '/services',
+      templateUrl: 'app/partials/services/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('public.news', {
+      url: '/news',
+      views: {
+        '': {
+          templateUrl: 'app/partials/articles/articles.published.html',
+          controller: 'contentCtrl'
+        },
+        'list@public.news': {
+          templateUrl: 'app/partials/articles/articles.list.html',
+          controller: 'contentCtrl'
+        },
+        'detail@public.news': {
+          templateUrl: 'app/partials/articles/articles.items.html',
+          controller: 'contentCtrl'
+        }
+      }
+    })
+    .state('public.contact', {
+      url: '/contact',
+      templateUrl: 'app/partials/contact/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/partials/admin/login.html',
+      controller: 'usersCtrl'
+    })
+    .state('logout', {
+      url: '/logout',
+      controller: 'adminCtrl'
+    })
+    .state('admin.content', {
+      url: '/content',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/content/content.html',
+          controller: 'contentCtrl',
+        },
+        'table@admin.content': {
+          templateUrl: 'app/partials/content/table.html'
+        },
+        'menu@admin.content': {
+          templateUrl: 'app/partials/content/menu.html'
+        }
+      }
+    })
+    .state('admin', {
+      url: '/admin',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/admin/index.html',
+          controller: 'adminCtrl'
+        },
+        'header@admin': {
+          templateUrl: 'app/partials/admin/header.html'
+        }
 
-			}
-		})
-		.state('admin.files', {
-			url: '/files',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/files/index.html',
-					controller: 'fileCtrl',
-				}
+      }
+    })
+    .state('admin.slides', {
+      url: '/slides',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/slides/index.html',
+          controller: 'fileCtrl',
+        }
 
-			}
-		})
-		.state('admin.files.add', {
-			url: '/add',
-			templateUrl: 'app/partials/files/add.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.files.list', {
-			url: '/list',
-			templateUrl: 'app/partials/files/list.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.articles', {
-			url: '/articles',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/articles/index.html',
-					controller: 'contentCtrl',
-				},
-				'header@admin.articles': {
-					templateUrl: 'app/partials/admin/header.html'
-				}
+      }
+    })
+    .state('admin.slides.add', {
+      url: '/add',
+      templateUrl: 'app/partials/slides/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.slides.list', {
+      url: '/list',
+      templateUrl: 'app/partials/slides/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.files', {
+      url: '/files',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/files/index.html',
+          controller: 'fileCtrl',
+        }
 
-			}
-		})
-		.state('admin.articles.add', {
-			url: '/add',
-			templateUrl: 'app/partials/articles/articles.add.html',
-			controller: 'contentCtrl'
-		})
-		.state('admin.articles.published', {
-			url: '/published',
-			views: {
-				'': {
-					templateUrl: 'app/partials/articles/articles.published.html',
-					controller: 'contentCtrl'
-				},
-				'list@admin.articles.published': {
-					templateUrl: 'app/partials/articles/articles.list.html'
-				},
-				'detail@admin.articles.published': {
-					templateUrl: 'app/partials/articles/articles.items.html'
-				}
-			}
-		});
+      }
+    })
+    .state('admin.files.add', {
+      url: '/add',
+      templateUrl: 'app/partials/files/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.files.list', {
+      url: '/list',
+      templateUrl: 'app/partials/files/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.articles', {
+      url: '/articles',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/articles/index.html',
+          controller: 'contentCtrl',
+        },
+        'header@admin.articles': {
+          templateUrl: 'app/partials/admin/header.html'
+        }
+
+      }
+    })
+    .state('admin.articles.add', {
+      url: '/add',
+      templateUrl: 'app/partials/articles/articles.add.html',
+      controller: 'contentCtrl'
+    })
+    .state('admin.articles.published', {
+      url: '/published',
+      views: {
+        '': {
+          templateUrl: 'app/partials/articles/articles.published.html',
+          controller: 'contentCtrl'
+        },
+        'list@admin.articles.published': {
+          templateUrl: 'app/partials/articles/articles.list.html'
+        },
+        'detail@admin.articles.published': {
+          templateUrl: 'app/partials/articles/articles.items.html'
+        }
+      }
+    });
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
   localStorageService, rootScope, state) {
@@ -593,7 +614,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   return Session;
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -1172,5 +1193,81 @@ angular.module("../app/partials/services/index.html", []).run(["$templateCache",
     "  <section class=\"content full\" ng-bind-html=\"content.services.content[0].body\">\n" +
     "  </section>\n" +
     "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/slides/add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/add.html",
+    "<div ng-controller=\"fileCtrl\">\n" +
+    "\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
+    "  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
+    "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
+    "  <div class=\"row\">\n" +
+    "    <div class=\"drop-box-container\">\n" +
+    "      <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
+    "      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
+    "      ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
+    "      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
+    "    </div>\n" +
+    "    <div class=\"image-thumbnail\">\n" +
+    "      <h4>Image thumbnail:</h4>\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <div class=\"progress\">\n" +
+    "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
+    "          {{progress.percentage}}%\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "      {{progress.file}}\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
+    "  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/slides/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/index.html",
+    "<div ui-view=\"header\"></div>\n" +
+    "<div ui-view>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/slides/list.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/list.html",
+    "<h3>Downloads Page\n" +
+    "\n" +
+    "<div class=\"btn-group btn-group\">\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
+    "</div>\n" +
+    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a>\n" +
+    "\n" +
+    "</h3>\n" +
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <tr>\n" +
+    "      <th>Name</th>\n" +
+    "      <th>Source</th>\n" +
+    "    </tr>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"file in files.data\" ng-if=\"file.name.path!=''\">\n" +
+    "      <td>{{file.name.name}}</td>\n" +
+    "      <td>\n" +
+    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg'\n" +
+    "        \"src=\"{{file.uri}}\" alt=\"\">\n" +
+    "\n" +
+    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
+    "        </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot></tfoot>\n" +
+    "</table>\n" +
     "");
 }]);
