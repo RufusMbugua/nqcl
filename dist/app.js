@@ -236,52 +236,56 @@ app.value('froalaConfig', {
     }
   ]);
 ;app.controller(
-  "fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    'Upload', '$rootScope',
+	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'Upload', '$rootScope',
 
-    function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
-      Files = Restangular.all('Files?format=json');
-      loadFileList();
+		function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
+			Files = Restangular.all('Files?format=json');
+			loadFileList();
+			scope.progress = [];
 
-      function loadFileList() {
-        Files.customGET().then(function(files) {
-          console.log(files);
-          scope.files = files;
-        });
-      }
+			function loadFileList() {
+				Files.customGET().then(function(files) {
+					console.log(files);
+					scope.files = files;
+				});
+			}
 
 
-      scope.$watch('files', function() {
-        scope.upload(scope.files);
-      });
+			scope.$watch('files', function() {
+				scope.upload(scope.files);
+			});
 
-      scope.upload = function(files) {
-        console.log(Upload);
-        if (files && files.length) {
-          for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            Upload.upload({
-              url: 'files',
-              fields: {
-                'username': rootScope.user.f_name
-              },
-              file: file
-            }).progress(function(evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded /
-                evt.total);
-              console.log('progress: ' + progressPercentage + '% ' +
-                evt.config.file
-                .name);
-            }).success(function(data, status, headers, config) {
-              console.log('file ' + config.file.name +
-                'uploaded. Response: ' +
-                data);
-            });
-          }
-        }
-      };
-    }
-  ]
+			scope.upload = function(files) {
+				console.log(Upload);
+				if (files && files.length) {
+					for (var i = 0; i < files.length; i++) {
+						var file = files[i];
+						Upload.upload({
+							url: 'files',
+							fields: {
+								'username': rootScope.user.f_name
+							},
+							file: file
+						}).progress(function(evt) {
+							var progressPercentage = parseInt(100.0 * evt.loaded /
+								evt.total);
+							console.log('progress: ' + progressPercentage + '% ' +
+								evt.config.file
+								.name);
+							scope.progress.percentage = progressPercentage;
+							scope.progress.file = evt.config.file.name;
+
+						}).success(function(data, status, headers, config) {
+							console.log('file ' + config.file.name +
+								'uploaded. Response: ' +
+								data);
+						});
+					}
+				}
+			};
+		}
+	]
 );
 ;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -946,6 +950,12 @@ angular.module("../app/partials/files/add.html", []).run(["$templateCache", func
     "    <div class=\"image-thumbnail\">\n" +
     "      <h4>Image thumbnail:</h4>\n" +
     "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <div class=\"progress\">\n" +
+    "        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
+    "          {{progress.percentage}}\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "      {{progress.file}}\n" +
     "    </div>\n" +
     "\n" +
     "  </div>\n" +
@@ -967,8 +977,11 @@ angular.module("../app/partials/files/index.html", []).run(["$templateCache", fu
 
 angular.module("../app/partials/files/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/files/list.html",
-    "<h3>Downloads Page</h3>\n" +
+    "<h3>Downloads Page\n" +
     "\n" +
+    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a> \n" +
+    "\n" +
+    "</h3>\n" +
     "<table>\n" +
     "  <thead>\n" +
     "    <tr>\n" +

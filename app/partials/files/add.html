@@ -13,6 +13,12 @@
     <div class="image-thumbnail">
       <h4>Image thumbnail:</h4>
       <img ngf-src="files[0]" ngf-default-src="/thumb.jpg">
+      <div class="progress">
+        <div ng-init="progress.percentage=0" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{progress.percentage}}%;">
+          {{progress.percentage}}%
+        </div>
+      </div>
+      {{progress.file}}
     </div>
 
   </div>
