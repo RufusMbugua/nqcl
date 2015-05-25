@@ -1,7 +1,7 @@
 <section id="carousel-container">
   <carousel interval="2000">
-    <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
+    <slide ng-repeat="slide in slides" active="slide.active" ng-if="slide.path!=''">
+      <img ng-src="{{slide.uri}}" style="margin:auto;">
       <div class="carousel-caption">
         <p>{{slide.text}}</p>
       </div>
@@ -11,25 +11,23 @@
 
 <div class="row">
   <section class="content full">
-    <h1>Welcome to NQCL</h1>
-    <div class="description">
-      The NQCL was established as a Body Corporate through legislation enacted by Parliament in 1992 and assented to by the President on 28th October, 1992 (Pharmacy and Poisons (Amendment) Act of 1992). In accordance with this Act, the Laboratory is mandated to:
 
-1. Examine and test drugs and any material or substance from or with which and the manner in which drugs may be manufactured, processed or treated and ensure the quality control of drugs and medicinal substances
-2. Perform chemical, biological, biochemical, physiological and pharmacological analysis and other pharmaceutical evaluation; and
-3. Test, at the request of PPB and on behalf of the Government, of locally manufactured and imported drugs or medicinal substances with view of determining whether such drugs or medicinal substances comply with this Act.
+    <h1>{{content.welcome.name}}</h1>
+    <div class="description" ng-bind-html="content.welcome.content[0].body">
+    </div>
+  </section>
+  <!-- <section class="content small">
+    <h1>{{content.services.name}}</h1>
+    <div class="description" ng-bind-html="content.services.content[0].body">
     </div>
   </section>
   <section class="content small">
-    <h1>Our Services</h1>
-    <div class="description"></div>
+    <h1>{{content.customers.name}}</h1>
+    <div class="description" ng-bind-html="content.customers.content[0].body">
+    </div>
   </section>
   <section class="content small">
-    <h1>News and Events</h1>
-    <div class="description"></div>
-  </section>
-  <section class="content small">
-    <h1>Contact Us</h1>
-    <div class="description"></div>
-  </section>
+    <h1>{{content.contact.name}}</h1>
+    <div class="description" ng-bind-html="content.contact.content[0].body"></div>
+  </section> -->
 </div>

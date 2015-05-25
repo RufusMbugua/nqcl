@@ -1,0 +1,59 @@
+<div id="logo">
+  <img src="app/images/logo/MOH.png"/>
+  <h3>National Quality Control Lab for Drugs and Medical Services</h3>
+  <img src="app/images//logo/NQCL_logo.png" style="float:right"/>
+</div>
+
+<nav id="main">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul>
+        <li>
+          <a is-active-nav ui-sref="public.home" >Home</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="public.about" >About NQCL</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="public.services" >Our Services</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="public.news" >News and Events</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="public.downloads.list">Downloads</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="public.contact">Contact Us</a>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-right">
+        <li ng-if="user" class='dropdown'>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <i class='fa fa-user'></i>
+            <span>{{user[0].f_name}}</span>
+            <span>{{user[0].l_name}}</span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#"><i class="ion-gear"></i>Back to Admin Page</a></li>
+          </ul>
+        </li>
+        <li ng-if="!user"><a href="#" is-active-nav ui-sref="login"><i class="fa fa-sign-in"></i>Login to CMS</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

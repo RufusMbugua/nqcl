@@ -1,10 +1,25 @@
+@import "../bower_components/semantic-ui/dist/semantic.css";
+
 @import "bootstrap";
 $main-green:#00a460;
 $light-green:#99dbbf;
+
+/* Admin Theme */
+$main_blue:#2C3E50;
+$secondary_green:#90C695;
+
+/* Secondary Menu */
+$main_grey:#ECF0F1;
+$secondary_grey: #BDC3C7;
+$main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
 }
-header{
+secondary-header{
+  position:relative !important;
+}
+
+header,admin-header,secondary-header{
   background:white;
   position:fixed;
   width:100%;
@@ -13,15 +28,20 @@ header{
     background:white;
     width:100%;
     padding:2%;
+    h3,img{
+      display: inline-block;
+      vertical-align:middle;
+    }
     //height:10%;
   }
-  nav#main{
+  nav#main,nav#admin,nav#secondary{
     @extend .navbar;
     @extend .navbar-default;
     background:$main-green !important;
     height:auto !important;
     padding:0.25% 15%;
     margin-bottom:0 !important;
+
     ul{
       @extend .nav;
       @extend .navbar-nav;
@@ -35,20 +55,76 @@ header{
       li.active{
         a{
           background:$light-green !important;
+          font-weight:bold;
         }
       }
       li:hover{
         background:$light-green !important;
+        font-weight:bold;
       }
     }
   }
-
+  nav#admin{
+    padding:0.25%;
+    background:$main_blue !important;
+    ul{
+      li.active{
+        a{
+          font-weight:bold;
+          background:none !important;
+          color:$secondary_green !important;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:$secondary_green !important;
+        background:none !important;
+      }
+    }
+  }
+  nav#secondary{
+    margin:0 !important;
+    margin-bottom:10px !important;
+    padding:0.1%;
+    background:$main_grey !important;
+    ul{
+      li{
+        a{
+          color:black !important;
+        }
+      }
+      li.active{
+        a{
+          font-weight:bold;
+          background:none !important;
+          color:$main_red !important;
+        }
+      }
+      li:hover{
+        font-weight:bold;
+        color:$main_red !important;
+        background:none !important;
+      }
+    }
+  }
 }
-
+admin-header{
+  position: relative !important;
+}
 /* Content */
-#content{
+#public-content{
   width:100%;
   padding:15% 15% 0 15%;
+
+  /* Carousel */
+  #carousel-container{
+    width:100%;
+    /* height:40% !important; */
+  }
+}
+#content{
+  width:100%;
+  padding:5% 5% 0 5%;
 
   /* Carousel */
   #carousel-container{
@@ -69,6 +145,9 @@ header{
 /* Small Size*/
 .content.small{
   @extend .col-md-4;
+  text-overflow:ellipsis;
+  height:20em !important;
+  overflow:hidden;
   h1{
     font-size:30px;
   }
@@ -80,6 +159,17 @@ header{
     @extend .nav;
     @extend .nav-pills;
     @extend .nav-stacked;
+    a.active{
+      background:$secondary_green !important;
+      color:white !important;
+    }
+    a{
+      background:none !important;
+      .active{
+        background:$secondary_green !important;
+        color:white !important;
+      }
+    }
   }
 }
 #side-content{
@@ -90,7 +180,10 @@ header{
 table{
   @extend .table;
   @extend .table-responsive;
-  @extend .table-hover;
+  thead{
+    background:$secondary_green;
+    color:white;
+  }
 }
 
 .news-item{
@@ -107,6 +200,7 @@ table{
   .news-item-date{
     @extend .col-md-4;
     font-style:italic;
+    text-align:right;
   }
 }
 .news-item:last{
@@ -124,20 +218,142 @@ table{
 
 
 /* Login */
-#login-form{
-  margin:auto;
-  width:40%;
-  padding:5%;
-  box-shadow:0 0 5px 1px $main_green;
-  .btn{
-    background:$main_green;
-    color:white;
+#login{
+  h2{
+    width:100%;
+    text-align:center;
   }
-  .btn:hover{
-    background:$light_green;
+  a,h2{
+    color:white !important;
   }
-  input[type='password']:focus,input[type='email']:focus{
-    box-shadow:0 0 0.5px 0.5px $main_green;
-    border-color:$main_green;
+  height:100%;
+  padding:15%;
+  background:$main_green;
+  #login-form{
+    margin:auto;
+    width:40%;
+    padding:5%;
+
+    .btn{
+      color:white;
+    }
+    .btn:hover{
+      /* background:$light_green; */
+    }
+    input[type='password']:focus,input[type='email']:focus{
+      box-shadow:0 0 0.5px 0.5px $main_green;
+      border-color:$main_green;
+    }
+  }
+}
+/* Button Edits */
+.btn{
+  i{
+    padding-right:5px;
+  }
+}
+/* Custom Button Classes */
+.btn-add{
+  background:$secondary_green !important;
+  color:white !important;
+}
+.btn-add:hover{
+  background:$main_green;
+  color:white !important;
+}
+.btn-view{
+  background:$main_blue !important;
+  color:white !important;
+}
+span.article-actions{
+  font-size:1em;
+  float:right;
+  a{
+    padding:0 !important;
+    background:none;
+    @extend .btn;
+    color:$secondary_grey;
+  }
+  a:hover{
+    color:black;
+  }
+}
+/* GLobal Item Style */
+i{
+  padding-right:5px;
+}
+/* Header Styles */
+h1,h2,h3,h4,h5,h6{
+  color:black !important;
+  font-family:'Bree Serif',serif !important;
+
+}
+/* Label Styling */
+span.label{
+  font-family:OpenSansRegular !important;
+  font-size:0.5em !important;
+}
+/* Panel Styling */
+.main-heading{
+  background: $main_grey !important;
+}
+.sub-heading{
+  background: none !important;
+}
+.sub-panel{
+  border:none !important;
+  a{
+    color:$main_blue;
+  }
+  a:hover{
+    text-decoration:none;
+    font-weight:bold;
+    color:$main_red;
+  }
+}
+/* Froala Editing */
+.froala-editor, .froala-wrapper.f-basic{
+  border-color:$main_blue !important;
+}
+.row{
+  margin-top:10px;
+}
+/**
+* Upload Styles
+*/
+.drop-box-container{
+  @extend .col-md-9;
+  .drop-box{
+    border:3px solid transparent;
+    border-radius: 5px;
+    text-align:center;
+    padding:20%;
+    height:50%;
+    background: whitesmoke;
+  }
+  .drop-box:hover,.drop-box:focus{
+    border:3px solid $main_green;
+  }
+}
+.image-thumbnail{
+  @extend .col-md-3;
+  img{
+    @extend .img-responsive;
+    @extend .thumbnail;
+  }
+}
+.card{
+  img{
+    height:200px !important;
+  }
+}
+/* Card Styles */
+.extra.content{
+  a{
+    color:$main_grey !important;
+    text-decoration: none !important;
+  }
+  a:hover{
+    color:black !important;
   }
 }

@@ -38,3 +38,10 @@ node_modules
 
 ## Bower Ignores
 bower_components
+
+## Bower Ignores
+vendor
+
+## Image Folders
+/slides
+/downloads

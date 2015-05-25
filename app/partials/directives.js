@@ -1,6 +1,17 @@
-app.directive("header", function() {
+app.directive("mainHeader", function() {
 	return {
 		templateUrl: "app/partials/globals/header.html"
+	}
+});
+
+// app.directive("adminHeader", function() {
+//   return {
+//     templateUrl: "app/partials/admin/header.html"
+//   }
+// });
+app.directive("secondaryHeader", function() {
+	return {
+		templateUrl: "app/partials/globals/secondary_header.html"
 	}
 });
 

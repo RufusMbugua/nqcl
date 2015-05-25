@@ -5,18 +5,21 @@ class Users extends MY_Controller {
 
   public function __construct(){
     parent::__construct();
-    $this->load->model('users_model');
   }
 
 
   function index_get(){
 
-    $content = $this->users_model->getUsers();
+    $content = User::find(2);
     $this->response($content);
   }
 
   function index_post(){
-    $post_data = $this->input->post();
-    $this->response($post_data);
+    $post_data = file_get_contents("php://input");
+    $post_data = json_decode($post_data,true);
+
+    $result = User::where($post_data)->get()->toArray();
+
+    $this->response($result);
   }
 }

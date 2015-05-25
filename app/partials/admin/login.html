@@ -1,15 +1,17 @@
-<form method="post" id="login-form">
+<div id="login">
+  <h2>NQCL Admin Login </h2>
+  <form id="login-form">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" ng-model="user.email" class="form-control" name="mail_address" required="required" placeholder="Email" />
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Password</label>
+      <input type="password" ng-model="user.password" class="form-control" name="password" required="required" placeholder="Password"
+      />
+    </div>
+    <input type="submit" class="btn" name="sender" value="SUBMIT" ng-click="login()"/>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" name="mail_address" required="required" placeholder="Email" />
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Password</label>
-    <input type="password" class="form-control" name="password" required="required" placeholder="Password"
-    />
-  </div>
-  <input type="submit" class="btn" name="sender" value="SUBMIT"/>
-
-  <p><center><a href="#">Forgot your password?</a></center></p>
-</form>
+    <p><center><a href="#">Forgot your password?</a></center></p>
+  </form>
+</div>
