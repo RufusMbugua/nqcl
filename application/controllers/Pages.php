@@ -15,7 +15,8 @@ class Pages extends MY_Controller {
 
   function index_put(){
     $data=$this->put();
-    $content = Content::find($data['id']);
+    // echo '<pre>';print_r($data);die;
+    $content = Content::find($data['content'][0]['id']);
     // print_r($data['content']);
     $content->body=$data['content'][0]['body'];
     $content->save();

@@ -108,7 +108,9 @@ header,admin-header,secondary-header{
     }
   }
 }
-
+admin-header{
+  position: relative !important;
+}
 /* Content */
 #public-content{
   width:100%;
