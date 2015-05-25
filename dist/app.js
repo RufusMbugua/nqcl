@@ -701,10 +701,10 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "        <a is-active-nav ui-sref=\"admin.articles\" ><i class='fa fa-list-ul'></i>Articles</a>\n" +
     "      </li>\n" +
     "      <li>\n" +
-    "        <a is-active-nav ui-sref=\"admin.files.add\" ><i class='ion-document'></i>Files</a>\n" +
+    "        <a is-active-nav ui-sref=\"admin.files.list\" ><i class='ion-document'></i>Files</a>\n" +
     "      </li>\n" +
     "      <li>\n" +
-    "        <a is-active-nav ui-sref=\"admin.slides.add\" ><i class='ion-images'></i>Slides</a>\n" +
+    "        <a is-active-nav ui-sref=\"admin.slides.list\" ><i class='ion-images'></i>Slides</a>\n" +
     "      </li>\n" +
     "\n" +
     "    </ul>\n" +
@@ -1097,7 +1097,7 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
   $templateCache.put("../app/partials/home/index.html",
     "<section id=\"carousel-container\">\n" +
     "  <carousel interval=\"2000\">\n" +
-    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\">\n" +
+    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\" ng-if=\"slide.path!=''\">\n" +
     "      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
     "      <div class=\"carousel-caption\">\n" +
     "        <p>{{slide.text}}</p>\n" +
@@ -1246,19 +1246,19 @@ angular.module("../app/partials/slides/add.html", []).run(["$templateCache", fun
   $templateCache.put("../app/partials/slides/add.html",
     "<div ng-controller=\"fileCtrl\">\n" +
     "\n" +
-    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload Image</a>\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"slides\"><i class=\"fa fa-upload\"></i>Upload Image</a>\n" +
     "  <a class=\"btn btn-view\" ui-sref=\"admin.slides.list\" href=\"\"><i class=\"ion-eye\"></i>View Image</a>\n" +
     "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
     "  <div class=\"row\">\n" +
     "    <div class=\"drop-box-container\">\n" +
-    "      <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
+    "      <div ngf-drop ng-model=\"slides\" class=\"drop-box\"\n" +
     "      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
     "      ngf-accept=\"'.jpg,.png'\">Drop Images here</div>\n" +
     "      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
     "    </div>\n" +
     "    <div class=\"image-thumbnail\">\n" +
     "      <h4>Image thumbnail:</h4>\n" +
-    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\" alt=\"Image Thumbnail\">\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
     "      <div class=\"progress\">\n" +
     "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
     "          {{progress.percentage}}%\n" +
@@ -1292,7 +1292,7 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
     "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
     "</div>\n" +
-    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a>\n" +
+    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Slide</a>\n" +
     "\n" +
     "</h3>\n" +
     "<table>\n" +
@@ -1303,7 +1303,7 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "    </tr>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
-    "    <tr ng-repeat=\"image in slides.data\" ng-if=\"file.name.path!=''\">\n" +
+    "    <tr ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
     "      <td>{{image.name}}</td>\n" +
     "      <td>\n" +
     "        <img class=\"img-responsive\" ng-if=\"image.mime == 'image/png' || image.mime == 'image/jpeg'\n" +
