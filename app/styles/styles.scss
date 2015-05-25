@@ -19,7 +19,7 @@ secondary-header{
   position:relative !important;
 }
 
-header,admin-header,secondary-header{
+header,secondary-header{
   background:white;
   position:fixed;
   width:100%;
@@ -108,7 +108,7 @@ header,admin-header,secondary-header{
     }
   }
 }
-admin-header{
+.admin-header{
   position: relative !important;
 }
 /* Content */
