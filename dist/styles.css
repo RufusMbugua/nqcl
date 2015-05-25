@@ -5946,6 +5946,9 @@ header, admin-header, secondary-header {
       color: #F64747 !important;
       background: none !important; }
 
+admin-header {
+  position: relative !important; }
+
 /* Content */
 #public-content {
   width: 100%;

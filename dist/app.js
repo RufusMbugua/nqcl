@@ -1,33 +1,34 @@
 var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
-  'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
-  'LocalStorageModule', 'froala', 'ngFileUpload'
+	'chart.js', 'angularMoment', 'ui.bootstrap', 'ngSanitize', 'angular-md5',
+	'LocalStorageModule', 'froala', 'ngFileUpload'
 ]);
 app.config(function(RestangularProvider) {
-  RestangularProvider.setBaseUrl('http://localhost/nqcl');
-  RestangularProvider.setRequestInterceptor(function(elem, operation) {
-    if (operation === "remove") {
-      return undefined;
-    }
-    return elem;
-  });
-  // RestangularProvider.setRequestSuffix('?format=json');
+	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	RestangularProvider.setRequestInterceptor(function(elem, operation) {
+		if (operation === "remove") {
+			return undefined;
+		}
+		return elem;
+	});
+	// RestangularProvider.setRequestSuffix('?format=json');
 });
 
 app.config(function(localStorageServiceProvider) {
-  localStorageServiceProvider
-    .setStorageType('sessionStorage')
-    .setPrefix('nqcl');
+	localStorageServiceProvider
+		.setStorageType('sessionStorage')
+		.setPrefix('nqcl');
 });
 
 app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-  'Session',
-  function(localStorageService, rootScope, state, stateParams, Session) {
-    rootScope.level = 'public';
-  }
+	'Session',
+	function(localStorageService, rootScope, state, stateParams, Session) {
+		rootScope.level = 'public';
+	}
 ]);
 app.value('froalaConfig', {
-  inlineMode: false,
-  placeholder: 'Enter Text Here'
+	inlineMode: false,
+	placeholder: 'Enter Text Here',
+	toolbarFixed: false
 });
 ;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -102,145 +103,150 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    '$http',
-    function(scope, filter, timeout, state, Restangular, http) {
-      /**
-       * [Pages description]
-       * @type {[type]}
-       */
-      var Pages = Restangular.all('pages?format=json');
-
-      /**
-       * [article description]
-       * @type {[type]}
-       */
-      var Articles = Restangular.all('news?format=json');
-
-      /**
-       * [menu description]
-       * @type {Array}
-       */
-      scope.menu = [];
-
-      /**
-       * [article_menu description]
-       * @type {Array}
-       */
-      scope.article_menu = [];
-
-      /**
-       * [content description]
-       * @type {Array}
-       */
-      scope.content = [];
-
-      scope.alerts = [];
-
-      // getMenuItems();
-      loadSiteContent();
-      loadArticles();
-
-      setArticleMenu();
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'$http',
+		function(scope, filter, timeout, state, Restangular, http) {
 
 
-      /**
-       * [loadArticles description]
-       */
-      function loadArticles() {
-        scope.list = [];
-        http.get('news?format=json').
-        success(function(data, status, headers, config) {
-          scope.list = data;
-        }).
-        error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
-        // Articles.customGET().then(function(article) {
-        // 	scope.list = article;
-        // });
-      }
+			scope.froalaOptions = {
+					toolbarFixed: false
+				}
+				/**
+				 * [Pages description]
+				 * @type {[type]}
+				 */
+			var Pages = Restangular.all('pages?format=json');
+
+			/**
+			 * [article description]
+			 * @type {[type]}
+			 */
+			var Articles = Restangular.all('news?format=json');
+
+			/**
+			 * [menu description]
+			 * @type {Array}
+			 */
+			scope.menu = [];
+
+			/**
+			 * [article_menu description]
+			 * @type {Array}
+			 */
+			scope.article_menu = [];
+
+			/**
+			 * [content description]
+			 * @type {Array}
+			 */
+			scope.content = [];
+
+			scope.alerts = [];
+
+			// getMenuItems();
+			loadSiteContent();
+			loadArticles();
+
+			setArticleMenu();
 
 
-      /**
-       * [setArticleMenu description]
-       */
-      function setArticleMenu() {
-        article_menu = [{
-          'name': 'Add',
-          'ui_sref': 'admin.articles.add',
-          'icon_class': 'fa fa-plus'
-        }, {
-          'name': 'Published',
-          'ui_sref': 'admin.articles.published',
-          'icon_class': 'fa fa-newspaper-o'
-        }];
+			/**
+			 * [loadArticles description]
+			 */
+			function loadArticles() {
+				scope.list = [];
+				http.get('news?format=json').
+				success(function(data, status, headers, config) {
+					scope.list = data;
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+				// Articles.customGET().then(function(article) {
+				// 	scope.list = article;
+				// });
+			}
 
-        scope.article_menu = article_menu;
-      }
 
-      /**
-       * [addArticle description]
-       */
-      scope.addArticle = function addArticle() {
-        Articles.post(scope.article).then(function(response) {
-          var alert = {
-            type: 'success',
-            msg: response
-          }
-          scope.alerts.push(alert);
-          timeout(function() {
-            state.go('admin.articles.published')
-          }, 1000);
-        });
-      }
+			/**
+			 * [setArticleMenu description]
+			 */
+			function setArticleMenu() {
+				article_menu = [{
+					'name': 'Add',
+					'ui_sref': 'admin.articles.add',
+					'icon_class': 'fa fa-plus'
+				}, {
+					'name': 'Published',
+					'ui_sref': 'admin.articles.published',
+					'icon_class': 'fa fa-newspaper-o'
+				}];
 
-      /**
-       * [editArticle description]
-       */
-      scope.editArticle = function editArticle(item) {
-        scope.article = item;
+				scope.article_menu = article_menu;
+			}
 
-      }
+			/**
+			 * [addArticle description]
+			 */
+			scope.addArticle = function addArticle() {
+				Articles.post(scope.article).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+					timeout(function() {
+						state.go('admin.articles.published')
+					}, 1000);
+				});
+			}
 
-      /**
-       * [disableArticle description]
-       */
-      scope.disableArticle = function disableArticle() {
+			/**
+			 * [editArticle description]
+			 */
+			scope.editArticle = function editArticle(item) {
+				scope.article = item;
 
-      }
+			}
 
-      /**
-       * [closeAlert description]
-       * @param {[type]} index [description]
-       */
-      scope.closeAlert = function(index) {
-        scope.alerts.splice(index, 1);
-      };
+			/**
+			 * [disableArticle description]
+			 */
+			scope.disableArticle = function disableArticle() {
 
-      scope.editSiteContent = function editSiteContent(content) {
-        Pages.customPUT(content);
-      }
+			}
 
-      scope.disableSiteContent = function disableSiteContent(content) {
-          console.log(Pages);
-          Pages.customDELETE(content);
-        }
-        // Content
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
 
-      /**
-       * [loadSiteContent description]
-       */
-      function loadSiteContent() {
-        scope.content = [];
-        Pages.customGET().then(function(content) {
-          scope.content = content;
-        });
-      }
+			scope.editSiteContent = function editSiteContent(content) {
+				Pages.customPUT(content);
+			}
 
-    }
-  ]);
+			scope.disableSiteContent = function disableSiteContent(content) {
+					console.log(Pages);
+					Pages.customDELETE(content);
+				}
+				// Content
+
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadSiteContent() {
+				scope.content = [];
+				Pages.customGET().then(function(content) {
+					scope.content = content;
+				});
+			}
+
+		}
+	]);
 ;app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Upload', '$rootScope', '$http',
@@ -350,49 +356,49 @@ app.value('froalaConfig', {
 	]
 );
 ;app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      var front = Restangular.all('pages?format=json');
-      var Slides = Restangular.all('files/slides?format=json')
-      loadImages();
-      loadContent();
-      scope.content = [];
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('pages?format=json');
 
-      function loadImages() {
-        Slides.customGET().then(function(slides) {
-          scope.slides = slides.data;
-          console.log(slides.data);
-        });
-      }
+			var Slides = Restangular.all('files/slides?format=json')
+			loadImages();
+			loadContent();
+			scope.content = [];
+
+			function loadImages() {
+				Slides.customGET().then(function(slides) {
+					scope.slides = slides.data;
+					console.log(slides.data);
+				});
+			}
 
 
-      function loadContent() {
+			function loadContent() {
 
-        front.getList().then(function(content) {
-          console.log(content);
-          angular.forEach(content, function(value, key) {
-            switch (value.name) {
-              case "Welcome to NQCL":
-                scope.content.welcome = value;
-                break;
-              case "Our Services":
-                scope.content.services = value;
-                break;
-              case "Contact Us":
-                scope.content.contact = value;
-                break;
-              default:
+				front.getList().then(function(content) {
+					angular.forEach(content, function(value, key) {
+						switch (value.name) {
+							case "Welcome to NQCL":
+								scope.content.welcome = value;
+								break;
+							case "Our Services":
+								scope.content.services = value;
+								break;
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+							default:
 
-                break;
+								break;
 
-            }
+						}
 
-          });
-        });
-      }
+					});
+				});
+			}
 
-    }
-  ]
+		}
+	]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -999,7 +1005,7 @@ angular.module("../app/partials/content/table.html", []).run(["$templateCache", 
     "    <tr ng-repeat=\"item in content\">\n" +
     "      <td>{{item.name}}</td>\n" +
     "      <td>\n" +
-    "        <textarea froala ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
     "      <td>{{item.active}}</td>\n" +
     "      <td>\n" +
     "        <div class=\"btn-group btn-group-sm\">\n" +
@@ -1132,7 +1138,7 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
-    "  <section class=\"content small\">\n" +
+    "  <!-- <section class=\"content small\">\n" +
     "    <h1>{{content.services.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.services.content[0].body\">\n" +
     "    </div>\n" +
@@ -1145,7 +1151,7 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.contact.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
-    "  </section>\n" +
+    "  </section> -->\n" +
     "</div>\n" +
     "");
 }]);
