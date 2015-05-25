@@ -288,54 +288,49 @@ app.value('froalaConfig', {
 	]
 );
 ;app.controller(
-	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			var front = Restangular.all('pages?format=json');
-			loadImages();
-			loadContent();
-			scope.content = [];
+  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      var front = Restangular.all('pages?format=json');
+      var Slides = Restangular.all('files/slides?format=json')
+      loadImages();
+      loadContent();
+      scope.content = [];
 
-			function loadImages() {
-				scope.slides = [{
-					image: 'app/images/slides/1.png',
-					text: ''
-				}, {
-					image: 'app/images/slides/2.png',
-					text: ''
-				}, {
-					image: 'app/images/slides/3.png',
-					text: ''
-				}];
-			}
+      function loadImages() {
+        Slides.customGET().then(function(slides) {
+          scope.slides = slides.data;
+          console.log(slides.data);
+        });
+      }
 
 
-			function loadContent() {
+      function loadContent() {
 
-				front.getList().then(function(content) {
-					console.log(content);
-					angular.forEach(content, function(value, key) {
-						switch (value.name) {
-							case "Welcome to NQCL":
-								scope.content.welcome = value;
-								break;
-							case "Our Services":
-								scope.content.services = value;
-								break;
-							case "Contact Us":
-								scope.content.contact = value;
-								break;
-							default:
+        front.getList().then(function(content) {
+          console.log(content);
+          angular.forEach(content, function(value, key) {
+            switch (value.name) {
+              case "Welcome to NQCL":
+                scope.content.welcome = value;
+                break;
+              case "Our Services":
+                scope.content.services = value;
+                break;
+              case "Contact Us":
+                scope.content.contact = value;
+                break;
+              default:
 
-								break;
+                break;
 
-						}
+            }
 
-					});
-				});
-			}
+          });
+        });
+      }
 
-		}
-	]
+    }
+  ]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -951,8 +946,8 @@ angular.module("../app/partials/files/add.html", []).run(["$templateCache", func
     "      <h4>Image thumbnail:</h4>\n" +
     "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
     "      <div class=\"progress\">\n" +
-    "        <div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
-    "          {{progress.percentage}}\n" +
+    "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
+    "          {{progress.percentage}}%\n" +
     "        </div>\n" +
     "      </div>\n" +
     "      {{progress.file}}\n" +
@@ -979,7 +974,11 @@ angular.module("../app/partials/files/list.html", []).run(["$templateCache", fun
   $templateCache.put("../app/partials/files/list.html",
     "<h3>Downloads Page\n" +
     "\n" +
-    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a> \n" +
+    "<div class=\"btn-group btn-group\">\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
+    "</div>\n" +
+    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a>\n" +
     "\n" +
     "</h3>\n" +
     "<table>\n" +
@@ -1032,7 +1031,7 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "<section id=\"carousel-container\">\n" +
     "  <carousel interval=\"2000\">\n" +
     "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\">\n" +
-    "      <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\n" +
+    "      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
     "      <div class=\"carousel-caption\">\n" +
     "        <p>{{slide.text}}</p>\n" +
     "      </div>\n" +
