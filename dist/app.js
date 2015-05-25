@@ -756,10 +756,10 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
 
 angular.module("../app/partials/admin/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/admin/index.html",
-    "<admin-header ui-view=\"header\">\n" +
+    "<header class='admin-header' ui-view=\"header\">\n" +
     "\n" +
     "\n" +
-    "</admin-header>\n" +
+    "</header>\n" +
     "\n" +
     "<section ui-view id=\"content\">\n" +
     "\n" +
@@ -1249,10 +1249,10 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
 
 angular.module("../app/partials/public/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/public/index.html",
-    "<admin-header ui-view=\"header\">\n" +
+    "<header ui-view=\"header\">\n" +
     "\n" +
     "\n" +
-    "</admin-header>\n" +
+    "</header>\n" +
     "\n" +
     "<section ui-view id=\"public-content\">\n" +
     "\n" +
