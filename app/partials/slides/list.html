@@ -1,9 +1,9 @@
-<h3>Slides Page
+<h3>Images Page
 
-  <a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.slides.add"><i class='fa fa-plus'></i>Add Slide</a>
+  <a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.slides.add"><i class='fa fa-plus'></i>Add Image</a>
 
 </h3>
-<div class="ui cards">
+<div class="ui four cards">
   <div class="card" ng-repeat="image in slides.data" ng-if="image.path!=''">
     <div class="image">
       <img src="{{image.uri}}">
