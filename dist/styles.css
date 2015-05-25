@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url(../../bower_components/semantic-ui/dist/semantic.css);
+@import url(../bower_components/semantic-ui/dist/semantic.css);
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
@@ -6108,5 +6108,12 @@ span.label {
   background: whitesmoke; }
 .drop-box-container .drop-box:hover, .drop-box-container .drop-box:focus {
   border: 3px solid #00a460; }
+
+/* Card Styles */
+.extra.content a {
+  color: #ECF0F1 !important;
+  text-decoration: none !important; }
+.extra.content a:hover {
+  color: black !important; }
 
 /*# sourceMappingURL=styles.css.map */

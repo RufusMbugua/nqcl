@@ -1,29 +1,25 @@
-<h3>Downloads Page
+<h3>Slides Page
 
-<div class="btn-group btn-group">
-  <a href="" class="btn btn-view"><i class="ion-ios-list"></i>List</a>
-  <a href="" class="btn btn-view"><i class="ion-grid"></i>Grid</a>
-</div>
-<a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.slides.add"><i class='fa fa-plus'></i>Add Slide</a>
+  <a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.slides.add"><i class='fa fa-plus'></i>Add Slide</a>
 
 </h3>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Source</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="image in slides.data" ng-if="image.path!=''">
-      <td>{{image.name}}</td>
-      <td>
-        <img class="img-responsive" ng-if="image.mime == 'image/png' || image.mime == 'image/jpeg'
-        "src="{{image.uri}}" alt="">
+<div class="ui cards">
+  <div class="card" ng-repeat="image in slides.data" ng-if="image.path!=''">
+    <div class="image">
+      <img src="{{image.uri}}">
+    </div>
+    <div class="content">
+      <a class="header">{{image.name}}</a>
+      <div class="meta">
+        <span class="date">Joined in 2014</span>
+      </div>
+      <div class="description">
+      </div>
+    </div>
+    <div class="extra content">
+      <a href="" ng-click="archiveSlide(image)"><i class='icon archive'></i>Archive</a>
+      <a href="" ng-click="removeSlide(image)"><i class='icon remove'></i>Remove</a>
+    </div>
+  </div>
 
-          <a ng-if="image.mime == 'application/pdf' " href="{{image.uri}}">{{image.name}}</a>
-        </td>
-    </tr>
-  </tbody>
-  <tfoot></tfoot>
-</table>
+</div>

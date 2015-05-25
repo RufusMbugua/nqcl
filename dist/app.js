@@ -236,99 +236,107 @@ app.value('froalaConfig', {
     }
   ]);
 ;app.controller(
-  "fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    'Upload', '$rootScope',
+	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'Upload', '$rootScope',
 
-    function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
-      Files = Restangular.all('Files?format=json');
-      Slides = Restangular.all('files/slides?format=json');
-      loadFileList();
-      loadSlidesList();
+		function(scope, filter, timeout, state, Restangular, Upload, rootScope) {
+			Files = Restangular.all('Files?format=json');
+			Slides = Restangular.all('files/slides?format=json');
+			loadFileList();
+			loadSlidesList();
 
-      scope.progress = [];
+			scope.progress = [];
 
-      function loadFileList() {
-        Files.customGET().then(function(files) {
-          console.log(files);
-          scope.files = files;
-        });
-      }
+			function loadFileList() {
+				Files.customGET().then(function(files) {
+					console.log(files);
+					scope.files = files;
+				});
+			}
 
-      function loadSlidesList() {
-        Slides.customGET().then(function(slides) {
-          scope.slides = slides;
-        });
-      }
-
-
-      scope.$watch('files', function() {
-        scope.upload(scope.files);
-      });
-
-      scope.$watch('slides', function() {
-        scope.uploadSlides(scope.slides);
-      });
-
-      scope.upload = function(files) {
-        console.log(Upload);
-        if (files && files.length) {
-          for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            Upload.upload({
-              url: 'files',
-              fields: {
-                'username': rootScope.user.f_name
-              },
-              file: file
-            }).progress(function(evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded /
-                evt.total);
-              console.log('progress: ' + progressPercentage + '% ' +
-                evt.config.file
-                .name);
-              scope.progress.percentage = progressPercentage;
-              scope.progress.file = evt.config.file.name;
-
-            }).success(function(data, status, headers, config) {
-              console.log('file ' + config.file.name +
-                'uploaded. Response: ' +
-                data);
-            });
-          }
-        }
-      };
+			function loadSlidesList() {
+				Slides.customGET().then(function(slides) {
+					scope.slides = slides;
+				});
+			}
 
 
-      scope.uploadSlides = function(files) {
-        console.log(Upload);
-        if (files && files.length) {
-          for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            Upload.upload({
-              url: 'files/slides',
-              fields: {
-                'username': rootScope.user.f_name
-              },
-              file: file
-            }).progress(function(evt) {
-              var progressPercentage = parseInt(100.0 * evt.loaded /
-                evt.total);
-              console.log('progress: ' + progressPercentage + '% ' +
-                evt.config.file
-                .name);
-              scope.progress.percentage = progressPercentage;
-              scope.progress.file = evt.config.file.name;
+			scope.$watch('files', function() {
+				scope.upload(scope.files);
+			});
 
-            }).success(function(data, status, headers, config) {
-              console.log('file ' + config.file.name +
-                'uploaded. Response: ' +
-                data);
-            });
-          }
-        }
-      };
-    }
-  ]
+			scope.$watch('slides', function() {
+				scope.uploadSlides(scope.slides);
+			});
+
+			scope.upload = function(files) {
+				console.log(Upload);
+				if (files && files.length) {
+					for (var i = 0; i < files.length; i++) {
+						var file = files[i];
+						Upload.upload({
+							url: 'files',
+							fields: {
+								'username': rootScope.user.f_name
+							},
+							file: file
+						}).progress(function(evt) {
+							var progressPercentage = parseInt(100.0 * evt.loaded /
+								evt.total);
+							console.log('progress: ' + progressPercentage + '% ' +
+								evt.config.file
+								.name);
+							scope.progress.percentage = progressPercentage;
+							scope.progress.file = evt.config.file.name;
+
+						}).success(function(data, status, headers, config) {
+							console.log('file ' + config.file.name +
+								'uploaded. Response: ' +
+								data);
+						});
+					}
+				}
+			};
+
+
+			scope.uploadSlides = function(files) {
+				console.log(Upload);
+				if (files && files.length) {
+					for (var i = 0; i < files.length; i++) {
+						var file = files[i];
+						Upload.upload({
+							url: 'files/slides',
+							fields: {
+								'username': rootScope.user.f_name
+							},
+							file: file
+						}).progress(function(evt) {
+							var progressPercentage = parseInt(100.0 * evt.loaded /
+								evt.total);
+							console.log('progress: ' + progressPercentage + '% ' +
+								evt.config.file
+								.name);
+							scope.progress.percentage = progressPercentage;
+							scope.progress.file = evt.config.file.name;
+
+						}).success(function(data, status, headers, config) {
+							console.log('file ' + config.file.name +
+								'uploaded. Response: ' +
+								data);
+						});
+					}
+				}
+			};
+
+
+			scope.archiveSlide = function archiveSlide(slide) {
+				console.log(slide);
+			};
+			scope.removeSlide = function removeSlide(slide) {
+				console.log(slide);
+			};
+		}
+	]
 );
 ;app.controller(
   "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -1286,34 +1294,30 @@ angular.module("../app/partials/slides/index.html", []).run(["$templateCache", f
 
 angular.module("../app/partials/slides/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/slides/list.html",
-    "<h3>Downloads Page\n" +
+    "<h3>Slides Page\n" +
     "\n" +
-    "<div class=\"btn-group btn-group\">\n" +
-    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
-    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
-    "</div>\n" +
-    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Slide</a>\n" +
+    "  <a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Slide</a>\n" +
     "\n" +
     "</h3>\n" +
-    "<table>\n" +
-    "  <thead>\n" +
-    "    <tr>\n" +
-    "      <th>Name</th>\n" +
-    "      <th>Source</th>\n" +
-    "    </tr>\n" +
-    "  </thead>\n" +
-    "  <tbody>\n" +
-    "    <tr ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
-    "      <td>{{image.name}}</td>\n" +
-    "      <td>\n" +
-    "        <img class=\"img-responsive\" ng-if=\"image.mime == 'image/png' || image.mime == 'image/jpeg'\n" +
-    "        \"src=\"{{image.uri}}\" alt=\"\">\n" +
+    "<div class=\"ui cards\">\n" +
+    "  <div class=\"card\" ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
+    "    <div class=\"image\">\n" +
+    "      <img src=\"{{image.uri}}\">\n" +
+    "    </div>\n" +
+    "    <div class=\"content\">\n" +
+    "      <a class=\"header\">{{image.name}}</a>\n" +
+    "      <div class=\"meta\">\n" +
+    "        <span class=\"date\">Joined in 2014</span>\n" +
+    "      </div>\n" +
+    "      <div class=\"description\">\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"extra content\">\n" +
+    "      <a href=\"\" ng-click=\"archiveSlide()\"><i class='icon archive'></i>Archive</a>\n" +
+    "      <a href=\"\" ng-click=\"removeSlide()\"><i class='icon remove'></i>Remove</a>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
     "\n" +
-    "          <a ng-if=\"image.mime == 'application/pdf' \" href=\"{{image.uri}}\">{{image.name}}</a>\n" +
-    "        </td>\n" +
-    "    </tr>\n" +
-    "  </tbody>\n" +
-    "  <tfoot></tfoot>\n" +
-    "</table>\n" +
+    "</div>\n" +
     "");
 }]);

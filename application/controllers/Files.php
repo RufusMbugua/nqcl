@@ -58,14 +58,15 @@ class Files extends MY_Controller{
     $uploadHandler = new UploadHandler($this->directory);
 
     $files = $this->slidesystem->listContents();
+    // echo '<pre>';print_r($files);die;
 
     $resource = new Collection($files, function(array $file) {
       return [
         'uri'  => 'slides/'.$file['path'],
         'mime' => get_mime_by_extension($file['path']),
         'name'=>$file['path'],
-        'path'=>$file['filename']
-
+        'path'=>$file['filename'],
+        'timestamp'=>$file['timestamp']
       ];
     });
 

@@ -1,4 +1,4 @@
-@import "../../bower_components/semantic-ui/dist/semantic.css";
+@import "../bower_components/semantic-ui/dist/semantic.css";
 
 @import "bootstrap";
 $main-green:#00a460;
@@ -338,5 +338,16 @@ span.label{
   img{
     @extend .img-responsive;
     @extend .thumbnail;
+  }
+}
+
+/* Card Styles */
+.extra.content{
+  a{
+    color:$main_grey !important;
+    text-decoration: none !important;
+  }
+  a:hover{
+    color:black !important;
   }
 }
