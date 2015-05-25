@@ -90,7 +90,7 @@ class Files extends MY_Controller{
   function slides_delete(){
     // $post_data = file_get_contents("php://input");
     // $post_data = json_decode($post_data,true);
-    echo '<pre>';
-    print_r($this->delete());
+    // echo '<pre>';
+    // print_r($this->delete());
   }
 }
