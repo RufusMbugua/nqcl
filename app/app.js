@@ -3,7 +3,7 @@ var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
 	'LocalStorageModule', 'froala', 'ngFileUpload'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('http://localhost/nqcl');
+	RestangularProvider.setBaseUrl('/nqcl');
 	RestangularProvider.setRequestInterceptor(function(elem, operation) {
 		if (operation === "remove") {
 			return undefined;
@@ -19,9 +19,12 @@ app.config(function(localStorageServiceProvider) {
 		.setPrefix('nqcl');
 });
 
-app.run(['localStorageService', '$rootScope', '$state', '$stateParams',
-	'Session',
-	function(localStorageService, rootScope, state, stateParams, Session) {
+app.run(['localStorageService', '$rootScope', '$state',
+	'$stateParams',
+	'Session', '$location',
+
+	function(localStorageService, rootScope, state, stateParams, Session,
+		location) {
 		rootScope.level = 'public';
 	}
 ]);
