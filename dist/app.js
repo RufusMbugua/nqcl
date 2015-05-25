@@ -732,7 +732,7 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "        <a is-active-nav ui-sref=\"admin.files.list\" ><i class='ion-document'></i>Files</a>\n" +
     "      </li>\n" +
     "      <li>\n" +
-    "        <a is-active-nav ui-sref=\"admin.slides.list\" ><i class='ion-images'></i>Slides</a>\n" +
+    "        <a is-active-nav ui-sref=\"admin.slides.list\" ><i class='ion-images'></i>Images</a>\n" +
     "      </li>\n" +
     "\n" +
     "    </ul>\n" +
@@ -1314,12 +1314,12 @@ angular.module("../app/partials/slides/index.html", []).run(["$templateCache", f
 
 angular.module("../app/partials/slides/list.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/slides/list.html",
-    "<h3>Slides Page\n" +
+    "<h3>Images Page\n" +
     "\n" +
-    "  <a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Slide</a>\n" +
+    "  <a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Image</a>\n" +
     "\n" +
     "</h3>\n" +
-    "<div class=\"ui cards\">\n" +
+    "<div class=\"ui four cards\">\n" +
     "  <div class=\"card\" ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
     "    <div class=\"image\">\n" +
     "      <img src=\"{{image.uri}}\">\n" +
