@@ -359,60 +359,77 @@ app.value('froalaConfig', {
 	]
 );
 ;app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      var front = Restangular.all('pages?format=json');
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('pages?format=json');
 
-      var Slides = Restangular.all('files/slides?format=json')
-      loadImages();
-      loadContent();
-      scope.content = [];
-      scope.query = [];
-      /**
-       * [loadImages description]
-       */
-      function loadImages() {
-        Slides.customGET().then(function(slides) {
-          scope.slides = slides.data;
-        });
-      }
+			var Slides = Restangular.all('files/slides?format=json');
 
-      /**
-       * [loadContent description]
-       */
-      function loadContent() {
+			var Queries = Restangular.all('queries?format=json');
+			loadImages();
+			loadContent();
+			scope.content = [];
+			scope.query = [];
+			scope.alerts = [];
+			/**
+			 * [loadImages description]
+			 */
+			function loadImages() {
+				Slides.customGET().then(function(slides) {
+					scope.slides = slides.data;
+				});
+			}
 
-        front.getList().then(function(content) {
-          angular.forEach(content, function(value, key) {
-            switch (value.name) {
-              case "Welcome to NQCL":
-                scope.content.welcome = value;
-                break;
-              case "Our Services":
-                scope.content.services = value;
-                break;
-              case "Contact Us":
-                scope.content.contact = value;
-                break;
-              default:
+			/**
+			 * [loadContent description]
+			 */
+			function loadContent() {
 
-                break;
+				front.getList().then(function(content) {
+					angular.forEach(content, function(value, key) {
+						switch (value.name) {
+							case "Welcome to NQCL":
+								scope.content.welcome = value;
+								break;
+							case "Our Services":
+								scope.content.services = value;
+								break;
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+							default:
 
-            }
+								break;
 
-          });
-        });
-      }
+						}
 
-      /**
-       * [sendQuery description]
-       */
-      scope.sendQuery = function sendQuery() {
-        console.log(scope.query);
-      }
+					});
+				});
+			}
 
-    }
-  ]
+			/**
+			 * [sendQuery description]
+			 */
+			scope.sendQuery = function sendQuery() {
+				// console.log(scope.query);
+				Queries.post(scope.query).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+				});;
+			}
+
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
+		}
+	]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -989,13 +1006,18 @@ angular.module("../app/partials/contact/directions.html", []).run(["$templateCac
 angular.module("../app/partials/contact/email.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/contact/email.html",
     "<div class=\"row\">\n" +
-    "  <form action=\"\" >\n" +
+    "  <div class=\"content medium\">\n" +
+    "    <h3>Fill out the email form with your query</h3>\n" +
+    "    <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <form action=\"\" class=\"content medium\">\n" +
     "    <div class=\"form-group\">\n" +
-    "      <label for=\"\">Email Address</label>\n" +
+    "      <label for=\"\">Your Email Address</label>\n" +
     "      <input type=\"email\" ng-model=\"query.email\" placeholder=\"joe@example.com\" class=\"form-control\">\n" +
     "    </div>\n" +
     "    <div class=\"form-group\">\n" +
-    "      <label for=\"\">Message</label>\n" +
+    "      <label for=\"\">Your Message</label>\n" +
     "      <textarea froala ng-model=\"query.message\" name=\"\" id=\"\" placeholder=\"Enter message here...\" cols=\"30\" rows=\"10\" class=\"form-control\"></textarea>\n" +
     "    </div>\n" +
     "    <div class='btn-group'>\n" +

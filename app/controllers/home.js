@@ -1,56 +1,73 @@
 app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      var front = Restangular.all('pages?format=json');
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('pages?format=json');
 
-      var Slides = Restangular.all('files/slides?format=json')
-      loadImages();
-      loadContent();
-      scope.content = [];
-      scope.query = [];
-      /**
-       * [loadImages description]
-       */
-      function loadImages() {
-        Slides.customGET().then(function(slides) {
-          scope.slides = slides.data;
-        });
-      }
+			var Slides = Restangular.all('files/slides?format=json');
 
-      /**
-       * [loadContent description]
-       */
-      function loadContent() {
+			var Queries = Restangular.all('queries?format=json');
+			loadImages();
+			loadContent();
+			scope.content = [];
+			scope.query = [];
+			scope.alerts = [];
+			/**
+			 * [loadImages description]
+			 */
+			function loadImages() {
+				Slides.customGET().then(function(slides) {
+					scope.slides = slides.data;
+				});
+			}
 
-        front.getList().then(function(content) {
-          angular.forEach(content, function(value, key) {
-            switch (value.name) {
-              case "Welcome to NQCL":
-                scope.content.welcome = value;
-                break;
-              case "Our Services":
-                scope.content.services = value;
-                break;
-              case "Contact Us":
-                scope.content.contact = value;
-                break;
-              default:
+			/**
+			 * [loadContent description]
+			 */
+			function loadContent() {
 
-                break;
+				front.getList().then(function(content) {
+					angular.forEach(content, function(value, key) {
+						switch (value.name) {
+							case "Welcome to NQCL":
+								scope.content.welcome = value;
+								break;
+							case "Our Services":
+								scope.content.services = value;
+								break;
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+							default:
 
-            }
+								break;
 
-          });
-        });
-      }
+						}
 
-      /**
-       * [sendQuery description]
-       */
-      scope.sendQuery = function sendQuery() {
-        console.log(scope.query);
-      }
+					});
+				});
+			}
 
-    }
-  ]
+			/**
+			 * [sendQuery description]
+			 */
+			scope.sendQuery = function sendQuery() {
+				// console.log(scope.query);
+				Queries.post(scope.query).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+				});;
+			}
+
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
+		}
+	]
 );
