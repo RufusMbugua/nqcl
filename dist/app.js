@@ -34,23 +34,23 @@ app.value('froalaConfig', {
 	toolbarFixed: false
 });
 ;app.controller(
-	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			scope.links = [];
-			loadLinks();
+  "aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      scope.links = [];
+      loadLinks();
 
-			function loadLinks() {
-				var Links = Restangular.all('about?format=json');
-				Links.getList().then(function(links) {
-					scope.links = links;
-				});
-			}
+      function loadLinks() {
+        var Links = Restangular.all('pages/about?format=json');
+        Links.getList().then(function(links) {
+          scope.links = links;
+        });
+      }
 
-			scope.loadContent = function loadContent(content) {
-				scope.content = content
-			}
-		}
-	]
+      scope.loadContent = function loadContent(content) {
+        scope.content = content
+      }
+    }
+  ]
 );
 ;app.controller(
 	"adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -234,6 +234,9 @@ app.value('froalaConfig', {
 
 			scope.editSiteContent = function editSiteContent(content) {
 				Pages.customPUT(content);
+			}
+			scope.editAboutContent = function editSiteContent(content) {
+				About.customPUT(content);
 			}
 
 			scope.disableSiteContent = function disableSiteContent(content) {
@@ -999,21 +1002,19 @@ angular.module("../app/partials/content/content.about.html", []).run(["$template
   $templateCache.put("../app/partials/content/content.about.html",
     "<table>\n" +
     "  <thead>\n" +
-    "    <th>Name</th>\n" +
+    "    <th style=\"width:300px\">Name</th>\n" +
     "    <th>Body</th>\n" +
-    "    <th>Active</th>\n" +
     "    <th>Action</th>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
     "    <tr ng-repeat=\"item in about\">\n" +
-    "      <td>{{item.name}}</td>\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.about_type\"></td>\n" +
     "      <td>\n" +
-    "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
-    "      <td>{{item.active}}</td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.about_body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
     "      <td>\n" +
     "        <div class=\"btn-group btn-group-sm\">\n" +
-    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
-    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
+    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editAboutContent(item)\">Edit</a>\n" +
+    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableAboutContent(item)\">Disable</a>\n" +
     "        </div>\n" +
     "      </td>\n" +
     "    </tr>\n" +
@@ -1065,14 +1066,14 @@ angular.module("../app/partials/content/content.main.html", []).run(["$templateC
   $templateCache.put("../app/partials/content/content.main.html",
     "<table>\n" +
     "  <thead>\n" +
-    "    <th>Name</th>\n" +
+    "    <th style=\"width:300px\">Name</th>\n" +
     "    <th>Body</th>\n" +
     "    <th>Active</th>\n" +
     "    <th>Action</th>\n" +
     "  </thead>\n" +
     "  <tbody>\n" +
     "    <tr ng-repeat=\"item in content\">\n" +
-    "      <td>{{item.name}}</td>\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.name\"></td>\n" +
     "      <td>\n" +
     "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
     "      <td>{{item.active}}</td>\n" +

@@ -1,13 +1,13 @@
 <table>
   <thead>
-    <th>Name</th>
+    <th style="width:300px">Name</th>
     <th>Body</th>
     <th>Active</th>
     <th>Action</th>
   </thead>
   <tbody>
     <tr ng-repeat="item in content">
-      <td>{{item.name}}</td>
+      <td><input type="text" class='form-control' ng-model="item.name"></td>
       <td>
         <textarea froala="froalaOptions" ng-model="item.content[0].body" ng-bind-html="item.body"></textarea></td>
       <td>{{item.active}}</td>

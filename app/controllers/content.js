@@ -128,6 +128,9 @@ app.controller(
 			scope.editSiteContent = function editSiteContent(content) {
 				Pages.customPUT(content);
 			}
+			scope.editAboutContent = function editSiteContent(content) {
+				About.customPUT(content);
+			}
 
 			scope.disableSiteContent = function disableSiteContent(content) {
 					console.log(Pages);

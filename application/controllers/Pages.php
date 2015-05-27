@@ -19,6 +19,17 @@ class Pages extends MY_Controller {
     $this->response($items);
   }
 
+  function about_put(){
+    $data=$this->put();
+    // var_dump($data);die;
+    $about = About::find($data['id']);
+
+    $about->about_body=$data['about_body'];
+    $about->about_type=$data['about_type'];
+    $about->save();
+    $this->response($about);
+  }
+
   function index_put(){
     $data=$this->put();
     // echo '<pre>';print_r($data);die;
