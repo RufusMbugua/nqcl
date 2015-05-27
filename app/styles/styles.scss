@@ -142,6 +142,10 @@ header,secondary-header{
 .content.full{
   @extend .col-md-12;
 }
+/* Full Size */
+.content.medium{
+  @extend .col-md-6;
+}
 /* Small Size*/
 .content.small{
   @extend .col-md-4;
