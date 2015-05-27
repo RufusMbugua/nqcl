@@ -3,7 +3,6 @@ app.controller(
 		'$http',
 		function(scope, filter, timeout, state, Restangular, http) {
 
-
 			scope.froalaOptions = {
 					toolbarFixed: false
 				}
@@ -13,6 +12,11 @@ app.controller(
 				 */
 			var Pages = Restangular.all('pages?format=json');
 
+			/**
+			 * [About description]
+			 * @type {RegExp}
+			 */
+			var About = Restangular.all('pages/about?format=json');
 			/**
 			 * [article description]
 			 * @type {[type]}
@@ -44,7 +48,7 @@ app.controller(
 			loadArticles();
 
 			setArticleMenu();
-
+			loadAboutContent()
 
 			/**
 			 * [loadArticles description]
@@ -79,7 +83,7 @@ app.controller(
 					'icon_class': 'fa fa-newspaper-o'
 				}];
 
-				scope.article_menu = article_menu;
+				scope.menu = article_menu;
 			}
 
 			/**
@@ -138,6 +142,16 @@ app.controller(
 				scope.content = [];
 				Pages.customGET().then(function(content) {
 					scope.content = content;
+				});
+			}
+
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadAboutContent() {
+				scope.about = [];
+				About.customGET().then(function(content) {
+					scope.about = content;
 				});
 			}
 

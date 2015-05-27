@@ -15,11 +15,11 @@ $main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
 }
-secondary-header{
+secondary-header,.secondary-header{
   position:relative !important;
 }
 
-header,secondary-header{
+header,secondary-header,.secondary-header{
   background:white;
   position:fixed;
   width:100%;

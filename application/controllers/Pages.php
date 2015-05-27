@@ -13,6 +13,12 @@ class Pages extends MY_Controller {
     $this->response($items);
   }
 
+  function about_get(){
+    $items = About::all();
+
+    $this->response($items);
+  }
+
   function index_put(){
     $data=$this->put();
     // echo '<pre>';print_r($data);die;
