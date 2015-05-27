@@ -28,7 +28,7 @@ app.controller(
        * @type {Array}
        */
       scope.menu = [];
-
+      scope.article = {};
       /**
        * [article_menu description]
        * @type {Array}
@@ -54,6 +54,7 @@ app.controller(
        * [loadArticles description]
        */
       function loadArticles() {
+        scope.action = 'add';
         scope.list = [];
         http.get('news?format=json').
         success(function(data, status, headers, config) {
@@ -63,9 +64,11 @@ app.controller(
           // called asynchronously if an error occurs
           // or server returns response with an error status.
         });
-        // Articles.customGET().then(function(article) {
-        // 	scope.list = article;
-        // });
+      }
+      scope.resetArticle = function resetArticle() {
+        scope.article = [];
+        scope.action = 'add';
+        state.go('admin.articles.add');
       }
 
 
@@ -90,6 +93,7 @@ app.controller(
        * [addArticle description]
        */
       scope.addArticle = function addArticle() {
+        console.log(scope.article)
         Articles.post(scope.article).then(function(response) {
           var alert = {
             type: 'success',
@@ -97,7 +101,9 @@ app.controller(
           }
           scope.alerts.push(alert);
           timeout(function() {
-            state.go('admin.articles.published')
+            state.go(state.current, {}, {
+              reload: true
+            });
           }, 1000);
         });
       }
@@ -105,17 +111,37 @@ app.controller(
       /**
        * [editArticle description]
        */
-      scope.editArticle = function editArticle(item) {
-        console.log(item);
-        scope.article = item;
+      scope.getArticle = function getArticle(newArticle) {
+        scope.article = newArticle;
+        scope.action = 'edit';
+        state.go('admin.articles.edit');
+
+      }
+
+      scope.editArticle = function editArticle() {
+        scope.article.request = 'update';
+        Articles.customPUT(scope.article).then(function(response) {
+          timeout(function() {
+            state.go(state.current, {}, {
+              reload: true
+            });
+          }, 1000);
+        });
 
       }
 
       /**
        * [disableArticle description]
        */
-      scope.disableArticle = function disableArticle() {
-
+      scope.disableArticle = function disableArticle(article) {
+        article.request = 'delete';
+        Articles.customPUT(article).then(function(response) {
+          timeout(function() {
+            state.go(state.current, {}, {
+              reload: true
+            });
+          }, 1000);
+        });
       }
 
       /**
