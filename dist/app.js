@@ -417,6 +417,20 @@ app.value('froalaConfig', {
 				});
 
 			};
+
+			scope.removeFile = function removeFile(file) {
+				console.log(file);
+				file.request = 'delete';
+				Files.customPUT(file).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
+			};
 		}
 	]
 );
@@ -1227,6 +1241,7 @@ angular.module("../app/partials/files/list.html", []).run(["$templateCache", fun
     "\n" +
     "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
     "        </td>\n" +
+    "        <td><a href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
     "  <tfoot></tfoot>\n" +

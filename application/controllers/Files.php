@@ -54,6 +54,18 @@ class Files extends MY_Controller{
 
   }
 
+  function index_put(){
+    $data=$this->put();
+
+    if($this->put('request')=='delete'){
+      $this->filesystem->delete($data['name']['name']);
+      $this->response('Deleted');
+    }
+
+
+
+  }
+
   function slides_get(){
     $uploadHandler = new UploadHandler($this->directory);
 

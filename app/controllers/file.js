@@ -109,6 +109,20 @@ app.controller(
 				});
 
 			};
+
+			scope.removeFile = function removeFile(file) {
+				console.log(file);
+				file.request = 'delete';
+				Files.customPUT(file).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
+			};
 		}
 	]
 );
