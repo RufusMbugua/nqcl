@@ -23,7 +23,7 @@
 
           <a ng-if="file.mime == 'application/pdf' " href="{{file.uri}}">{{file.name.name}}</a>
         </td>
-        <td><a href="" class='btn btn-danger' ng-click="removeFile(file)"><i class='icon remove'></i>Remove</a></td>
+        <td><a ng-if="(level == 'admin')" href="" class='btn btn-danger' ng-click="removeFile(file)"><i class='icon remove'></i>Remove</a></td>
     </tr>
   </tbody>
   <tfoot></tfoot>
