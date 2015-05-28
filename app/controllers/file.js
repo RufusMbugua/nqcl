@@ -2,7 +2,8 @@ app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Upload', '$rootScope', '$http',
 
-		function(scope, filter, timeout, state, Restangular, Upload, rootScope, http) {
+		function(scope, filter, timeout, state, Restangular, Upload, rootScope,
+			http) {
 			Files = Restangular.all('Files?format=json');
 			Slides = Restangular.all('files/slides?format=json');
 			loadFileList();
@@ -96,12 +97,31 @@ app.controller(
 				console.log(slide);
 			};
 			scope.removeSlide = function removeSlide(slide) {
-				// console.log();
-				//
-				http.delete('files/slides', slide)
-					.success(function(data, response) {
-						console.log(data);
-					});
+				console.log(slide);
+				slide.request = 'delete';
+				Slides.customPUT(slide).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
+			};
+
+			scope.removeFile = function removeFile(file) {
+				console.log(file);
+				file.request = 'delete';
+				Files.customPUT(file).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
 			};
 		}
 	]

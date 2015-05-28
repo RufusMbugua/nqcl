@@ -54,6 +54,18 @@ class Files extends MY_Controller{
 
   }
 
+  function index_put(){
+    $data=$this->put();
+
+    if($this->put('request')=='delete'){
+      $this->filesystem->delete($data['name']['name']);
+      $this->response('Deleted');
+    }
+
+
+
+  }
+
   function slides_get(){
     $uploadHandler = new UploadHandler($this->directory);
 
@@ -87,10 +99,15 @@ class Files extends MY_Controller{
     fclose($stream);
 
   }
-  function slides_delete(){
-    // $post_data = file_get_contents("php://input");
-    // $post_data = json_decode($post_data,true);
-    // echo '<pre>';
-    // print_r($this->delete());
+  function slides_put(){
+    $data=$this->put();
+
+    if($this->put('request')=='delete'){
+      $this->slidesystem->delete($this->put('name'));
+      $this->response('Deleted');
+    }
+
+
+
   }
 }

@@ -1,5 +1,6 @@
 <div class="content full">
   <form action="">
+    <a style="float:right" ng-if="action=='edit'" href="" class="btn btn-view" ng-click="resetArticle()"><i class='fa fa-plus'></i>New Article</a>
     <div class="form-group">
       <label>Title</label>
       <div class="input-group">
@@ -22,7 +23,8 @@
 
       </div>
     </div>
-    <a href="" class="btn btn-add" ng-click="addArticle()"><i class='fa fa-plus'></i>Add Article</a>
+    <a ng-if="action=='add'" href="" class="btn btn-add" ng-click="addArticle()"><i class='fa fa-plus'></i>Add Article</a>
+    <a ng-if="action=='edit'" href="" class="btn btn-add" ng-click="editArticle()"><i class='ion-edit'></i>Edit Article</a>
   </form>
 
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
