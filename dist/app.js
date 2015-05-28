@@ -34,23 +34,25 @@ app.value('froalaConfig', {
 	toolbarFixed: false
 });
 ;app.controller(
-  "aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      scope.links = [];
-      loadLinks();
+	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			scope.links = [];
+			loadLinks();
 
-      function loadLinks() {
-        var Links = Restangular.all('pages/about?format=json');
-        Links.getList().then(function(links) {
-          scope.links = links;
-        });
-      }
+			function loadLinks() {
+				var Links = Restangular.all('pages/about?format=json');
+				Links.getList().then(function(links) {
+					scope.links = links;
+					console.log(links);
+					scope.content = links[0]['about_body'];
+				});
+			}
 
-      scope.loadContent = function loadContent(content) {
-        scope.content = content
-      }
-    }
-  ]
+			scope.loadContent = function loadContent(content) {
+				scope.content = content
+			}
+		}
+	]
 );
 ;app.controller(
 	"adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -1241,7 +1243,7 @@ angular.module("../app/partials/files/list.html", []).run(["$templateCache", fun
     "\n" +
     "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
     "        </td>\n" +
-    "        <td><a href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
+    "        <td><a ng-if=\"(level == 'admin')\" href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
     "  <tfoot></tfoot>\n" +
