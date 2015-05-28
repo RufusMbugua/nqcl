@@ -3,8 +3,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul>
-        <li ng-repeat="item in menu">
-          <a is-active-nav ui-sref="{{item.ui_sref}}" ><i class="{{item.icon_class}}"></i>{{item.name}}</a>
+        <li>
+          <a is-active-nav ui-sref="admin.content.main" ><i class=""></i>Main</a>
+        </li>
+        <li>
+          <a is-active-nav ui-sref="admin.content.about" ><i class="ion-help"></i>About</a>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

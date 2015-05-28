@@ -1,9 +1,9 @@
 <h3>Downloads Page
 
-<div class="btn-group btn-group">
+<!-- <div class="btn-group btn-group">
   <a href="" class="btn btn-view"><i class="ion-ios-list"></i>List</a>
   <a href="" class="btn btn-view"><i class="ion-grid"></i>Grid</a>
-</div>
+</div> -->
 <a style="float:right" href="" ng-if="(level == 'admin')" class="btn btn-add" ui-sref="admin.files.add"><i class='fa fa-plus'></i>Add File</a>
 
 </h3>
@@ -23,6 +23,7 @@
 
           <a ng-if="file.mime == 'application/pdf' " href="{{file.uri}}">{{file.name.name}}</a>
         </td>
+        <td><a href="" class='btn btn-danger' ng-click="removeFile(file)"><i class='icon remove'></i>Remove</a></td>
     </tr>
   </tbody>
   <tfoot></tfoot>
