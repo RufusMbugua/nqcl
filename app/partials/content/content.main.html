@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <th style="width:300px">Name</th>
+    <th>Body</th>
+    <th>Active</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in content">
+      <td><input type="text" class='form-control' ng-model="item.name"></td>
+      <td>
+        <textarea froala="froalaOptions" ng-model="item.content[0].body" ng-bind-html="item.body"></textarea>
+      </td>
+      <td>
+        <div ng-if="item.active==0" class="label label-danger">Inactive</div>
+        <div ng-if="item.active==1" class="label label-success">Active</div>
+      </td>
+      <td>
+        <div class="btn-group btn-group-sm">
+          <a href="" class="btn btn-warning" ng-click="editSiteContent(item)">Edit</a>
+          <a ng-if="item.active==1" href="" class="btn btn-danger" ng-click="disableSiteContent(item)">Disable</a>
+          <a ng-if="item.active==0" href="" class="btn btn-success" ng-click="enableSiteContent(item)">Enable</a>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot><td></td></tfoot>
+</table>
