@@ -1,19 +1,19 @@
-<div ui-view="main"></div>
-<div class="row">
-  <section class="content small" ui-view="news">
 
-  </section>
+<div class="row">
   <section class="content small">
-    <!-- <h1>{{content.customers.name}}</h1>
-    <div class="description" ng-bind-html="content.customers.content[0].body">
-    </div> -->
-  </section>
-  <section class="content small">
-    <h1>{{content.contact.name}}</h1>
+    <h1>{{content.contact.name}}
+      <a style="float:right" href="" class='btn btn-view' ui-sref="public.downloads.list"><i class="ion-ios-people"></i>Clients</a>
+    </h1>
     <div class="description" ng-bind-html="content.contact.content[0].body"></div>
 
     <div class='btn-group'>
       <a href="" class="btn btn-sm btn-view" ui-sref="public.contact"><i class='ion-help-circled'></i>Send Query</a>
     </div>
+  </section>
+  <div ui-view="main" class="content medium">
+
+  </div>
+  <section class="content small" ui-view="news">
+
   </section>
 </div>

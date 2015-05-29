@@ -1355,23 +1355,22 @@ angular.module("../app/partials/globals/secondary_header.html", []).run(["$templ
 
 angular.module("../app/partials/home/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/home/index.html",
-    "<div ui-view=\"main\"></div>\n" +
     "<div class=\"row\">\n" +
-    "  <section class=\"content small\" ui-view=\"news\">\n" +
-    "\n" +
-    "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <!-- <h1>{{content.customers.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.customers.content[0].body\">\n" +
-    "    </div> -->\n" +
-    "  </section>\n" +
-    "  <section class=\"content small\">\n" +
-    "    <h1>{{content.contact.name}}</h1>\n" +
+    "    <h1>{{content.contact.name}}\n" +
+    "      <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Clients</a>\n" +
+    "    </h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
     "\n" +
     "    <div class='btn-group'>\n" +
     "      <a href=\"\" class=\"btn btn-sm btn-view\" ui-sref=\"public.contact\"><i class='ion-help-circled'></i>Send Query</a>\n" +
     "    </div>\n" +
+    "  </section>\n" +
+    "  <div ui-view=\"main\" class=\"content medium\">\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <section class=\"content small\" ui-view=\"news\">\n" +
+    "\n" +
     "  </section>\n" +
     "</div>\n" +
     "");
@@ -1392,9 +1391,7 @@ angular.module("../app/partials/home/main.html", []).run(["$templateCache", func
     "\n" +
     "<div class=\"row\">\n" +
     "  <section class=\"content full\">\n" +
-    "    <h1>{{content.welcome.name}}\n" +
-    "    <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Clients</a>\n" +
-    "    </h1>\n" +
+    "    <h1>{{content.welcome.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
@@ -1429,12 +1426,12 @@ angular.module("../app/partials/news/index.html", []).run(["$templateCache", fun
 angular.module("../app/partials/public/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
-    "  <div class=\"col-md-6\" style=\"padding:0\">\n" +
-    "    <img style=\"width:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
+    "  <div class=\"col-md-6\" >\n" +
+    "    <img style=\"width:100px;padding-top:2%\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
     "    <h5>Ministry of Health</h5>\n" +
     "  </div>\n" +
-    "  <div class=\"col-md-6\" style=\"padding:0\">\n" +
-    "    <img style=\"width:100px;float:right\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
+    "  <div class=\"col-md-6\">\n" +
+    "    <img style=\"width:100px;float:right;padding-top:2%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
     "    <h3 style=\"text-align:right\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
     "  </div>\n" +
     "</div>\n" +

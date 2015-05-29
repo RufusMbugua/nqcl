@@ -1544,7 +1544,7 @@ pre {
   .row:after {
     clear: both; }
 
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .image-thumbnail, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .content.medium, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, #side-content, .news-item .news-item-type, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .drop-box-container, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .content.full, .news-item .news-item-content, #map, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .content.small, .image-thumbnail, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, #side-menu, .news-item .news-item-date, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .content.medium, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, #side-content, .news-item .news-item-type, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .drop-box-container, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .content.full, .news-item .news-item-content, #map, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -1863,7 +1863,7 @@ pre {
   .col-sm-offset-12 {
     margin-left: 100%; } }
 @media (min-width: 992px) {
-  .col-md-1, .col-md-2, .col-md-3, .image-thumbnail, .col-md-4, .content.small, #side-menu, .news-item .news-item-date, .col-md-5, .col-md-6, .content.medium, .col-md-7, .col-md-8, #side-content, .news-item .news-item-type, .col-md-9, .drop-box-container, .col-md-10, .col-md-11, .col-md-12, .content.full, .news-item .news-item-content, #map {
+  .col-md-1, .col-md-2, .col-md-3, .content.small, .image-thumbnail, .col-md-4, #side-menu, .news-item .news-item-date, .col-md-5, .col-md-6, .content.medium, .col-md-7, .col-md-8, #side-content, .news-item .news-item-type, .col-md-9, .drop-box-container, .col-md-10, .col-md-11, .col-md-12, .content.full, .news-item .news-item-content, #map {
     float: left; }
 
   .col-md-1 {
@@ -1872,10 +1872,10 @@ pre {
   .col-md-2 {
     width: 16.66667%; }
 
-  .col-md-3, .image-thumbnail {
+  .col-md-3, .content.small, .image-thumbnail {
     width: 25%; }
 
-  .col-md-4, .content.small, #side-menu, .news-item .news-item-date {
+  .col-md-4, #side-menu, .news-item .news-item-date {
     width: 33.33333%; }
 
   .col-md-5 {
@@ -5952,7 +5952,7 @@ header, secondary-header, .secondary-header {
 /* Content */
 #public-content {
   width: 100%;
-  padding: 15% 15% 0 15%;
+  padding: 15% 5% 0 5%;
   /* Carousel */ }
   #public-content #carousel-container {
     width: 100%;
@@ -5960,7 +5960,7 @@ header, secondary-header, .secondary-header {
 
 #content {
   width: 100%;
-  padding: 5% 5% 0 5%;
+  padding: 0 5% 0 5%;
   /* Carousel */ }
   #content #carousel-container {
     width: 100%;
@@ -5975,7 +5975,7 @@ header, secondary-header, .secondary-header {
 /* Small Size*/
 .content.small {
   text-overflow: ellipsis;
-  height: 22em !important;
+  height: 24em !important;
   overflow: auto; }
   .content.small h1 {
     font-size: 30px; }
