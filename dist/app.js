@@ -1393,7 +1393,7 @@ angular.module("../app/partials/home/main.html", []).run(["$templateCache", func
     "<div class=\"row\">\n" +
     "  <section class=\"content full\">\n" +
     "    <h1>{{content.welcome.name}}\n" +
-    "    <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Customers</a>\n" +
+    "    <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Clients</a>\n" +
     "    </h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
     "    </div>\n" +
@@ -1428,10 +1428,15 @@ angular.module("../app/partials/news/index.html", []).run(["$templateCache", fun
 
 angular.module("../app/partials/public/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/public/header.html",
-    "<div id=\"logo\">\n" +
-    "  <img src=\"app/images/logo/MOH.png\"/>\n" +
-    "  <h3>National Quality Control Lab for Drugs and Medical Services</h3>\n" +
-    "  <img src=\"app/images//logo/NQCL_logo.png\" style=\"float:right\"/>\n" +
+    "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
+    "  <div class=\"col-md-6\" style=\"padding:0\">\n" +
+    "    <img style=\"width:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
+    "    <h5>Ministry of Health</h5>\n" +
+    "  </div>\n" +
+    "  <div class=\"col-md-6\" style=\"padding:0\">\n" +
+    "    <img style=\"width:100px;float:right\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
+    "    <h3 style=\"text-align:right\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
+    "  </div>\n" +
     "</div>\n" +
     "\n" +
     "<nav id=\"main\">\n" +

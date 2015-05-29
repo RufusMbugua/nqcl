@@ -5901,7 +5901,7 @@ header, secondary-header, .secondary-header {
     background: white;
     width: 100%;
     padding: 2%; }
-    header #logo h3, header #logo img, secondary-header #logo h3, secondary-header #logo img, .secondary-header #logo h3, .secondary-header #logo img {
+    header #logo img, secondary-header #logo img, .secondary-header #logo img {
       display: inline-block;
       vertical-align: middle; }
   header nav#main, header nav#admin, header nav#secondary, secondary-header nav#main, secondary-header nav#admin, secondary-header nav#secondary, .secondary-header nav#main, .secondary-header nav#admin, .secondary-header nav#secondary {
