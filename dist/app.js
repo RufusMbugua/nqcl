@@ -1392,7 +1392,9 @@ angular.module("../app/partials/home/main.html", []).run(["$templateCache", func
     "\n" +
     "<div class=\"row\">\n" +
     "  <section class=\"content full\">\n" +
-    "    <h1>{{content.welcome.name}}</h1>\n" +
+    "    <h1>{{content.welcome.name}}\n" +
+    "    <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Customers</a>\n" +
+    "    </h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
     "    </div>\n" +
     "  </section>\n" +
