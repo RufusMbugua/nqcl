@@ -65,4 +65,22 @@ class News extends MY_Controller {
     }
 
   }
+
+  function index_put(){
+    $data=$this->put();
+    $article = Article::find($data['id']);
+
+    if($this->put('request')=='update'){
+      $article->title = $data['title'];
+      $article->type = $data['type'];
+      $article->body = $data['body'];
+      $article->save();
+      $this->response($article);
+    }
+    else if($this->put('request')=='delete'){
+      $article->forceDelete();
+    }
+
+
+  }
 }

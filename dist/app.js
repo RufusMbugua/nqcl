@@ -40,9 +40,11 @@ app.value('froalaConfig', {
 			loadLinks();
 
 			function loadLinks() {
-				var Links = Restangular.all('about?format=json');
+				var Links = Restangular.all('pages/about?format=json');
 				Links.getList().then(function(links) {
 					scope.links = links;
+					console.log(links);
+					scope.content = links[0]['about_body'];
 				});
 			}
 
@@ -106,155 +108,212 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'$http',
-		function(scope, filter, timeout, state, Restangular, http) {
+  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    '$http',
+    function(scope, filter, timeout, state, Restangular, http) {
+
+      scope.froalaOptions = {
+          toolbarFixed: false
+        }
+        /**
+         * [Pages description]
+         * @type {[type]}
+         */
+      var Pages = Restangular.all('pages?format=json');
+
+      /**
+       * [About description]
+       * @type {RegExp}
+       */
+      var About = Restangular.all('pages/about?format=json');
+      /**
+       * [article description]
+       * @type {[type]}
+       */
+      var Articles = Restangular.all('news?format=json');
+
+      /**
+       * [menu description]
+       * @type {Array}
+       */
+      scope.menu = [];
+      scope.article = {};
+      /**
+       * [article_menu description]
+       * @type {Array}
+       */
+      scope.article_menu = [];
+
+      /**
+       * [content description]
+       * @type {Array}
+       */
+      scope.content = [];
+
+      scope.alerts = [];
+
+      // getMenuItems();
+      loadSiteContent();
+      loadArticles();
+
+      setArticleMenu();
+      loadAboutContent()
+
+      /**
+       * [loadArticles description]
+       */
+      function loadArticles() {
+        scope.action = 'add';
+        scope.list = [];
+        http.get('news?format=json').
+        success(function(data, status, headers, config) {
+          scope.list = data;
+        }).
+        error(function(data, status, headers, config) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+      }
+      scope.resetArticle = function resetArticle() {
+        scope.article = [];
+        scope.action = 'add';
+        state.go('admin.articles.add');
+      }
 
 
-			scope.froalaOptions = {
-					toolbarFixed: false
-				}
-				/**
-				 * [Pages description]
-				 * @type {[type]}
-				 */
-			var Pages = Restangular.all('pages?format=json');
+      /**
+       * [setArticleMenu description]
+       */
+      function setArticleMenu() {
+        article_menu = [{
+          'name': 'Add',
+          'ui_sref': 'admin.articles.add',
+          'icon_class': 'fa fa-plus'
+        }, {
+          'name': 'Published',
+          'ui_sref': 'admin.articles.published',
+          'icon_class': 'fa fa-newspaper-o'
+        }];
 
-			/**
-			 * [article description]
-			 * @type {[type]}
-			 */
-			var Articles = Restangular.all('news?format=json');
+        scope.menu = article_menu;
+      }
 
-			/**
-			 * [menu description]
-			 * @type {Array}
-			 */
-			scope.menu = [];
+      /**
+       * [addArticle description]
+       */
+      scope.addArticle = function addArticle() {
+        console.log(scope.article)
+        Articles.post(scope.article).then(function(response) {
+          var alert = {
+            type: 'success',
+            msg: response
+          }
+          scope.alerts.push(alert);
+          timeout(function() {
+            state.go(state.current, {}, {
+              reload: true
+            });
+          }, 1000);
+        });
+      }
 
-			/**
-			 * [article_menu description]
-			 * @type {Array}
-			 */
-			scope.article_menu = [];
+      /**
+       * [editArticle description]
+       */
+      scope.getArticle = function getArticle(newArticle) {
+        scope.article = newArticle;
+        scope.action = 'edit';
+        state.go('admin.articles.edit');
 
-			/**
-			 * [content description]
-			 * @type {Array}
-			 */
-			scope.content = [];
+      }
 
-			scope.alerts = [];
+      scope.editArticle = function editArticle() {
+        scope.article.request = 'update';
+        Articles.customPUT(scope.article).then(function(response) {
+          timeout(function() {
+            state.go(state.current, {}, {
+              reload: true
+            });
+          }, 1000);
+        });
 
-			// getMenuItems();
-			loadSiteContent();
-			loadArticles();
+      }
 
-			setArticleMenu();
+      /**
+       * [disableArticle description]
+       */
+      scope.disableArticle = function disableArticle(article) {
+        article.request = 'delete';
+        Articles.customPUT(article).then(function(response) {
+          timeout(function() {
+            state.go(state.current, {}, {
+              reload: true
+            });
+          }, 1000);
+        });
+      }
 
+      /**
+       * [closeAlert description]
+       * @param {[type]} index [description]
+       */
+      scope.closeAlert = function(index) {
+        scope.alerts.splice(index, 1);
+      };
 
-			/**
-			 * [loadArticles description]
-			 */
-			function loadArticles() {
-				scope.list = [];
-				http.get('news?format=json').
-				success(function(data, status, headers, config) {
-					scope.list = data;
-				}).
-				error(function(data, status, headers, config) {
-					// called asynchronously if an error occurs
-					// or server returns response with an error status.
-				});
-				// Articles.customGET().then(function(article) {
-				// 	scope.list = article;
-				// });
-			}
+      scope.editSiteContent = function editSiteContent(content) {
+        content.request = 'update';
+        Pages.customPUT(content);
+      }
+      scope.editAboutContent = function editSiteContent(content) {
+        About.customPUT(content);
+      }
 
+      scope.disableSiteContent = function disableSiteContent(content) {
+        content.request = 'delete';
+        Pages.customPUT(content);
+        state.go(state.current, {}, {
+          reload: true
+        });
+      }
+      scope.enableSiteContent = function enableSiteContent(content) {
+          content.request = 'enable';
+          Pages.customPUT(content);
+          state.go(state.current, {}, {
+            reload: true
+          });
 
-			/**
-			 * [setArticleMenu description]
-			 */
-			function setArticleMenu() {
-				article_menu = [{
-					'name': 'Add',
-					'ui_sref': 'admin.articles.add',
-					'icon_class': 'fa fa-plus'
-				}, {
-					'name': 'Published',
-					'ui_sref': 'admin.articles.published',
-					'icon_class': 'fa fa-newspaper-o'
-				}];
+        }
+        // Content
 
-				scope.article_menu = article_menu;
-			}
+      /**
+       * [loadSiteContent description]
+       */
+      function loadSiteContent() {
+        scope.content = [];
+        Pages.getList().then(function(content) {
+          scope.content = content;
+        });
+      }
 
-			/**
-			 * [addArticle description]
-			 */
-			scope.addArticle = function addArticle() {
-				Articles.post(scope.article).then(function(response) {
-					var alert = {
-						type: 'success',
-						msg: response
-					}
-					scope.alerts.push(alert);
-					timeout(function() {
-						state.go('admin.articles.published')
-					}, 1000);
-				});
-			}
+      /**
+       * [loadSiteContent description]
+       */
+      function loadAboutContent() {
+        scope.about = [];
+        About.customGET().then(function(content) {
+          scope.about = content;
+        });
+      }
 
-			/**
-			 * [editArticle description]
-			 */
-			scope.editArticle = function editArticle(item) {
-				scope.article = item;
-
-			}
-
-			/**
-			 * [disableArticle description]
-			 */
-			scope.disableArticle = function disableArticle() {
-
-			}
-
-			/**
-			 * [closeAlert description]
-			 * @param {[type]} index [description]
-			 */
-			scope.closeAlert = function(index) {
-				scope.alerts.splice(index, 1);
-			};
-
-			scope.editSiteContent = function editSiteContent(content) {
-				Pages.customPUT(content);
-			}
-
-			scope.disableSiteContent = function disableSiteContent(content) {
-					console.log(Pages);
-					Pages.customDELETE(content);
-				}
-				// Content
-
-			/**
-			 * [loadSiteContent description]
-			 */
-			function loadSiteContent() {
-				scope.content = [];
-				Pages.customGET().then(function(content) {
-					scope.content = content;
-				});
-			}
-
-		}
-	]);
+    }
+  ]);
 ;app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Upload', '$rootScope', '$http',
 
-		function(scope, filter, timeout, state, Restangular, Upload, rootScope, http) {
+		function(scope, filter, timeout, state, Restangular, Upload, rootScope,
+			http) {
 			Files = Restangular.all('Files?format=json');
 			Slides = Restangular.all('files/slides?format=json');
 			loadFileList();
@@ -348,88 +407,107 @@ app.value('froalaConfig', {
 				console.log(slide);
 			};
 			scope.removeSlide = function removeSlide(slide) {
-				// console.log();
-				//
-				http.delete('files/slides', slide)
-					.success(function(data, response) {
-						console.log(data);
-					});
+				console.log(slide);
+				slide.request = 'delete';
+				Slides.customPUT(slide).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
+			};
+
+			scope.removeFile = function removeFile(file) {
+				console.log(file);
+				file.request = 'delete';
+				Files.customPUT(file).then(function(response) {
+					console.log(response);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+
 			};
 		}
 	]
 );
 ;app.controller(
-	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			var front = Restangular.all('pages?format=json');
+  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      var front = Restangular.all('pages?format=json');
 
-			var Slides = Restangular.all('files/slides?format=json');
+      var Slides = Restangular.all('files/slides?format=json');
 
-			var Queries = Restangular.all('queries?format=json');
-			loadImages();
-			loadContent();
-			scope.content = [];
-			scope.query = [];
-			scope.alerts = [];
-			/**
-			 * [loadImages description]
-			 */
-			function loadImages() {
-				Slides.customGET().then(function(slides) {
-					scope.slides = slides.data;
-				});
-			}
+      var Queries = Restangular.all('queries?format=json');
+      loadImages();
+      loadContent();
+      scope.content = [];
+      scope.query = [];
+      scope.alerts = [];
+      /**
+       * [loadImages description]
+       */
+      function loadImages() {
+        Slides.customGET().then(function(slides) {
+          scope.slides = slides.data;
+        });
+      }
 
-			/**
-			 * [loadContent description]
-			 */
-			function loadContent() {
+      /**
+       * [loadContent description]
+       */
+      function loadContent() {
 
-				front.getList().then(function(content) {
-					angular.forEach(content, function(value, key) {
-						switch (value.name) {
-							case "Welcome to NQCL":
-								scope.content.welcome = value;
-								break;
-							case "Our Services":
-								scope.content.services = value;
-								break;
-							case "Contact Us":
-								scope.content.contact = value;
-								break;
-							default:
+        front.getList().then(function(content) {
+          angular.forEach(content, function(value, key) {
+            switch (value.name) {
+              case "Welcome to NQCL":
+                scope.content.welcome = value;
+                break;
+              case "Our Services":
+                scope.content.services = value;
+                break;
+              case "Contact Us":
+                scope.content.contact = value;
+                break;
+              default:
 
-								break;
+                break;
 
-						}
+            }
 
-					});
-				});
-			}
+          });
+        });
+      }
 
-			/**
-			 * [sendQuery description]
-			 */
-			scope.sendQuery = function sendQuery() {
-				// console.log(scope.query);
-				Queries.post(scope.query).then(function(response) {
-					var alert = {
-						type: 'success',
-						msg: response
-					}
-					scope.alerts.push(alert);
-				});;
-			}
+      /**
+       * [sendQuery description]
+       */
+      scope.sendQuery = function sendQuery() {
+        // console.log(scope.query);
+        Queries.post(scope.query).then(function(response) {
+          var alert = {
+            type: 'success',
+            msg: response
+          }
+          scope.alerts.push(alert);
+        });;
+      }
 
-			/**
-			 * [closeAlert description]
-			 * @param {[type]} index [description]
-			 */
-			scope.closeAlert = function(index) {
-				scope.alerts.splice(index, 1);
-			};
-		}
-	]
+      /**
+       * [closeAlert description]
+       * @param {[type]} index [description]
+       */
+      scope.closeAlert = function(index) {
+        scope.alerts.splice(index, 1);
+      };
+    }
+  ]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -510,8 +588,19 @@ app.directive('isActiveNav', ['$location', function($location) {
 		})
 		.state('public.home', {
 			url: '/home',
-			templateUrl: 'app/partials/home/index.html',
-			controller: 'homeCtrl'
+			views: {
+				'': {
+					templateUrl: 'app/partials/home/index.html',
+					controller: 'homeCtrl',
+				},
+				'main@public.home': {
+					templateUrl: 'app/partials/home/main.html',
+				},
+				'news@public.home': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
 		})
 		.state('public.about', {
 			url: '/about',
@@ -587,13 +676,28 @@ app.directive('isActiveNav', ['$location', function($location) {
 					templateUrl: 'app/partials/content/content.html',
 					controller: 'contentCtrl',
 				},
-				'table@admin.content': {
-					templateUrl: 'app/partials/content/table.html'
-				},
-				'menu@admin.content': {
-					templateUrl: 'app/partials/content/menu.html'
+				'header@admin.content': {
+					templateUrl: 'app/partials/content/content.header.html',
 				}
 			}
+		})
+		.state('admin.content.main', {
+			url: '/main',
+			views: {
+				'': {
+					templateUrl: 'app/partials/content/content.main.html'
+				}
+			},
+			controller: 'contentCtrl'
+		})
+		.state('admin.content.about', {
+			url: '/about',
+			views: {
+				'': {
+					templateUrl: 'app/partials/content/content.about.html'
+				}
+			},
+			controller: 'contentCtrl'
 		})
 		.state('admin', {
 			url: '/admin',
@@ -667,15 +771,17 @@ app.directive('isActiveNav', ['$location', function($location) {
 		})
 		.state('admin.articles.add', {
 			url: '/add',
-			templateUrl: 'app/partials/articles/articles.add.html',
-			controller: 'contentCtrl'
+			templateUrl: 'app/partials/articles/articles.add.html'
+		})
+		.state('admin.articles.edit', {
+			url: '/edit',
+			templateUrl: 'app/partials/articles/articles.add.html'
 		})
 		.state('admin.articles.published', {
 			url: '/published',
 			views: {
 				'': {
-					templateUrl: 'app/partials/articles/articles.published.html',
-					controller: 'contentCtrl'
+					templateUrl: 'app/partials/articles/articles.published.html'
 				},
 				'list@admin.articles.published': {
 					templateUrl: 'app/partials/articles/articles.list.html'
@@ -723,7 +829,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   return Session;
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -831,6 +937,7 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
   $templateCache.put("../app/partials/articles/articles.add.html",
     "<div class=\"content full\">\n" +
     "  <form action=\"\">\n" +
+    "    <a style=\"float:right\" ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-view\" ng-click=\"resetArticle()\"><i class='fa fa-plus'></i>New Article</a>\n" +
     "    <div class=\"form-group\">\n" +
     "      <label>Title</label>\n" +
     "      <div class=\"input-group\">\n" +
@@ -853,7 +960,8 @@ angular.module("../app/partials/articles/articles.add.html", []).run(["$template
     "\n" +
     "      </div>\n" +
     "    </div>\n" +
-    "    <a href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
+    "    <a ng-if=\"action=='add'\" href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
+    "    <a ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-add\" ng-click=\"editArticle()\"><i class='ion-edit'></i>Edit Article</a>\n" +
     "  </form>\n" +
     "\n" +
     "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
@@ -872,7 +980,7 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
     "          New\n" +
     "        </span>\n" +
     "        <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
-    "          <a href=\"\" ng-click=\"editArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "          <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
     "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
     "        </span>\n" +
     "      </h3>\n" +
@@ -1035,6 +1143,32 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "");
 }]);
 
+angular.module("../app/partials/content/content.about.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.about.html",
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <th style=\"width:20%\">Name</th>\n" +
+    "    <th style=\"width:65%\">Body</th>\n" +
+    "    <th>Action</th>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"item in about\">\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.about_type\"></td>\n" +
+    "      <td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.about_body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
+    "      <td>\n" +
+    "        <div class=\"btn-group btn-group-sm\">\n" +
+    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editAboutContent(item)\">Edit</a>\n" +
+    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableAboutContent(item)\">Disable</a>\n" +
+    "        </div>\n" +
+    "      </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot><td></td></tfoot>\n" +
+    "</table>\n" +
+    "");
+}]);
+
 angular.module("../app/partials/content/content.detail.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/content/content.detail.html",
     "IMG\n" +
@@ -1044,14 +1178,65 @@ angular.module("../app/partials/content/content.detail.html", []).run(["$templat
     "");
 }]);
 
+angular.module("../app/partials/content/content.header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.header.html",
+    "<nav id=\"secondary\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"admin.content.main\" ><i class=\"\"></i>Main</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"admin.content.about\" ><i class=\"ion-help\"></i>About</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
+
 angular.module("../app/partials/content/content.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/content/content.html",
-    "<!-- <div id=\"side-menu\" ui-view=\"menu\">\n" +
-    "\n" +
-    "</div> -->\n" +
-    "<div id=\"full content\" ui-view=\"table\">\n" +
+    "<div ui-view=\"header\" class='secondary-header'></div>\n" +
+    "<div id=\"full content\" ui-view>\n" +
     "\n" +
     "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/content/content.main.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.main.html",
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <th style=\"width:300px\">Name</th>\n" +
+    "    <th>Body</th>\n" +
+    "    <th>Active</th>\n" +
+    "    <th>Action</th>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"item in content\">\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.name\"></td>\n" +
+    "      <td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea>\n" +
+    "      </td>\n" +
+    "      <td>\n" +
+    "        <div ng-if=\"item.active==0\" class=\"label label-danger\">Inactive</div>\n" +
+    "        <div ng-if=\"item.active==1\" class=\"label label-success\">Active</div>\n" +
+    "      </td>\n" +
+    "      <td>\n" +
+    "        <div class=\"btn-group btn-group-sm\">\n" +
+    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
+    "          <a ng-if=\"item.active==1\" href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
+    "          <a ng-if=\"item.active==0\" href=\"\" class=\"btn btn-success\" ng-click=\"enableSiteContent(item)\">Enable</a>\n" +
+    "        </div>\n" +
+    "      </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot><td></td></tfoot>\n" +
+    "</table>\n" +
     "");
 }]);
 
@@ -1066,29 +1251,6 @@ angular.module("../app/partials/content/menu.html", []).run(["$templateCache", f
 
 angular.module("../app/partials/content/table.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/content/table.html",
-    "<table>\n" +
-    "  <thead>\n" +
-    "    <th>Name</th>\n" +
-    "    <th>Body</th>\n" +
-    "    <th>Active</th>\n" +
-    "    <th>Action</th>\n" +
-    "  </thead>\n" +
-    "  <tbody>\n" +
-    "    <tr ng-repeat=\"item in content\">\n" +
-    "      <td>{{item.name}}</td>\n" +
-    "      <td>\n" +
-    "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
-    "      <td>{{item.active}}</td>\n" +
-    "      <td>\n" +
-    "        <div class=\"btn-group btn-group-sm\">\n" +
-    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
-    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
-    "        </div>\n" +
-    "      </td>\n" +
-    "    </tr>\n" +
-    "  </tbody>\n" +
-    "  <tfoot><td></td></tfoot>\n" +
-    "</table>\n" +
     "");
 }]);
 
@@ -1161,6 +1323,7 @@ angular.module("../app/partials/files/list.html", []).run(["$templateCache", fun
     "\n" +
     "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
     "        </td>\n" +
+    "        <td><a ng-if=\"(level == 'admin')\" href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
     "    </tr>\n" +
     "  </tbody>\n" +
     "  <tfoot></tfoot>\n" +
@@ -1180,7 +1343,7 @@ angular.module("../app/partials/globals/secondary_header.html", []).run(["$templ
     "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
     "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
     "      <ul>\n" +
-    "        <li ng-repeat=\"item in article_menu\">\n" +
+    "        <li ng-repeat=\"item in menu\">\n" +
     "          <a is-active-nav ui-sref=\"{{item.ui_sref}}\" ><i class=\"{{item.icon_class}}\"></i>{{item.name}}</a>\n" +
     "        </li>\n" +
     "      </ul>\n" +
@@ -1192,38 +1355,20 @@ angular.module("../app/partials/globals/secondary_header.html", []).run(["$templ
 
 angular.module("../app/partials/home/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/home/index.html",
-    "<section id=\"carousel-container\">\n" +
-    "  <carousel interval=\"2000\">\n" +
-    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\" ng-if=\"slide.path!=''\">\n" +
-    "      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
-    "      <div class=\"carousel-caption\">\n" +
-    "        <p>{{slide.text}}</p>\n" +
-    "      </div>\n" +
-    "    </slide>\n" +
-    "  </carousel>\n" +
-    "</section>\n" +
-    "\n" +
+    "<div ui-view=\"main\"></div>\n" +
     "<div class=\"row\">\n" +
-    "  <section class=\"content full\">\n" +
+    "  <section class=\"content small\" ui-view=\"news\">\n" +
     "\n" +
-    "    <h1>{{content.welcome.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
-    "    </div>\n" +
-    "  </section>\n" +
-    "  <!-- <section class=\"content small\">\n" +
-    "    <h1>{{content.services.name}}</h1>\n" +
-    "    <div class=\"description\" ng-bind-html=\"content.services.content[0].body\">\n" +
-    "    </div>\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
-    "    <h1>{{content.customers.name}}</h1>\n" +
+    "    <!-- <h1>{{content.customers.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.customers.content[0].body\">\n" +
-    "    </div>\n" +
+    "    </div> -->\n" +
     "  </section>\n" +
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.contact.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
-    "  </section> -->\n" +
+    "  </section>\n" +
     "</div>\n" +
     "");
 }]);

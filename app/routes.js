@@ -18,8 +18,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('public.home', {
 			url: '/home',
-			templateUrl: 'app/partials/home/index.html',
-			controller: 'homeCtrl'
+			views: {
+				'': {
+					templateUrl: 'app/partials/home/index.html',
+					controller: 'homeCtrl',
+				},
+				'main@public.home': {
+					templateUrl: 'app/partials/home/main.html',
+				},
+				'news@public.home': {
+					templateUrl: 'app/partials/articles/articles.items.html',
+					controller: 'contentCtrl'
+				}
+			}
 		})
 		.state('public.about', {
 			url: '/about',
@@ -95,13 +106,28 @@ app.config(function($stateProvider, $urlRouterProvider) {
 					templateUrl: 'app/partials/content/content.html',
 					controller: 'contentCtrl',
 				},
-				'table@admin.content': {
-					templateUrl: 'app/partials/content/table.html'
-				},
-				'menu@admin.content': {
-					templateUrl: 'app/partials/content/menu.html'
+				'header@admin.content': {
+					templateUrl: 'app/partials/content/content.header.html',
 				}
 			}
+		})
+		.state('admin.content.main', {
+			url: '/main',
+			views: {
+				'': {
+					templateUrl: 'app/partials/content/content.main.html'
+				}
+			},
+			controller: 'contentCtrl'
+		})
+		.state('admin.content.about', {
+			url: '/about',
+			views: {
+				'': {
+					templateUrl: 'app/partials/content/content.about.html'
+				}
+			},
+			controller: 'contentCtrl'
 		})
 		.state('admin', {
 			url: '/admin',
@@ -175,15 +201,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('admin.articles.add', {
 			url: '/add',
-			templateUrl: 'app/partials/articles/articles.add.html',
-			controller: 'contentCtrl'
+			templateUrl: 'app/partials/articles/articles.add.html'
+		})
+		.state('admin.articles.edit', {
+			url: '/edit',
+			templateUrl: 'app/partials/articles/articles.add.html'
 		})
 		.state('admin.articles.published', {
 			url: '/published',
 			views: {
 				'': {
-					templateUrl: 'app/partials/articles/articles.published.html',
-					controller: 'contentCtrl'
+					templateUrl: 'app/partials/articles/articles.published.html'
 				},
 				'list@admin.articles.published': {
 					templateUrl: 'app/partials/articles/articles.list.html'
