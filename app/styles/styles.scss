@@ -150,8 +150,8 @@ header,secondary-header,.secondary-header{
 .content.small{
   @extend .col-md-4;
   text-overflow:ellipsis;
-  height:20em !important;
-  overflow:hidden;
+  height:22em !important;
+  overflow:auto;
   h1{
     font-size:30px;
   }

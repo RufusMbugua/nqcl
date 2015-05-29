@@ -5975,8 +5975,8 @@ header, secondary-header, .secondary-header {
 /* Small Size*/
 .content.small {
   text-overflow: ellipsis;
-  height: 20em !important;
-  overflow: hidden; }
+  height: 22em !important;
+  overflow: auto; }
   .content.small h1 {
     font-size: 30px; }
 
