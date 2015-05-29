@@ -723,7 +723,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   return Session;
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -1224,6 +1224,29 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "    <h1>{{content.contact.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
     "  </section> -->\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/home/main.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/home/main.html",
+    "<section id=\"carousel-container\">\n" +
+    "  <carousel interval=\"2000\">\n" +
+    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\" ng-if=\"slide.path!=''\">\n" +
+    "      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
+    "      <div class=\"carousel-caption\">\n" +
+    "        <p>{{slide.text}}</p>\n" +
+    "      </div>\n" +
+    "    </slide>\n" +
+    "  </carousel>\n" +
+    "</section>\n" +
+    "\n" +
+    "<div class=\"row\">\n" +
+    "  <section class=\"content full\">\n" +
+    "    <h1>{{content.welcome.name}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
+    "    </div>\n" +
+    "  </section>\n" +
     "</div>\n" +
     "");
 }]);
