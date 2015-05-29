@@ -1,33 +1,15 @@
-<section id="carousel-container">
-  <carousel interval="2000">
-    <slide ng-repeat="slide in slides" active="slide.active" ng-if="slide.path!=''">
-      <img ng-src="{{slide.uri}}" style="margin:auto;">
-      <div class="carousel-caption">
-        <p>{{slide.text}}</p>
-      </div>
-    </slide>
-  </carousel>
-</section>
-
+<div ui-view="main"></div>
 <div class="row">
-  <section class="content full">
+  <section class="content small" ui-view="news">
 
-    <h1>{{content.welcome.name}}</h1>
-    <div class="description" ng-bind-html="content.welcome.content[0].body">
-    </div>
-  </section>
-  <!-- <section class="content small">
-    <h1>{{content.services.name}}</h1>
-    <div class="description" ng-bind-html="content.services.content[0].body">
-    </div>
   </section>
   <section class="content small">
-    <h1>{{content.customers.name}}</h1>
+    <!-- <h1>{{content.customers.name}}</h1>
     <div class="description" ng-bind-html="content.customers.content[0].body">
-    </div>
+    </div> -->
   </section>
   <section class="content small">
     <h1>{{content.contact.name}}</h1>
     <div class="description" ng-bind-html="content.contact.content[0].body"></div>
-  </section> -->
+  </section>
 </div>
