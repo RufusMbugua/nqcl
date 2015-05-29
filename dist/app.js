@@ -437,49 +437,77 @@ app.value('froalaConfig', {
 	]
 );
 ;app.controller(
-  "homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    function(scope, filter, timeout, state, Restangular) {
-      var front = Restangular.all('pages?format=json');
+	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		function(scope, filter, timeout, state, Restangular) {
+			var front = Restangular.all('pages?format=json');
 
-      var Slides = Restangular.all('files/slides?format=json')
-      loadImages();
-      loadContent();
-      scope.content = [];
+			var Slides = Restangular.all('files/slides?format=json');
 
-      function loadImages() {
-        Slides.customGET().then(function(slides) {
-          scope.slides = slides.data;
-          console.log(slides.data);
-        });
-      }
+			var Queries = Restangular.all('queries?format=json');
+			loadImages();
+			loadContent();
+			scope.content = [];
+			scope.query = [];
+			scope.alerts = [];
+			/**
+			 * [loadImages description]
+			 */
+			function loadImages() {
+				Slides.customGET().then(function(slides) {
+					scope.slides = slides.data;
+				});
+			}
 
+			/**
+			 * [loadContent description]
+			 */
+			function loadContent() {
 
-      function loadContent() {
+				front.getList().then(function(content) {
+					angular.forEach(content, function(value, key) {
+						switch (value.name) {
+							case "Welcome to NQCL":
+								scope.content.welcome = value;
+								break;
+							case "Our Services":
+								scope.content.services = value;
+								break;
+							case "Contact Us":
+								scope.content.contact = value;
+								break;
+							default:
 
-        front.getList().then(function(content) {
-          angular.forEach(content, function(value, key) {
-            switch (value.name) {
-              case "Welcome to NQCL":
-                scope.content.welcome = value;
-                break;
-              case "Our Services":
-                scope.content.services = value;
-                break;
-              case "Contact Us":
-                scope.content.contact = value;
-                break;
-              default:
+								break;
 
-                break;
+						}
 
-            }
+					});
+				});
+			}
 
-          });
-        });
-      }
+			/**
+			 * [sendQuery description]
+			 */
+			scope.sendQuery = function sendQuery() {
+				// console.log(scope.query);
+				Queries.post(scope.query).then(function(response) {
+					var alert = {
+							type: 'success',
+							msg: response
+						}
+						// scope.alerts.push(alert);
+				});;
+			}
 
-    }
-  ]
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
+		}
+	]
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
@@ -618,8 +646,18 @@ app.directive('isActiveNav', ['$location', function($location) {
 		})
 		.state('public.contact', {
 			url: '/contact',
-			templateUrl: 'app/partials/contact/index.html',
-			controller: 'homeCtrl'
+			views: {
+				'': {
+					templateUrl: 'app/partials/contact/index.html',
+					controller: 'homeCtrl',
+				},
+				'email@public.contact': {
+					templateUrl: 'app/partials/contact/email.html',
+				},
+				'directions@public.contact': {
+					templateUrl: 'app/partials/contact/directions.html',
+				}
+			}
 		})
 		.state('login', {
 			url: '/login',
@@ -791,7 +829,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   return Session;
 
 }]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -1024,8 +1062,8 @@ angular.module("../app/partials/articles/index.html", []).run(["$templateCache",
     "");
 }]);
 
-angular.module("../app/partials/contact/index.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("../app/partials/contact/index.html",
+angular.module("../app/partials/contact/directions.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/directions.html",
     "<div class=\"row\">\n" +
     "\n" +
     "  <section id=\"map\">\n" +
@@ -1069,8 +1107,39 @@ angular.module("../app/partials/contact/index.html", []).run(["$templateCache", 
     "  </section>\n" +
     "\n" +
     "\n" +
-    "\n" +
     "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/contact/email.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/email.html",
+    "<div class=\"row\">\n" +
+    "  <div class=\"content medium\">\n" +
+    "    <h3>Fill out the email form with your query</h3>\n" +
+    "    <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <form action=\"\" class=\"content medium\">\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"\">Your Email Address</label>\n" +
+    "      <input type=\"email\" ng-model=\"query.email\" placeholder=\"joe@example.com\" class=\"form-control\">\n" +
+    "    </div>\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"\">Your Message</label>\n" +
+    "      <textarea froala ng-model=\"query.message\" name=\"\" id=\"\" placeholder=\"Enter message here...\" cols=\"30\" rows=\"10\" class=\"form-control\"></textarea>\n" +
+    "    </div>\n" +
+    "    <div class='btn-group'>\n" +
+    "      <a href=\"\" class=\"btn btn-view\" ng-click=\"sendQuery()\"><i class='ion-help-circled'></i>Send Query</a>\n" +
+    "    </div>\n" +
+    "  </form>\n" +
+    "</div>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/contact/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/index.html",
+    "<div ui-view=\"directions\"></div>\n" +
+    "<div ui-view=\"email\"></div>\n" +
     "");
 }]);
 
@@ -1299,6 +1368,10 @@ angular.module("../app/partials/home/index.html", []).run(["$templateCache", fun
     "  <section class=\"content small\">\n" +
     "    <h1>{{content.contact.name}}</h1>\n" +
     "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
+    "\n" +
+    "    <div class='btn-group'>\n" +
+    "      <a href=\"\" class=\"btn btn-sm btn-view\" ui-sref=\"public.contact\"><i class='ion-help-circled'></i>Send Query</a>\n" +
+    "    </div>\n" +
     "  </section>\n" +
     "</div>\n" +
     "");

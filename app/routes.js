@@ -76,8 +76,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('public.contact', {
 			url: '/contact',
-			templateUrl: 'app/partials/contact/index.html',
-			controller: 'homeCtrl'
+			views: {
+				'': {
+					templateUrl: 'app/partials/contact/index.html',
+					controller: 'homeCtrl',
+				},
+				'email@public.contact': {
+					templateUrl: 'app/partials/contact/email.html',
+				},
+				'directions@public.contact': {
+					templateUrl: 'app/partials/contact/directions.html',
+				}
+			}
 		})
 		.state('login', {
 			url: '/login',

@@ -1,0 +1,20 @@
+<section id="carousel-container">
+  <carousel interval="2000">
+    <slide ng-repeat="slide in slides" active="slide.active" ng-if="slide.path!=''">
+      <img ng-src="{{slide.uri}}" style="margin:auto;">
+      <div class="carousel-caption">
+        <p>{{slide.text}}</p>
+      </div>
+    </slide>
+  </carousel>
+</section>
+
+<div class="row">
+  <section class="content full">
+    <h1>{{content.welcome.name}}
+    <a style="float:right" href="" class='btn btn-view' ui-sref="public.downloads.list"><i class="ion-ios-people"></i>Customers</a>
+    </h1>
+    <div class="description" ng-bind-html="content.welcome.content[0].body">
+    </div>
+  </section>
+</div>

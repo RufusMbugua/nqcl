@@ -142,12 +142,16 @@ header,secondary-header,.secondary-header{
 .content.full{
   @extend .col-md-12;
 }
+/* Full Size */
+.content.medium{
+  @extend .col-md-6;
+}
 /* Small Size*/
 .content.small{
   @extend .col-md-4;
   text-overflow:ellipsis;
-  height:20em !important;
-  overflow:hidden;
+  height:22em !important;
+  overflow:auto;
   h1{
     font-size:30px;
   }

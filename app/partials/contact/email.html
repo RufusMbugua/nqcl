@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="content medium">
+    <h3>Fill out the email form with your query</h3>
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+  </div>
+  <form action="" class="content medium">
+    <div class="form-group">
+      <label for="">Your Email Address</label>
+      <input type="email" ng-model="query.email" placeholder="joe@example.com" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="">Your Message</label>
+      <textarea froala ng-model="query.message" name="" id="" placeholder="Enter message here..." cols="30" rows="10" class="form-control"></textarea>
+    </div>
+    <div class='btn-group'>
+      <a href="" class="btn btn-view" ng-click="sendQuery()"><i class='ion-help-circled'></i>Send Query</a>
+    </div>
+  </form>
+</div>
