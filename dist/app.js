@@ -108,206 +108,206 @@ app.value('froalaConfig', {
   ]
 );
 ;app.controller(
-  "contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-    '$http',
-    function(scope, filter, timeout, state, Restangular, http) {
+	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+		'$http',
+		function(scope, filter, timeout, state, Restangular, http) {
 
-      scope.froalaOptions = {
-          toolbarFixed: false
-        }
-        /**
-         * [Pages description]
-         * @type {[type]}
-         */
-      var Pages = Restangular.all('pages?format=json');
+			scope.froalaOptions = {
+					toolbarFixed: false
+				}
+				/**
+				 * [Pages description]
+				 * @type {[type]}
+				 */
+			var Pages = Restangular.all('pages?format=json');
 
-      /**
-       * [About description]
-       * @type {RegExp}
-       */
-      var About = Restangular.all('pages/about?format=json');
-      /**
-       * [article description]
-       * @type {[type]}
-       */
-      var Articles = Restangular.all('news?format=json');
+			/**
+			 * [About description]
+			 * @type {RegExp}
+			 */
+			var About = Restangular.all('pages/about?format=json');
+			/**
+			 * [article description]
+			 * @type {[type]}
+			 */
+			var Articles = Restangular.all('news?format=json');
 
-      /**
-       * [menu description]
-       * @type {Array}
-       */
-      scope.menu = [];
-      scope.article = {};
-      /**
-       * [article_menu description]
-       * @type {Array}
-       */
-      scope.article_menu = [];
+			/**
+			 * [menu description]
+			 * @type {Array}
+			 */
+			scope.menu = [];
+			scope.article = {};
+			/**
+			 * [article_menu description]
+			 * @type {Array}
+			 */
+			scope.article_menu = [];
 
-      /**
-       * [content description]
-       * @type {Array}
-       */
-      scope.content = [];
+			/**
+			 * [content description]
+			 * @type {Array}
+			 */
+			scope.content = [];
 
-      scope.alerts = [];
+			scope.alerts = [];
 
-      // getMenuItems();
-      loadSiteContent();
-      loadArticles();
+			// getMenuItems();
+			loadSiteContent();
+			loadArticles();
 
-      setArticleMenu();
-      loadAboutContent()
+			setArticleMenu();
+			loadAboutContent()
 
-      /**
-       * [loadArticles description]
-       */
-      function loadArticles() {
-        scope.action = 'add';
-        scope.list = [];
-        http.get('news?format=json').
-        success(function(data, status, headers, config) {
-          scope.list = data;
-        }).
-        error(function(data, status, headers, config) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
-        });
-      }
-      scope.resetArticle = function resetArticle() {
-        scope.article = [];
-        scope.action = 'add';
-        state.go('admin.articles.add');
-      }
+			/**
+			 * [loadArticles description]
+			 */
+			function loadArticles() {
+				scope.action = 'add';
+				scope.list = [];
+				http.get('news?format=json').
+				success(function(data, status, headers, config) {
+					scope.list = data;
+				}).
+				error(function(data, status, headers, config) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+				});
+			}
+			scope.resetArticle = function resetArticle() {
+				scope.article = [];
+				scope.action = 'add';
+				state.go('admin.articles.add');
+			}
 
 
-      /**
-       * [setArticleMenu description]
-       */
-      function setArticleMenu() {
-        article_menu = [{
-          'name': 'Add',
-          'ui_sref': 'admin.articles.add',
-          'icon_class': 'fa fa-plus'
-        }, {
-          'name': 'Published',
-          'ui_sref': 'admin.articles.published',
-          'icon_class': 'fa fa-newspaper-o'
-        }];
+			/**
+			 * [setArticleMenu description]
+			 */
+			function setArticleMenu() {
+				article_menu = [{
+					'name': 'Add',
+					'ui_sref': 'admin.articles.add',
+					'icon_class': 'fa fa-plus'
+				}, {
+					'name': 'Published',
+					'ui_sref': 'admin.articles.published',
+					'icon_class': 'fa fa-newspaper-o'
+				}];
 
-        scope.menu = article_menu;
-      }
+				scope.menu = article_menu;
+			}
 
-      /**
-       * [addArticle description]
-       */
-      scope.addArticle = function addArticle() {
-        console.log(scope.article)
-        Articles.post(scope.article).then(function(response) {
-          var alert = {
-            type: 'success',
-            msg: response
-          }
-          scope.alerts.push(alert);
-          timeout(function() {
-            state.go(state.current, {}, {
-              reload: true
-            });
-          }, 1000);
-        });
-      }
+			/**
+			 * [addArticle description]
+			 */
+			scope.addArticle = function addArticle() {
+				console.log(scope.article)
+				Articles.post(scope.article).then(function(response) {
+					var alert = {
+						type: 'success',
+						msg: response
+					}
+					scope.alerts.push(alert);
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+			}
 
-      /**
-       * [editArticle description]
-       */
-      scope.getArticle = function getArticle(newArticle) {
-        scope.article = newArticle;
-        scope.action = 'edit';
-        state.go('admin.articles.edit');
+			/**
+			 * [editArticle description]
+			 */
+			scope.getArticle = function getArticle(newArticle) {
+				scope.article = newArticle;
+				scope.action = 'edit';
+				state.go('admin.articles.edit');
 
-      }
+			}
 
-      scope.editArticle = function editArticle() {
-        scope.article.request = 'update';
-        Articles.customPUT(scope.article).then(function(response) {
-          timeout(function() {
-            state.go(state.current, {}, {
-              reload: true
-            });
-          }, 1000);
-        });
+			scope.editArticle = function editArticle() {
+				scope.article.request = 'update';
+				Articles.customPUT(scope.article).then(function(response) {
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
 
-      }
+			}
 
-      /**
-       * [disableArticle description]
-       */
-      scope.disableArticle = function disableArticle(article) {
-        article.request = 'delete';
-        Articles.customPUT(article).then(function(response) {
-          timeout(function() {
-            state.go(state.current, {}, {
-              reload: true
-            });
-          }, 1000);
-        });
-      }
+			/**
+			 * [disableArticle description]
+			 */
+			scope.disableArticle = function disableArticle(article) {
+				article.request = 'delete';
+				Articles.customPUT(article).then(function(response) {
+					timeout(function() {
+						state.go(state.current, {}, {
+							reload: true
+						});
+					}, 1000);
+				});
+			}
 
-      /**
-       * [closeAlert description]
-       * @param {[type]} index [description]
-       */
-      scope.closeAlert = function(index) {
-        scope.alerts.splice(index, 1);
-      };
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
 
-      scope.editSiteContent = function editSiteContent(content) {
-        content.request = 'update';
-        Pages.customPUT(content);
-      }
-      scope.editAboutContent = function editSiteContent(content) {
-        About.customPUT(content);
-      }
+			scope.editSiteContent = function editSiteContent(content) {
+				content.request = 'update';
+				Pages.customPUT(content);
+			}
+			scope.editAboutContent = function editSiteContent(content) {
+				About.customPUT(content);
+			}
 
-      scope.disableSiteContent = function disableSiteContent(content) {
-        content.request = 'delete';
-        Pages.customPUT(content);
-        state.go(state.current, {}, {
-          reload: true
-        });
-      }
-      scope.enableSiteContent = function enableSiteContent(content) {
-          content.request = 'enable';
-          Pages.customPUT(content);
-          state.go(state.current, {}, {
-            reload: true
-          });
+			scope.disableSiteContent = function disableSiteContent(content) {
+				content.request = 'delete';
+				Pages.customPUT(content);
+				state.go(state.current, {}, {
+					reload: true
+				});
+			}
+			scope.enableSiteContent = function enableSiteContent(content) {
+					content.request = 'enable';
+					Pages.customPUT(content);
+					state.go(state.current, {}, {
+						reload: true
+					});
 
-        }
-        // Content
+				}
+				// Content
 
-      /**
-       * [loadSiteContent description]
-       */
-      function loadSiteContent() {
-        scope.content = [];
-        Pages.getList().then(function(content) {
-          scope.content = content;
-        });
-      }
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadSiteContent() {
+				scope.content = [];
+				Pages.getList().then(function(content) {
+					scope.content = content;
+				});
+			}
 
-      /**
-       * [loadSiteContent description]
-       */
-      function loadAboutContent() {
-        scope.about = [];
-        About.customGET().then(function(content) {
-          scope.about = content;
-        });
-      }
+			/**
+			 * [loadSiteContent description]
+			 */
+			function loadAboutContent() {
+				scope.about = [];
+				About.customGET().then(function(content) {
+					scope.about = content;
+				});
+			}
 
-    }
-  ]);
+		}
+	]);
 ;app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Upload', '$rootScope', '$http',
@@ -1001,28 +1001,31 @@ angular.module("../app/partials/articles/articles.items.html", []).run(["$templa
 
 angular.module("../app/partials/articles/articles.items.widget.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/articles/articles.items.widget.html",
-    "<h2><i class='ion-ios-paper'></i>News and Articles</h2>\n" +
+    "<h2></i>News and Articles</h2>\n" +
     "<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
     "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
-    "    <div ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" class=\"news-item\" ng-if=\"$index==0\">\n" +
-    "      <h3>{{item.title}}\n" +
-    "        <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
-    "          New\n" +
-    "        </span>\n" +
-    "        <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
-    "          <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
-    "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
-    "        </span>\n" +
-    "      </h3>\n" +
-    "      <div class=\"row\">\n" +
-    "        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
-    "        <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
-    "        <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
+    "    <carousel class=\"widget\" interval=\"2000\">\n" +
+    "      <slide ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" active=\"item.active\" class=\"news-item\">\n" +
+    "        <h3>{{item.title}}\n" +
+    "          <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
+    "            New\n" +
+    "          </span>\n" +
+    "          <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
+    "            <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "            <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "          </span>\n" +
+    "        </h3>\n" +
+    "        <div class=\"row\">\n" +
+    "          <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "          <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
+    "          <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
+    "        </div>\n" +
+    "      </slide>\n" +
+    "    </carousel>\n" +
     "  </div>\n" +
     "\n" +
     "</div>\n" +
+    "<a style=\"float:right\" href=\"\" class='btn btn-sm btn-view' ui-sref=\"public.news\"><i class='ion-more'></i>Read More</a>\n" +
     "<div ng-if=\"!content\">\n" +
     "  No articles for now.\n" +
     "</div>\n" +

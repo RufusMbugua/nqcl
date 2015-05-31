@@ -361,3 +361,17 @@ span.label{
     color:black !important;
   }
 }
+/* News Widget */
+.widget{
+  .text-center{
+    text-align: left !important;
+  }
+  .news-item{
+    text-align: left !important;
+    border:none;
+    overflow: auto;
+  }
+  .carousel-control{
+    display:none;
+  }
+}

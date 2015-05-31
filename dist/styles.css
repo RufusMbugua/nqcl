@@ -6123,4 +6123,14 @@ span.label {
 .extra.content a:hover {
   color: black !important; }
 
+/* News Widget */
+.widget .text-center {
+  text-align: left !important; }
+.widget .news-item {
+  text-align: left !important;
+  border: none;
+  overflow: auto; }
+.widget .carousel-control {
+  display: none; }
+
 /*# sourceMappingURL=styles.css.map */

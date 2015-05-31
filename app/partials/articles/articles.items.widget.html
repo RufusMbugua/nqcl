@@ -1,22 +1,24 @@
-<h2><i class='ion-ios-paper'></i>News and Articles</h2>
+<h2></i>News and Articles</h2>
 <div ng-repeat="(year,months) in list track by $index" ng-if="$last">
   <div ng-repeat="(month,articles) in months track by $index" ng-if="$last">
-    <div ng-repeat="item in articles track by $index | orderBy:time_posted : reverse" class="news-item" ng-if="$index==0">
-      <h3>{{item.title}}
-        <span class="label label-danger" ng-if="item.new">
-          New
-        </span>
-        <span class="article-actions" ng-if="(level == 'admin')">
-          <a href="" ng-click="getArticle(item)"><i class="ion-edit"></i></a>
-          <a href="" ng-click="disableArticle(item)"><i class="ion-minus-circled"></i></a>
-        </span>
-      </h3>
-      <div class="row">
-        <div class="news-item-content" ng-bind-html="item.body"></div>
-        <div class="news-item-type"><i class="fa fa-tag"></i>{{item.type}}</div>
-        <div class="news-item-date"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>
-      </div>
-    </div>
+    <carousel class="widget" interval="2000">
+      <slide ng-repeat="item in articles track by $index | orderBy:time_posted : reverse" active="item.active" class="news-item">
+        <h3>{{item.title}}
+          <span class="label label-danger" ng-if="item.new">
+            New
+          </span>
+          <span class="article-actions" ng-if="(level == 'admin')">
+            <a href="" ng-click="getArticle(item)"><i class="ion-edit"></i></a>
+            <a href="" ng-click="disableArticle(item)"><i class="ion-minus-circled"></i></a>
+          </span>
+        </h3>
+        <div class="row">
+          <div class="news-item-content" ng-bind-html="item.body"></div>
+          <div class="news-item-type"><i class="fa fa-tag"></i>{{item.type}}</div>
+          <div class="news-item-date"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>
+        </div>
+      </slide>
+    </carousel>
   </div>
 
 </div>
