@@ -1016,7 +1016,7 @@ angular.module("../app/partials/articles/articles.items.widget.html", []).run(["
     "          </span>\n" +
     "        </h3>\n" +
     "        <div class=\"row\">\n" +
-    "          <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "          <p data-ellipsis data-ellipsis-symbol=\"...\" class=\"news-item-content\" ng-bind-html=\"item.body\"></p>\n" +
     "          <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
     "          <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
     "        </div>\n" +

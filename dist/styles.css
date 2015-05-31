@@ -5974,8 +5974,6 @@ header, secondary-header, .secondary-header {
 /* Full Size */
 /* Small Size*/
 .content.small {
-  text-overflow: ellipsis;
-  height: 24em !important;
   overflow: auto; }
   .content.small h1 {
     font-size: 30px; }
@@ -6128,8 +6126,11 @@ span.label {
   text-align: left !important; }
 .widget .news-item {
   text-align: left !important;
-  border: none;
-  overflow: auto; }
+  border: none; }
+  .widget .news-item .news-item-content {
+    max-height: 5em !important;
+    padding-bottom: 10px;
+    overflow: hidden; }
 .widget .carousel-control {
   display: none; }
 

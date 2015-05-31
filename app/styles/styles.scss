@@ -149,8 +149,6 @@ header,secondary-header,.secondary-header{
 /* Small Size*/
 .content.small{
   @extend .col-md-3;
-  text-overflow:ellipsis;
-  height:24em !important;
   overflow:auto;
   h1{
     font-size:30px;
@@ -369,7 +367,11 @@ span.label{
   .news-item{
     text-align: left !important;
     border:none;
-    overflow: auto;
+    .news-item-content{
+      max-height:5em !important;
+      padding-bottom:10px;
+      overflow: hidden;
+    }
   }
   .carousel-control{
     display:none;
