@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_style.css">
   <link rel="stylesheet" href="bower_components/FroalaWysiwygEditor/css/froala_editor.css">
   <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.css">
+  <link rel="stylesheet" href="bower_components/retable/dist/retable.css">
   <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="dist/styles.css" media="screen" title="no title" charset="utf-8">
@@ -33,9 +34,11 @@
   <script src='bower_components/angular-froala/src/froala-sanitize.js'></script>
   <script src='bower_components/moment/moment.js'></script>
   <script src='bower_components/angular-moment/angular-moment.js'></script>
+  <script src='bower_components/bootstrap/dist/js/bootstrap.min.js'></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="bower_components/angular-md5/angular-md5.js"></script>
+  <script src="bower_components/retable/dist/retable.js"></script>
   <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
   <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script> <!-- for no html5 browsers support -->
   <!--  Froala Plugins -->

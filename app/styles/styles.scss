@@ -14,6 +14,7 @@ $secondary_grey: #BDC3C7;
 $main_red:#F64747;
 body{
   font-family:OpenSansRegular !important;
+  background: #FCFCFC;
 }
 secondary-header,.secondary-header{
   position:relative !important;
@@ -364,6 +365,9 @@ span.label{
   .text-center{
     text-align: left !important;
   }
+  h4{
+    margin:0;
+  }
   .news-item{
     text-align: left !important;
     border:none;
@@ -375,5 +379,46 @@ span.label{
   }
   .carousel-control{
     display:none;
+  }
+}
+/* Logo */
+img#nqcl-logo{
+  float:right;
+}
+.navbar-toggle{
+  border-color: transparent !important;
+  span{
+    background:white !important;
+  }
+
+}
+.navbar-toggle:hover{
+  background: transparent !important;
+}
+/* Media Queries */
+@media only screen and (max-width: 900px) and (min-width:320px) {
+  header{
+    position: relative !important;
+  }
+  header nav#main .navbar-collapse{
+    border-color: transparent !important;
+  }
+  #login #login-form{
+    width: 100% !important;
+  }
+  nav#secondary{
+    text-align: center !important;
+    font-size: 1.5em !important;
+  }
+  #public-content{
+    padding-top: 0 !important;
+  }
+  #logo{
+    img,h3,h5{
+      clear:both !important;
+      margin:auto !important;
+      display:block !important;
+      text-align: center !important;
+    }
   }
 }

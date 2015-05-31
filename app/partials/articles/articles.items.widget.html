@@ -3,7 +3,7 @@
   <div ng-repeat="(month,articles) in months track by $index" ng-if="$last">
     <carousel class="widget" interval="4000">
       <slide ng-repeat="item in articles track by $index | orderBy:time_posted : reverse" active="item.active" class="news-item">
-        <h3>{{item.title}}
+        <h4>{{item.title}}
           <span class="label label-danger" ng-if="item.new">
             New
           </span>
@@ -11,7 +11,7 @@
             <a href="" ng-click="getArticle(item)"><i class="ion-edit"></i></a>
             <a href="" ng-click="disableArticle(item)"><i class="ion-minus-circled"></i></a>
           </span>
-        </h3>
+        </h4>
         <div class="row">
           <p data-ellipsis data-ellipsis-symbol="---" class="news-item-content" ng-bind-html="item.body"></p>
           <div class="news-item-type"><i class="fa fa-tag"></i>{{item.type}}</div>

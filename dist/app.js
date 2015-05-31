@@ -1004,9 +1004,9 @@ angular.module("../app/partials/articles/articles.items.widget.html", []).run(["
     "<h2></i>News and Articles</h2>\n" +
     "<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
     "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
-    "    <carousel class=\"widget\" interval=\"2000\">\n" +
+    "    <carousel class=\"widget\" interval=\"4000\">\n" +
     "      <slide ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" active=\"item.active\" class=\"news-item\">\n" +
-    "        <h3>{{item.title}}\n" +
+    "        <h4>{{item.title}}\n" +
     "          <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
     "            New\n" +
     "          </span>\n" +
@@ -1014,9 +1014,9 @@ angular.module("../app/partials/articles/articles.items.widget.html", []).run(["
     "            <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
     "            <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
     "          </span>\n" +
-    "        </h3>\n" +
+    "        </h4>\n" +
     "        <div class=\"row\">\n" +
-    "          <p data-ellipsis data-ellipsis-symbol=\"...\" class=\"news-item-content\" ng-bind-html=\"item.body\"></p>\n" +
+    "          <p data-ellipsis data-ellipsis-symbol=\"---\" class=\"news-item-content\" ng-bind-html=\"item.body\"></p>\n" +
     "          <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
     "          <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
     "        </div>\n" +
@@ -1216,7 +1216,7 @@ angular.module("../app/partials/content/content.header.html", []).run(["$templat
     "<nav id=\"secondary\">\n" +
     "  <div class=\"container-fluid\">\n" +
     "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "    <div id=\"bs-example-navbar-collapse-1\">\n" +
     "      <ul>\n" +
     "        <li>\n" +
     "          <a is-active-nav ui-sref=\"admin.content.main\" ><i class=\"\"></i>Main</a>\n" +
@@ -1374,7 +1374,7 @@ angular.module("../app/partials/globals/secondary_header.html", []).run(["$templ
     "<nav id=\"secondary\">\n" +
     "  <div class=\"container-fluid\">\n" +
     "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "    <div id=\"bs-example-navbar-collapse-1\">\n" +
     "      <ul>\n" +
     "        <li ng-repeat=\"item in menu\">\n" +
     "          <a is-active-nav ui-sref=\"{{item.ui_sref}}\" ><i class=\"{{item.icon_class}}\"></i>{{item.name}}</a>\n" +
@@ -1460,12 +1460,12 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
     "  <div class=\"col-md-6\" >\n" +
-    "    <img style=\"width:100px;padding-top:2%\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
+    "    <img style=\"height:100px;padding-top:2%;padding-left:1%\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
     "    <h5>Ministry of Health</h5>\n" +
     "  </div>\n" +
     "  <div class=\"col-md-6\">\n" +
-    "    <img style=\"width:100px;float:right;padding-top:2%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
-    "    <h3 style=\"text-align:right\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
+    "    <img id=\"nqcl-logo\" style=\"height:100px;padding-top:2%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
+    "    <h3 style=\"text-align:right;margin-top:30px\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
     "  </div>\n" +
     "</div>\n" +
     "\n" +
