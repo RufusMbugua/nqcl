@@ -1460,8 +1460,11 @@ angular.module("../app/partials/public/header.html", []).run(["$templateCache", 
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
     "  <div class=\"col-md-6\" >\n" +
-    "    <img style=\"height:100px;padding-top:2%;padding-left:1%\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
-    "    <h5>Ministry of Health</h5>\n" +
+    "    <div class=\"col-md-4\" id=\"gok\">\n" +
+    "      <h4>Republic of Kenya</h4>\n" +
+    "      <img style=\"height:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
+    "      <h5 id=\"ministry\">Ministry of Health</h5>\n" +
+    "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"col-md-6\">\n" +
     "    <img id=\"nqcl-logo\" style=\"height:100px;padding-top:2%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +

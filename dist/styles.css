@@ -5885,6 +5885,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 /* Admin Theme */
+/* Ministry Colors */
 /* Secondary Menu */
 body {
   font-family: OpenSansRegular !important;
@@ -5902,9 +5903,19 @@ header, secondary-header, .secondary-header {
     background: white;
     width: 100%;
     padding: 2%; }
+    header #logo #gok, secondary-header #logo #gok, .secondary-header #logo #gok {
+      padding: 0 !important; }
+      header #logo #gok h4, header #logo #gok h5, header #logo #gok img, secondary-header #logo #gok h4, secondary-header #logo #gok h5, secondary-header #logo #gok img, .secondary-header #logo #gok h4, .secondary-header #logo #gok h5, .secondary-header #logo #gok img {
+        margin: 0;
+        text-align: center; }
+      header #logo #gok img, secondary-header #logo #gok img, .secondary-header #logo #gok img {
+        width: 110px;
+        margin-left: 16% !important; }
     header #logo img, secondary-header #logo img, .secondary-header #logo img {
       display: inline-block;
       vertical-align: middle; }
+    header #logo h5#ministry, secondary-header #logo h5#ministry, .secondary-header #logo h5#ministry {
+      color: #337ab7 !important; }
   header nav#main, header nav#admin, header nav#secondary, secondary-header nav#main, secondary-header nav#admin, secondary-header nav#secondary, .secondary-header nav#main, .secondary-header nav#admin, .secondary-header nav#secondary {
     background: #00a460 !important;
     height: auto !important;

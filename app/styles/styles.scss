@@ -8,6 +8,8 @@ $light-green:#99dbbf;
 $main_blue:#2C3E50;
 $secondary_green:#90C695;
 
+/* Ministry Colors */
+$ministry_blue:#337ab7;
 /* Secondary Menu */
 $main_grey:#ECF0F1;
 $secondary_grey: #BDC3C7;
@@ -29,9 +31,23 @@ header,secondary-header,.secondary-header{
     background:white;
     width:100%;
     padding:2%;
+    #gok{
+      padding:0 !important;
+      h4,h5,img{
+        margin:0;
+        text-align:center;
+      }
+      img{
+        width:110px;
+        margin-left:16% !important;
+      }
+    }
     img{
       display: inline-block;
       vertical-align:middle;
+    }
+    h5#ministry{
+      color:$ministry_blue !important;
     }
     //height:10%;
   }
