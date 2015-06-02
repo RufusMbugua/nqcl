@@ -39,7 +39,8 @@ header,secondary-header,.secondary-header{
       }
       img{
         width:110px;
-        margin-left:16% !important;
+        margin:0 auto !important;
+        margin-left:32% !important;
       }
     }
     img{
@@ -412,12 +413,16 @@ img#nqcl-logo{
   background: transparent !important;
 }
 /* Media Queries */
-@media only screen and (max-width: 900px) and (min-width:320px) {
+@media only screen and (max-width: 1200px) and (min-width:320px) {
   header{
     position: relative !important;
   }
+  nav#main{
+    padding:0.25% !important;
+  }
   header nav#main .navbar-collapse{
     border-color: transparent !important;
+    padding: 0 !important;
   }
   #login #login-form{
     width: 100% !important;
@@ -432,7 +437,7 @@ img#nqcl-logo{
   #logo{
     img,h3,h5{
       clear:both !important;
-      margin:auto !important;
+      margin:0 auto !important;
       display:block !important;
       text-align: center !important;
     }

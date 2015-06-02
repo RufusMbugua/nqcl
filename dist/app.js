@@ -1459,16 +1459,18 @@ angular.module("../app/partials/news/index.html", []).run(["$templateCache", fun
 angular.module("../app/partials/public/header.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/public/header.html",
     "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
-    "  <div class=\"col-md-6\" >\n" +
-    "    <div class=\"col-md-4\" id=\"gok\">\n" +
+    "  <div class=\"col-md-3\" >\n" +
+    "    <div id=\"gok\">\n" +
     "      <h4>Republic of Kenya</h4>\n" +
     "      <img style=\"height:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
     "      <h5 id=\"ministry\">Ministry of Health</h5>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "  <div class=\"col-md-6\">\n" +
+    "    <h3 style=\"text-align:center;margin-top:30px\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
+    "  </div>\n" +
+    "  <div class=\"col-md-3\">\n" +
     "    <img id=\"nqcl-logo\" style=\"height:100px;padding-top:2%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
-    "    <h3 style=\"text-align:right;margin-top:30px\">National Quality Control Lab for Drugs and Medical Services</h3>\n" +
     "  </div>\n" +
     "</div>\n" +
     "\n" +
