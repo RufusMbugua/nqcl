@@ -3,7 +3,7 @@ var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
 	'LocalStorageModule', 'froala', 'ngFileUpload'
 ]);
 app.config(function(RestangularProvider) {
-	// RestangularProvider.setBaseUrl('/nqcl');
+	// RestangularProvider.setBaseUrl('/');
 	RestangularProvider.setRequestInterceptor(function(elem, operation) {
 		if (operation === "remove") {
 			return undefined;
@@ -32,8 +32,8 @@ app.value('froalaConfig', {
 	inlineMode: false,
 	placeholder: 'Enter Text Here',
 	toolbarFixed: false
-});;
-app.controller(
+});
+;app.controller(
 	"aboutCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
 			scope.links = [];
@@ -53,8 +53,8 @@ app.controller(
 			}
 		}
 	]
-);;
-app.controller(
+);
+;app.controller(
 	"adminCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Session',
 		function(scope, filter, timeout, state, Restangular, Session) {
@@ -78,36 +78,36 @@ app.controller(
 			}
 		}
 	]
-);;
-app.controller(
-	"contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		function(scope, filter, timeout, state, Restangular) {
-			scope.content = [];
-			var front = Restangular.all('content/content?format=json');
-			loadContent();
+);
+;app.controller(
+  "contactCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
+    function(scope, filter, timeout, state, Restangular) {
+      scope.content = [];
+      var front = Restangular.all('content/content?format=json');
+      loadContent();
 
-			function loadContent() {
-				front.getList().then(function(content) {
+      function loadContent() {
+        front.getList().then(function(content) {
 
-					angular.forEach(content, function(value, key) {
-						switch (value.name) {
-							case "Contact Us":
-								scope.content.contact = value;
-								break;
+          angular.forEach(content, function(value, key) {
+            switch (value.name) {
+              case "Contact Us":
+                scope.content.contact = value;
+                break;
 
-							default:
+              default:
 
-								break;
+                break;
 
-						}
+            }
 
-					});
-				});
-			}
-		}
-	]
-);;
-app.controller(
+          });
+        });
+      }
+    }
+  ]
+);
+;app.controller(
 	"contentCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'$http',
 		function(scope, filter, timeout, state, Restangular, http) {
@@ -307,8 +307,8 @@ app.controller(
 			}
 
 		}
-	]);;
-app.controller(
+	]);
+;app.controller(
 	"fileCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'Upload', '$rootScope', '$http',
 
@@ -435,8 +435,8 @@ app.controller(
 			};
 		}
 	]
-);;
-app.controller(
+);
+;app.controller(
 	"homeCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		function(scope, filter, timeout, state, Restangular) {
 			var front = Restangular.all('pages?format=json');
@@ -447,7 +447,7 @@ app.controller(
 			loadImages();
 			loadContent();
 			scope.content = [];
-			scope.query = [];
+			scope.query = {};
 			scope.alerts = [];
 			/**
 			 * [loadImages description]
@@ -488,14 +488,14 @@ app.controller(
 			/**
 			 * [sendQuery description]
 			 */
-			scope.sendQuery = function sendQuery() {
-				// console.log(scope.query);
-				Queries.post(scope.query).then(function(response) {
+			scope.sendQuery = function sendQuery(query) {
+				console.log(query);
+				Queries.post(query).then(function(response) {
 					var alert = {
-							type: 'success',
-							msg: response
-						}
-						// scope.alerts.push(alert);
+						type: response.type,
+						msg: response.text
+					}
+					scope.alerts.push(alert);
 				});;
 			}
 
@@ -508,8 +508,8 @@ app.controller(
 			};
 		}
 	]
-);;
-app.controller(
+);
+;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
 		'md5', 'localStorageService', '$rootScope',
 
@@ -529,8 +529,8 @@ app.controller(
 
 		}
 	]
-);;
-app.directive("mainHeader", function() {
+);
+;app.directive("mainHeader", function() {
 	return {
 		templateUrl: "app/partials/globals/header.html"
 	}
@@ -567,1166 +567,1060 @@ app.directive('isActiveNav', ['$location', function($location) {
 			});
 		}
 	};
-}]);;
-app.config(function($stateProvider, $urlRouterProvider) {
-	//
-	// For any unmatched url, redirect to /state1
-	$urlRouterProvider.otherwise("/public/home");
+}]);
+;app.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // For any unmatched url, redirect to /state1
+  $urlRouterProvider.otherwise("/public/home");
 
-	// Now set up the states
-	$stateProvider
-		.state('public', {
-			url: '/public',
-			views: {
-				'': {
-					templateUrl: 'app/partials/public/index.html',
-				},
-				'header@public': {
-					templateUrl: 'app/partials/public/header.html'
-				}
-			}
-		})
-		.state('public.home', {
-			url: '/home',
-			views: {
-				'': {
-					templateUrl: 'app/partials/home/index.html',
-					controller: 'homeCtrl',
-				},
-				'main@public.home': {
-					templateUrl: 'app/partials/home/main.html',
-				},
-				'news@public.home': {
-					templateUrl: 'app/partials/articles/articles.items.widget.html',
-					controller: 'contentCtrl'
-				}
-			}
-		})
-		.state('public.about', {
-			url: '/about',
-			templateUrl: 'app/partials/about/index.html',
-			controller: 'aboutCtrl'
-		})
-		.state('public.downloads', {
-			url: '/downloads',
-			templateUrl: 'app/partials/files/index.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.downloads.add', {
-			url: '/add',
-			templateUrl: 'app/partials/files/add.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.downloads.list', {
-			url: '/list',
-			templateUrl: 'app/partials/files/list.html',
-			controller: 'fileCtrl'
-		})
-		.state('public.services', {
-			url: '/services',
-			templateUrl: 'app/partials/services/index.html',
-			controller: 'homeCtrl'
-		})
-		.state('public.news', {
-			url: '/news',
-			views: {
-				'': {
-					templateUrl: 'app/partials/articles/articles.published.html',
-					controller: 'contentCtrl'
-				},
-				'list@public.news': {
-					templateUrl: 'app/partials/articles/articles.list.html',
-					controller: 'contentCtrl'
-				},
-				'detail@public.news': {
-					templateUrl: 'app/partials/articles/articles.items.html',
-					controller: 'contentCtrl'
-				}
-			}
-		})
-		.state('public.contact', {
-			url: '/contact',
-			views: {
-				'': {
-					templateUrl: 'app/partials/contact/index.html',
-					controller: 'homeCtrl',
-				},
-				'email@public.contact': {
-					templateUrl: 'app/partials/contact/email.html',
-				},
-				'directions@public.contact': {
-					templateUrl: 'app/partials/contact/directions.html',
-				}
-			}
-		})
-		.state('login', {
-			url: '/login',
-			templateUrl: 'app/partials/admin/login.html',
-			controller: 'usersCtrl'
-		})
-		.state('logout', {
-			url: '/logout',
-			controller: 'adminCtrl'
-		})
-		.state('admin.content', {
-			url: '/content',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/content/content.html',
-					controller: 'contentCtrl',
-				},
-				'header@admin.content': {
-					templateUrl: 'app/partials/content/content.header.html',
-				}
-			}
-		})
-		.state('admin.content.main', {
-			url: '/main',
-			views: {
-				'': {
-					templateUrl: 'app/partials/content/content.main.html'
-				}
-			},
-			controller: 'contentCtrl'
-		})
-		.state('admin.content.about', {
-			url: '/about',
-			views: {
-				'': {
-					templateUrl: 'app/partials/content/content.about.html'
-				}
-			},
-			controller: 'contentCtrl'
-		})
-		.state('admin', {
-			url: '/admin',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/admin/index.html',
-					controller: 'adminCtrl'
-				},
-				'header@admin': {
-					templateUrl: 'app/partials/admin/header.html'
-				}
+  // Now set up the states
+  $stateProvider
+    .state('public', {
+      url: '/public',
+      views: {
+        '': {
+          templateUrl: 'app/partials/public/index.html',
+        },
+        'header@public': {
+          templateUrl: 'app/partials/public/header.html'
+        }
+      }
+    })
+    .state('public.home', {
+      url: '/home',
+      views: {
+        '': {
+          templateUrl: 'app/partials/home/index.html',
+          controller: 'homeCtrl',
+        },
+        'main@public.home': {
+          templateUrl: 'app/partials/home/main.html',
+        },
+        'news@public.home': {
+          templateUrl: 'app/partials/articles/articles.items.widget.html',
+          controller: 'contentCtrl'
+        }
+      }
+    })
+    .state('public.about', {
+      url: '/about',
+      templateUrl: 'app/partials/about/index.html',
+      controller: 'aboutCtrl'
+    })
+    .state('public.downloads', {
+      url: '/downloads',
+      templateUrl: 'app/partials/files/index.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.downloads.add', {
+      url: '/add',
+      templateUrl: 'app/partials/files/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.downloads.list', {
+      url: '/list',
+      templateUrl: 'app/partials/files/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('public.services', {
+      url: '/services',
+      templateUrl: 'app/partials/services/index.html',
+      controller: 'homeCtrl'
+    })
+    .state('public.news', {
+      url: '/news',
+      views: {
+        '': {
+          templateUrl: 'app/partials/articles/articles.published.html',
+          controller: 'contentCtrl'
+        },
+        'list@public.news': {
+          templateUrl: 'app/partials/articles/articles.list.html',
+          controller: 'contentCtrl'
+        },
+        'detail@public.news': {
+          templateUrl: 'app/partials/articles/articles.items.html',
+          controller: 'contentCtrl'
+        }
+      }
+    })
+    .state('public.contact', {
+      url: '/contact',
+      views: {
+        '': {
+          templateUrl: 'app/partials/contact/index.html',
+          controller: 'homeCtrl',
+        },
+        'email@public.contact': {
+          templateUrl: 'app/partials/contact/email.html',
+        },
+        'directions@public.contact': {
+          templateUrl: 'app/partials/contact/directions.html',
+        }
+      }
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'app/partials/admin/login.html',
+      controller: 'usersCtrl'
+    })
+    .state('logout', {
+      url: '/logout',
+      controller: 'adminCtrl'
+    })
+    .state('admin.content', {
+      url: '/content',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/content/content.html',
+          controller: 'contentCtrl',
+        },
+        'header@admin.content': {
+          templateUrl: 'app/partials/content/content.header.html',
+        }
+      }
+    })
+    .state('admin.content.main', {
+      url: '/main',
+      views: {
+        '': {
+          templateUrl: 'app/partials/content/content.main.html'
+        }
+      },
+      controller: 'contentCtrl'
+    })
+    .state('admin.content.about', {
+      url: '/about',
+      views: {
+        '': {
+          templateUrl: 'app/partials/content/content.about.html'
+        }
+      },
+      controller: 'contentCtrl'
+    })
+    .state('admin', {
+      url: '/admin',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/admin/index.html',
+          controller: 'adminCtrl'
+        },
+        'header@admin': {
+          templateUrl: 'app/partials/admin/header.html'
+        }
 
-			}
-		})
-		.state('admin.slides', {
-			url: '/slides',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/slides/index.html',
-					controller: 'fileCtrl',
-				}
+      }
+    })
+    .state('admin.slides', {
+      url: '/slides',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/slides/index.html',
+          controller: 'fileCtrl',
+        }
 
-			}
-		})
-		.state('admin.slides.add', {
-			url: '/add',
-			templateUrl: 'app/partials/slides/add.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.slides.list', {
-			url: '/list',
-			templateUrl: 'app/partials/slides/list.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.files', {
-			url: '/files',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/files/index.html',
-					controller: 'fileCtrl',
-				}
+      }
+    })
+    .state('admin.slides.add', {
+      url: '/add',
+      templateUrl: 'app/partials/slides/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.slides.list', {
+      url: '/list',
+      templateUrl: 'app/partials/slides/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.files', {
+      url: '/files',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/files/index.html',
+          controller: 'fileCtrl',
+        }
 
-			}
-		})
-		.state('admin.files.add', {
-			url: '/add',
-			templateUrl: 'app/partials/files/add.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.files.list', {
-			url: '/list',
-			templateUrl: 'app/partials/files/list.html',
-			controller: 'fileCtrl'
-		})
-		.state('admin.articles', {
-			url: '/articles',
-			views: {
-				// Main
-				'': {
-					templateUrl: 'app/partials/articles/index.html',
-					controller: 'contentCtrl',
-				},
-				'header@admin.articles': {
-					templateUrl: 'app/partials/admin/header.html'
-				}
+      }
+    })
+    .state('admin.files.add', {
+      url: '/add',
+      templateUrl: 'app/partials/files/add.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.files.list', {
+      url: '/list',
+      templateUrl: 'app/partials/files/list.html',
+      controller: 'fileCtrl'
+    })
+    .state('admin.articles', {
+      url: '/articles',
+      views: {
+        // Main
+        '': {
+          templateUrl: 'app/partials/articles/index.html',
+          controller: 'contentCtrl',
+        },
+        'header@admin.articles': {
+          templateUrl: 'app/partials/admin/header.html'
+        }
 
-			}
-		})
-		.state('admin.articles.add', {
-			url: '/add',
-			templateUrl: 'app/partials/articles/articles.add.html'
-		})
-		.state('admin.articles.edit', {
-			url: '/edit',
-			templateUrl: 'app/partials/articles/articles.add.html'
-		})
-		.state('admin.articles.published', {
-			url: '/published',
-			views: {
-				'': {
-					templateUrl: 'app/partials/articles/articles.published.html'
-				},
-				'list@admin.articles.published': {
-					templateUrl: 'app/partials/articles/articles.list.html'
-				},
-				'detail@admin.articles.published': {
-					templateUrl: 'app/partials/articles/articles.items.html'
-				}
-			}
-		});
-});;
-app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
-	localStorageService, rootScope, state) {
-	var Session = {};
+      }
+    })
+    .state('admin.articles.add', {
+      url: '/add',
+      templateUrl: 'app/partials/articles/articles.add.html'
+    })
+    .state('admin.articles.edit', {
+      url: '/edit',
+      templateUrl: 'app/partials/articles/articles.add.html'
+    })
+    .state('admin.articles.published', {
+      url: '/published',
+      views: {
+        '': {
+          templateUrl: 'app/partials/articles/articles.published.html'
+        },
+        'list@admin.articles.published': {
+          templateUrl: 'app/partials/articles/articles.list.html'
+        },
+        'detail@admin.articles.published': {
+          templateUrl: 'app/partials/articles/articles.items.html'
+        }
+      }
+    });
+});
+;app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
+  localStorageService, rootScope, state) {
+  var Session = {};
 
-	Session.checkIfLogged = function checkIfLogged() {
-		rootScope.user = [];
-		user = localStorageService.get('user');
-		if (user == null) {
-			rootScope.user = null;
-			rootScope.level = 'public'
-			status = 'false';
-		} else {
-			rootScope.user = user;
-			rootScope.level = 'admin'
-			status = 'true';
-		}
-		return status;
+  Session.checkIfLogged = function checkIfLogged() {
+    rootScope.user = [];
+    user = localStorageService.get('user');
+    if (user == null) {
+      rootScope.user = null;
+      rootScope.level = 'public'
+      status = 'false';
+    } else {
+      rootScope.user = user;
+      rootScope.level = 'admin'
+      status = 'true';
+    }
+    return status;
 
-	}
+  }
 
-	Session.identify = function identify() {
-		var currentState = state.current;
+  Session.identify = function identify() {
+    var currentState = state.current;
 
-		if (currentState.name == 'logout') {
-			destroy();
-			state.go('public.home');
-		}
-		return 'Done';
-	}
+    if (currentState.name == 'logout') {
+      destroy();
+      state.go('public.home');
+    }
+    return 'Done';
+  }
 
-	function destroy() {
-		rootScope.user = null;
-		localStorageService.remove('user');
-	}
-	return Session;
+  function destroy() {
+    rootScope.user = null;
+    localStorageService.remove('user');
+  }
+  return Session;
 
-}]);;
-angular.module('templates-dist', ['../app/partials/about/index.html',
-	'../app/partials/admin/header.html', '../app/partials/admin/index.html',
-	'../app/partials/admin/login.html',
-	'../app/partials/articles/articles.add.html',
-	'../app/partials/articles/articles.items.html',
-	'../app/partials/articles/articles.items.widget.html',
-	'../app/partials/articles/articles.list.html',
-	'../app/partials/articles/articles.published.html',
-	'../app/partials/articles/index.html',
-	'../app/partials/contact/directions.html',
-	'../app/partials/contact/email.html', '../app/partials/contact/index.html',
-	'../app/partials/content/content.about.html',
-	'../app/partials/content/content.detail.html',
-	'../app/partials/content/content.header.html',
-	'../app/partials/content/content.html',
-	'../app/partials/content/content.main.html',
-	'../app/partials/content/menu.html', '../app/partials/content/table.html',
-	'../app/partials/files/add.html', '../app/partials/files/index.html',
-	'../app/partials/files/list.html', '../app/partials/globals/carousel.html',
-	'../app/partials/globals/secondary_header.html',
-	'../app/partials/home/index.html', '../app/partials/home/main.html',
-	'../app/partials/news/index.html', '../app/partials/public/header.html',
-	'../app/partials/public/index.html', '../app/partials/services/index.html',
-	'../app/partials/slides/add.html', '../app/partials/slides/index.html',
-	'../app/partials/slides/list.html'
-]);
+}]);
+;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.items.widget.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
 
-angular.module("../app/partials/about/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/about/index.html",
-			"<div id=\"side-menu\">\n" +
-			"  <nav>\n" +
-			"    <li ng-repeat=\"link in links\">\n" +
-			"      <a href=\"\" ng-click=loadContent(link.about_body)>{{link.about_type}}</a>\n" +
-			"    </li>\n" +
-			"  </nav>\n" +
-			"</div>\n" +
-			"<div id=\"side-content\" ng-bind-html='content'>\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/about/index.html",
+    "<div id=\"side-menu\">\n" +
+    "  <nav>\n" +
+    "    <li ng-repeat=\"link in links\">\n" +
+    "      <a href=\"\" ng-click=loadContent(link.about_body)>{{link.about_type}}</a>\n" +
+    "    </li>\n" +
+    "  </nav>\n" +
+    "</div>\n" +
+    "<div id=\"side-content\" ng-bind-html='content'>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/admin/header.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/admin/header.html",
-			"<nav id=\"admin\">\n" +
-			"  <div class=\"container-fluid\">\n" +
-			"    <!-- Brand and toggle get grouped for better mobile display -->\n" +
-			"    <div class=\"navbar-header\">\n" +
-			"      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
-			"        <span class=\"sr-only\">Toggle navigation</span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"      </button>\n" +
-			"    </div>\n" +
-			"\n" +
-			"    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-			"    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
-			"      <ul>\n" +
-			"        <!-- <li>\n" +
-			"        <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
-			"      </li> -->\n" +
-			"      <li>\n" +
-			"        <a is-active-nav ui-sref=\"admin.content\" ><i class='fa fa-list-ul'></i>Page Content</a>\n" +
-			"      </li>\n" +
-			"      <li>\n" +
-			"        <a is-active-nav ui-sref=\"admin.articles\" ><i class='fa fa-list-ul'></i>Articles</a>\n" +
-			"      </li>\n" +
-			"      <li>\n" +
-			"        <a is-active-nav ui-sref=\"admin.files.list\" ><i class='ion-document'></i>Files</a>\n" +
-			"      </li>\n" +
-			"      <li>\n" +
-			"        <a is-active-nav ui-sref=\"admin.slides.list\" ><i class='ion-images'></i>Images</a>\n" +
-			"      </li>\n" +
-			"\n" +
-			"    </ul>\n" +
-			"\n" +
-			"    <ul class=\"navbar-right\">\n" +
-			"      <li>\n" +
-			"        <a>\n" +
-			"          <i class='fa fa-user'></i>\n" +
-			"          <span>{{user[0].f_name}}</span>\n" +
-			"          <span>{{user[0].l_name}}</span>\n" +
-			"        </a>\n" +
-			"      </li>\n" +
-			"      <li><a href=\"#\" is-active-nav ui-sref=\"logout\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
-			"\n" +
-			"    </ul>\n" +
-			"  </div><!-- /.navbar-collapse -->\n" +
-			"</div><!-- /.container-fluid -->\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/admin/header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/header.html",
+    "<nav id=\"admin\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <!-- <li>\n" +
+    "        <a is-active-nav ui-sref=\"home\" >Dashboard</a>\n" +
+    "      </li> -->\n" +
+    "      <li>\n" +
+    "        <a is-active-nav ui-sref=\"admin.content\" ><i class='fa fa-list-ul'></i>Page Content</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a is-active-nav ui-sref=\"admin.articles\" ><i class='fa fa-list-ul'></i>Articles</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a is-active-nav ui-sref=\"admin.files.list\" ><i class='ion-document'></i>Files</a>\n" +
+    "      </li>\n" +
+    "      <li>\n" +
+    "        <a is-active-nav ui-sref=\"admin.slides.list\" ><i class='ion-images'></i>Images</a>\n" +
+    "      </li>\n" +
+    "\n" +
+    "    </ul>\n" +
+    "\n" +
+    "    <ul class=\"navbar-right\">\n" +
+    "      <li>\n" +
+    "        <a>\n" +
+    "          <i class='fa fa-user'></i>\n" +
+    "          <span>{{user[0].f_name}}</span>\n" +
+    "          <span>{{user[0].l_name}}</span>\n" +
+    "        </a>\n" +
+    "      </li>\n" +
+    "      <li><a href=\"#\" is-active-nav ui-sref=\"logout\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
+    "\n" +
+    "    </ul>\n" +
+    "  </div><!-- /.navbar-collapse -->\n" +
+    "</div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/admin/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/admin/index.html",
-			"<header class='admin-header' ui-view=\"header\">\n" +
-			"\n" +
-			"\n" +
-			"</header>\n" +
-			"\n" +
-			"<section ui-view id=\"content\">\n" +
-			"\n" +
-			"</section>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/admin/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/index.html",
+    "<header class='admin-header' ui-view=\"header\">\n" +
+    "\n" +
+    "\n" +
+    "</header>\n" +
+    "\n" +
+    "<section ui-view id=\"content\">\n" +
+    "\n" +
+    "</section>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/admin/login.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/admin/login.html",
-			"<div id=\"login\">\n" +
-			"  <h2>NQCL Admin Login </h2>\n" +
-			"  <form id=\"login-form\">\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label for=\"exampleInputEmail1\">Email address</label>\n" +
-			"      <input type=\"email\" ng-model=\"user.email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
-			"    </div>\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label for=\"exampleInputEmail1\">Password</label>\n" +
-			"      <input type=\"password\" ng-model=\"user.password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
-			"      />\n" +
-			"    </div>\n" +
-			"    <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\" ng-click=\"login()\"/>\n" +
-			"\n" +
-			"    <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
-			"  </form>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/admin/login.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/admin/login.html",
+    "<div id=\"login\">\n" +
+    "  <h2>NQCL Admin Login </h2>\n" +
+    "  <form id=\"login-form\">\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"exampleInputEmail1\">Email address</label>\n" +
+    "      <input type=\"email\" ng-model=\"user.email\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "    </div>\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"exampleInputEmail1\">Password</label>\n" +
+    "      <input type=\"password\" ng-model=\"user.password\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "      />\n" +
+    "    </div>\n" +
+    "    <input type=\"submit\" class=\"btn\" name=\"sender\" value=\"SUBMIT\" ng-click=\"login()\"/>\n" +
+    "\n" +
+    "    <p><center><a href=\"#\">Forgot your password?</a></center></p>\n" +
+    "  </form>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/articles.add.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/articles.add.html",
-			"<div class=\"content full\">\n" +
-			"  <form action=\"\">\n" +
-			"    <a style=\"float:right\" ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-view\" ng-click=\"resetArticle()\"><i class='fa fa-plus'></i>New Article</a>\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label>Title</label>\n" +
-			"      <div class=\"input-group\">\n" +
-			"        <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
-			"        <input ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
-			"\n" +
-			"      </div>\n" +
-			"    </div>\n" +
-			"\n" +
-			"    <label>Body</label>\n" +
-			"    <textarea froala ng-model=\"article.body\"></textarea>\n" +
-			"    <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
-			"\n" +
-			"\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label>Type</label>\n" +
-			"      <div class=\"input-group\">\n" +
-			"        <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
-			"        <input ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
-			"\n" +
-			"      </div>\n" +
-			"    </div>\n" +
-			"    <a ng-if=\"action=='add'\" href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
-			"    <a ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-add\" ng-click=\"editArticle()\"><i class='ion-edit'></i>Edit Article</a>\n" +
-			"  </form>\n" +
-			"\n" +
-			"  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/articles.add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.add.html",
+    "<div class=\"content full\">\n" +
+    "  <form action=\"\">\n" +
+    "    <a style=\"float:right\" ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-view\" ng-click=\"resetArticle()\"><i class='fa fa-plus'></i>New Article</a>\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label>Title</label>\n" +
+    "      <div class=\"input-group\">\n" +
+    "        <span class=\"input-group-addon\"><i class=\"fa fa-header\"></i></span>\n" +
+    "        <input ng-model=\"article.title\" class=\"form-control\" required=\"required\" placeholder=\"Title\" />\n" +
+    "\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <label>Body</label>\n" +
+    "    <textarea froala ng-model=\"article.body\"></textarea>\n" +
+    "    <!-- <textarea froala rows=\"5\" ng-model=\"article.body\" class=\"form-control\"  required=\"required\" placeholder=\"Body\"></textarea> -->\n" +
+    "\n" +
+    "\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label>Type</label>\n" +
+    "      <div class=\"input-group\">\n" +
+    "        <span class=\"input-group-addon\" id=\"basic-addon1\"><i class=\"fa fa-tag\"></i></span>\n" +
+    "        <input ng-model=\"article.type\" class=\"form-control\"  required=\"required\" placeholder=\"Type\" />\n" +
+    "\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "    <a ng-if=\"action=='add'\" href=\"\" class=\"btn btn-add\" ng-click=\"addArticle()\"><i class='fa fa-plus'></i>Add Article</a>\n" +
+    "    <a ng-if=\"action=='edit'\" href=\"\" class=\"btn btn-add\" ng-click=\"editArticle()\"><i class='ion-edit'></i>Edit Article</a>\n" +
+    "  </form>\n" +
+    "\n" +
+    "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/articles.items.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/articles.items.html",
-			"<h2><i class='ion-ios-paper'></i>News and Articles</h2>\n" +
-			"<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
-			"  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
-			"    <div ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" class=\"news-item\">\n" +
-			"      <h3>{{item.title}}\n" +
-			"        <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
-			"          New\n" +
-			"        </span>\n" +
-			"        <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
-			"          <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
-			"          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
-			"        </span>\n" +
-			"      </h3>\n" +
-			"      <div class=\"row\">\n" +
-			"        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
-			"        <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
-			"        <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
-			"      </div>\n" +
-			"    </div>\n" +
-			"  </div>\n" +
-			"\n" +
-			"</div>\n" +
-			"<div ng-if=\"!content\">\n" +
-			"  No articles for now.\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/articles.items.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.items.html",
+    "<h2><i class='ion-ios-paper'></i>News and Articles</h2>\n" +
+    "<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
+    "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
+    "    <div ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" class=\"news-item\">\n" +
+    "      <h3>{{item.title}}\n" +
+    "        <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
+    "          New\n" +
+    "        </span>\n" +
+    "        <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
+    "          <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "          <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "        </span>\n" +
+    "      </h3>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "        <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
+    "        <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "<div ng-if=\"!content\">\n" +
+    "  No articles for now.\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/articles.items.widget.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/articles.items.widget.html",
-			"<h2></i>News and Articles</h2>\n" +
-			"<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
-			"  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
-			"    <carousel class=\"widget\" interval=\"4000\">\n" +
-			"      <slide ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" active=\"item.active\" class=\"news-item\">\n" +
-			"        <h4>{{item.title}}\n" +
-			"          <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
-			"            New\n" +
-			"          </span>\n" +
-			"          <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
-			"            <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
-			"            <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
-			"          </span>\n" +
-			"        </h4>\n" +
-			"        <div class=\"row\">\n" +
-			"          <p data-ellipsis data-ellipsis-symbol=\"---\" class=\"news-item-content\" ng-bind-html=\"item.body\"></p>\n" +
-			"          <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
-			"          <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
-			"        </div>\n" +
-			"      </slide>\n" +
-			"    </carousel>\n" +
-			"  </div>\n" +
-			"\n" +
-			"</div>\n" +
-			"<a style=\"float:right\" href=\"\" class='btn btn-sm btn-view' ui-sref=\"public.news\"><i class='ion-more'></i>Read More</a>\n" +
-			"<div ng-if=\"!content\">\n" +
-			"  No articles for now.\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/articles.items.widget.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.items.widget.html",
+    "<h2></i>News and Articles</h2>\n" +
+    "<div ng-repeat=\"(year,months) in list track by $index\" ng-if=\"$last\">\n" +
+    "  <div ng-repeat=\"(month,articles) in months track by $index\" ng-if=\"$last\">\n" +
+    "    <carousel class=\"widget\" interval=\"4000\">\n" +
+    "      <slide ng-repeat=\"item in articles track by $index | orderBy:time_posted : reverse\" active=\"item.active\" class=\"news-item\">\n" +
+    "        <h4>{{item.title}}\n" +
+    "          <span class=\"label label-danger\" ng-if=\"item.new\">\n" +
+    "            New\n" +
+    "          </span>\n" +
+    "          <span class=\"article-actions\" ng-if=\"(level == 'admin')\">\n" +
+    "            <a href=\"\" ng-click=\"getArticle(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "            <a href=\"\" ng-click=\"disableArticle(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "          </span>\n" +
+    "        </h4>\n" +
+    "        <div class=\"row\">\n" +
+    "          <p data-ellipsis data-ellipsis-symbol=\"---\" class=\"news-item-content\" ng-bind-html=\"item.body\"></p>\n" +
+    "          <div class=\"news-item-type\"><i class=\"fa fa-tag\"></i>{{item.type}}</div>\n" +
+    "          <div class=\"news-item-date\"><i class='fa fa-calendar'></i>{{item.time_posted}}</div>\n" +
+    "        </div>\n" +
+    "      </slide>\n" +
+    "    </carousel>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "<a style=\"float:right\" href=\"\" class='btn btn-sm btn-view' ui-sref=\"public.news\"><i class='ion-more'></i>Read More</a>\n" +
+    "<div ng-if=\"!content\">\n" +
+    "  No articles for now.\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/articles.list.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/articles.list.html",
-			"<nav>\n" +
-			"  <h3><i class=\"fa fa-archive\"></i>Archive</h3>\n" +
-			"  <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
-			"    <div class=\"panel panel-default\" ng-repeat=\"(year,months) in list track by $index | orderBy: year : reverse\">\n" +
-			"      <div class=\"panel-heading main-heading\" role=\"tab\" id=\"heading_{{$index}}\">\n" +
-			"        <h4 class=\"panel-title\">\n" +
-			"          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{year}}\" aria-controls=\"{{year}}\">\n" +
-			"            {{year}}\n" +
-			"          </a>\n" +
-			"        </h4>\n" +
-			"      </div>\n" +
-			"      <div id=\"{{year}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
-			"        <div class=\"panel-body\">\n" +
-			"\n" +
-			"          <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
-			"            <div class=\"panel panel-default sub-panel\" ng-repeat=\"(month,articles) in months track by $index\">\n" +
-			"              <div class=\"panel-heading sub-heading\" role=\"tab\" id=\"heading_month_{{$index}}\">\n" +
-			"                <h4 class=\"panel-title\" >\n" +
-			"                  <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{month}}\" aria-controls=\"{{month}}\">\n" +
-			"                    {{month}}\n" +
-			"                  </a>\n" +
-			"                </h4>\n" +
-			"              </div>\n" +
-			"              <div id=\"{{month}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
-			"                <div class=\"panel-body\">\n" +
-			"                  <li ng-repeat=\"article in articles\">\n" +
-			"                    <a href=\"\">{{article.title}}</a>\n" +
-			"                  </li>\n" +
-			"                </div>\n" +
-			"              </div>\n" +
-			"            </div>\n" +
-			"          </div>\n" +
-			"        </div>\n" +
-			"      </div>\n" +
-			"    </div>\n" +
-			"  </div>\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/articles.list.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.list.html",
+    "<nav>\n" +
+    "  <h3><i class=\"fa fa-archive\"></i>Archive</h3>\n" +
+    "  <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
+    "    <div class=\"panel panel-default\" ng-repeat=\"(year,months) in list track by $index | orderBy: year : reverse\">\n" +
+    "      <div class=\"panel-heading main-heading\" role=\"tab\" id=\"heading_{{$index}}\">\n" +
+    "        <h4 class=\"panel-title\">\n" +
+    "          <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{year}}\" aria-controls=\"{{year}}\">\n" +
+    "            {{year}}\n" +
+    "          </a>\n" +
+    "        </h4>\n" +
+    "      </div>\n" +
+    "      <div id=\"{{year}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
+    "        <div class=\"panel-body\">\n" +
+    "\n" +
+    "          <div class=\"panel-group\" id=\"accordion\" role=\"tablist\" aria-multiselectable=\"true\">\n" +
+    "            <div class=\"panel panel-default sub-panel\" ng-repeat=\"(month,articles) in months track by $index\">\n" +
+    "              <div class=\"panel-heading sub-heading\" role=\"tab\" id=\"heading_month_{{$index}}\">\n" +
+    "                <h4 class=\"panel-title\" >\n" +
+    "                  <a data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#{{month}}\" aria-controls=\"{{month}}\">\n" +
+    "                    {{month}}\n" +
+    "                  </a>\n" +
+    "                </h4>\n" +
+    "              </div>\n" +
+    "              <div id=\"{{month}}\" class=\"panel-collapse collapse in\" role=\"tabpanel\">\n" +
+    "                <div class=\"panel-body\">\n" +
+    "                  <li ng-repeat=\"article in articles\">\n" +
+    "                    <a href=\"\">{{article.title}}</a>\n" +
+    "                  </li>\n" +
+    "                </div>\n" +
+    "              </div>\n" +
+    "            </div>\n" +
+    "          </div>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/articles.published.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/articles.published.html",
-			"<!--  -->\n" +
-			"<div id=\"side-content\" ui-view=\"detail\">\n" +
-			"\n" +
-			"</div>\n" +
-			"\n" +
-			"<!--  -->\n" +
-			"<div id=\"side-menu\" ui-view=\"list\">\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/articles.published.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/articles.published.html",
+    "<!--  -->\n" +
+    "<div id=\"side-content\" ui-view=\"detail\">\n" +
+    "\n" +
+    "</div>\n" +
+    "\n" +
+    "<!--  -->\n" +
+    "<div id=\"side-menu\" ui-view=\"list\">\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/articles/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/articles/index.html",
-			"<secondary-header></secondary-header>\n" +
-			"<div ui-view></div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/articles/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/articles/index.html",
+    "<secondary-header></secondary-header>\n" +
+    "<div ui-view></div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/contact/directions.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/contact/directions.html",
-			"<div class=\"row\">\n" +
-			"\n" +
-			"  <section id=\"map\">\n" +
-			"\n" +
-			"    <script type=\"text/javascript\">\n" +
-			"    var google;\n" +
-			"\n" +
-			"    if(google){\n" +
-			"      var LGS=new google.maps.LatLng(-1.303227,36.807026);\n" +
-			"      function initialize()\n" +
-			"      {\n" +
-			"        var mapProp = {\n" +
-			"          center:new google.maps.LatLng(-1.303227,36.807026),\n" +
-			"          zoom:15,\n" +
-			"          mapTypeId:google.maps.MapTypeId.ROADMAP\n" +
-			"        };\n" +
-			"        var map=new google.maps.Map(document.getElementById(\"map_canvas\")\n" +
-			"        ,mapProp);\n" +
-			"        var marker=new google.maps.Marker({position:LGS,});\n" +
-			"\n" +
-			"        marker.setMap(map);\n" +
-			"        var infowindow1 = new google.maps.InfoWindow({\n" +
-			"          content:'<div id=\"MapLocation\"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'\n" +
-			"        });\n" +
-			"\n" +
-			"        infowindow1.open(map,marker);\n" +
-			"      }\n" +
-			"\n" +
-			"\n" +
-			"      google.maps.event.addDomListener(window, 'load', initialize);\n" +
-			"    }\n" +
-			"    </script>\n" +
-			"\n" +
-			"    <div id=\"map_canvas\">\n" +
-			"\n" +
-			"    </div>\n" +
-			"  </section>\n" +
-			"  <section class=\"full content\" ng-bind-html=\"content.contact.content[0].body\">\n" +
-			"\n" +
-			"\n" +
-			"  </section>\n" +
-			"\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/contact/directions.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/directions.html",
+    "<div class=\"row\">\n" +
+    "\n" +
+    "  <section id=\"map\">\n" +
+    "\n" +
+    "    <script type=\"text/javascript\">\n" +
+    "    var google;\n" +
+    "\n" +
+    "    if(google){\n" +
+    "      var LGS=new google.maps.LatLng(-1.303227,36.807026);\n" +
+    "      function initialize()\n" +
+    "      {\n" +
+    "        var mapProp = {\n" +
+    "          center:new google.maps.LatLng(-1.303227,36.807026),\n" +
+    "          zoom:15,\n" +
+    "          mapTypeId:google.maps.MapTypeId.ROADMAP\n" +
+    "        };\n" +
+    "        var map=new google.maps.Map(document.getElementById(\"map_canvas\")\n" +
+    "        ,mapProp);\n" +
+    "        var marker=new google.maps.Marker({position:LGS,});\n" +
+    "\n" +
+    "        marker.setMap(map);\n" +
+    "        var infowindow1 = new google.maps.InfoWindow({\n" +
+    "          content:'<div id=\"MapLocation\"><b>National Quality Control Laboratory</b></p>P.O. Box 29726 - 00202 KNH, Nairobi</div>'\n" +
+    "        });\n" +
+    "\n" +
+    "        infowindow1.open(map,marker);\n" +
+    "      }\n" +
+    "\n" +
+    "\n" +
+    "      google.maps.event.addDomListener(window, 'load', initialize);\n" +
+    "    }\n" +
+    "    </script>\n" +
+    "\n" +
+    "    <div id=\"map_canvas\">\n" +
+    "\n" +
+    "    </div>\n" +
+    "  </section>\n" +
+    "  <section class=\"full content\" ng-bind-html=\"content.contact.content[0].body\">\n" +
+    "\n" +
+    "\n" +
+    "  </section>\n" +
+    "\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/contact/email.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/contact/email.html",
-			"<div class=\"row\">\n" +
-			"  <div class=\"content medium\">\n" +
-			"    <h3>Fill out the email form with your query</h3>\n" +
-			"    <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
-			"\n" +
-			"  </div>\n" +
-			"  <form action=\"\" class=\"content medium\">\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label for=\"\">Your Email Address</label>\n" +
-			"      <input type=\"email\" ng-model=\"query.email\" placeholder=\"joe@example.com\" class=\"form-control\">\n" +
-			"    </div>\n" +
-			"    <div class=\"form-group\">\n" +
-			"      <label for=\"\">Your Message</label>\n" +
-			"      <textarea froala ng-model=\"query.message\" name=\"\" id=\"\" placeholder=\"Enter message here...\" cols=\"30\" rows=\"10\" class=\"form-control\"></textarea>\n" +
-			"    </div>\n" +
-			"    <div class='btn-group'>\n" +
-			"      <a href=\"\" class=\"btn btn-view\" ng-click=\"sendQuery()\"><i class='ion-help-circled'></i>Send Query</a>\n" +
-			"    </div>\n" +
-			"  </form>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/contact/email.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/email.html",
+    "<div class=\"row\">\n" +
+    "  <div class=\"content medium\">\n" +
+    "    <h3>Fill out the email form with your query</h3>\n" +
+    "    <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <form action=\"\" class=\"content medium\">\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"\">Your Email Address</label>\n" +
+    "      <input type=\"email\" ng-model=\"query.email\" placeholder=\"joe@example.com\" class=\"form-control\">\n" +
+    "    </div>\n" +
+    "    <div class=\"form-group\">\n" +
+    "      <label for=\"\">Your Message</label>\n" +
+    "      <textarea froala ng-model=\"query.message\" name=\"\" id=\"\" placeholder=\"Enter message here...\" cols=\"30\" rows=\"10\" class=\"form-control\"></textarea>\n" +
+    "    </div>\n" +
+    "    <div class='btn-group'>\n" +
+    "      <a href=\"\" class=\"btn btn-view\" ng-click=\"sendQuery(query)\"><i class='ion-help-circled'></i>Send Query</a>\n" +
+    "    </div>\n" +
+    "  </form>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/contact/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/contact/index.html",
-			"<div ui-view=\"directions\"></div>\n" +
-			"<div ui-view=\"email\"></div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/contact/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/contact/index.html",
+    "<div ui-view=\"directions\"></div>\n" +
+    "<div ui-view=\"email\"></div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/content.about.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/content.about.html",
-			"<table>\n" +
-			"  <thead>\n" +
-			"    <th style=\"width:20%\">Name</th>\n" +
-			"    <th style=\"width:65%\">Body</th>\n" +
-			"    <th>Action</th>\n" +
-			"  </thead>\n" +
-			"  <tbody>\n" +
-			"    <tr ng-repeat=\"item in about\">\n" +
-			"      <td><input type=\"text\" class='form-control' ng-model=\"item.about_type\"></td>\n" +
-			"      <td>\n" +
-			"        <textarea froala=\"froalaOptions\" ng-model=\"item.about_body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
-			"      <td>\n" +
-			"        <div class=\"btn-group btn-group-sm\">\n" +
-			"          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editAboutContent(item)\">Edit</a>\n" +
-			"          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableAboutContent(item)\">Disable</a>\n" +
-			"        </div>\n" +
-			"      </td>\n" +
-			"    </tr>\n" +
-			"  </tbody>\n" +
-			"  <tfoot><td></td></tfoot>\n" +
-			"</table>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/content.about.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.about.html",
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <th style=\"width:20%\">Name</th>\n" +
+    "    <th style=\"width:65%\">Body</th>\n" +
+    "    <th>Action</th>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"item in about\">\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.about_type\"></td>\n" +
+    "      <td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.about_body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
+    "      <td>\n" +
+    "        <div class=\"btn-group btn-group-sm\">\n" +
+    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editAboutContent(item)\">Edit</a>\n" +
+    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableAboutContent(item)\">Disable</a>\n" +
+    "        </div>\n" +
+    "      </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot><td></td></tfoot>\n" +
+    "</table>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/content.detail.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/content.detail.html",
-			"IMG\n" +
-			"<div ui-view=\"table\">\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/content.detail.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.detail.html",
+    "IMG\n" +
+    "<div ui-view=\"table\">\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/content.header.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/content.header.html",
-			"<nav id=\"secondary\">\n" +
-			"  <div class=\"container-fluid\">\n" +
-			"    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-			"    <div id=\"bs-example-navbar-collapse-1\">\n" +
-			"      <ul>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"admin.content.main\" ><i class=\"\"></i>Main</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"admin.content.about\" ><i class=\"ion-help\"></i>About</a>\n" +
-			"        </li>\n" +
-			"      </ul>\n" +
-			"    </div><!-- /.navbar-collapse -->\n" +
-			"  </div><!-- /.container-fluid -->\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/content.header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.header.html",
+    "<nav id=\"secondary\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"admin.content.main\" ><i class=\"\"></i>Main</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"admin.content.about\" ><i class=\"ion-help\"></i>About</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/content.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/content.html",
-			"<div ui-view=\"header\" class='secondary-header'></div>\n" +
-			"<div id=\"full content\" ui-view>\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/content.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.html",
+    "<div ui-view=\"header\" class='secondary-header'></div>\n" +
+    "<div id=\"full content\" ui-view>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/content.main.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/content.main.html",
-			"<table>\n" +
-			"  <thead>\n" +
-			"    <th style=\"width:300px\">Name</th>\n" +
-			"    <th>Body</th>\n" +
-			"    <th>Active</th>\n" +
-			"    <th>Action</th>\n" +
-			"  </thead>\n" +
-			"  <tbody>\n" +
-			"    <tr ng-repeat=\"item in content\">\n" +
-			"      <td><input type=\"text\" class='form-control' ng-model=\"item.name\"></td>\n" +
-			"      <td>\n" +
-			"        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea>\n" +
-			"      </td>\n" +
-			"      <td>\n" +
-			"        <div ng-if=\"item.active==0\" class=\"label label-danger\">Inactive</div>\n" +
-			"        <div ng-if=\"item.active==1\" class=\"label label-success\">Active</div>\n" +
-			"      </td>\n" +
-			"      <td>\n" +
-			"        <div class=\"btn-group btn-group-sm\">\n" +
-			"          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
-			"          <a ng-if=\"item.active==1\" href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
-			"          <a ng-if=\"item.active==0\" href=\"\" class=\"btn btn-success\" ng-click=\"enableSiteContent(item)\">Enable</a>\n" +
-			"        </div>\n" +
-			"      </td>\n" +
-			"    </tr>\n" +
-			"  </tbody>\n" +
-			"  <tfoot><td></td></tfoot>\n" +
-			"</table>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/content.main.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/content.main.html",
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <th style=\"width:300px\">Name</th>\n" +
+    "    <th>Body</th>\n" +
+    "    <th>Active</th>\n" +
+    "    <th>Action</th>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"item in content\">\n" +
+    "      <td><input type=\"text\" class='form-control' ng-model=\"item.name\"></td>\n" +
+    "      <td>\n" +
+    "        <textarea froala=\"froalaOptions\" ng-model=\"item.content[0].body\" ng-bind-html=\"item.body\"></textarea>\n" +
+    "      </td>\n" +
+    "      <td>\n" +
+    "        <div ng-if=\"item.active==0\" class=\"label label-danger\">Inactive</div>\n" +
+    "        <div ng-if=\"item.active==1\" class=\"label label-success\">Active</div>\n" +
+    "      </td>\n" +
+    "      <td>\n" +
+    "        <div class=\"btn-group btn-group-sm\">\n" +
+    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
+    "          <a ng-if=\"item.active==1\" href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
+    "          <a ng-if=\"item.active==0\" href=\"\" class=\"btn btn-success\" ng-click=\"enableSiteContent(item)\">Enable</a>\n" +
+    "        </div>\n" +
+    "      </td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot><td></td></tfoot>\n" +
+    "</table>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/menu.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/menu.html",
-			"<nav>\n" +
-			"    <li><a href=\"\" ng-click=\"getMenuItems()\">Menu Links</a></li>\n" +
-			"    <li><a href=\"\" ng-click=\"loadSiteContent()\">Site Content</a></li>\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/content/menu.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/menu.html",
+    "<nav>\n" +
+    "    <li><a href=\"\" ng-click=\"getMenuItems()\">Menu Links</a></li>\n" +
+    "    <li><a href=\"\" ng-click=\"loadSiteContent()\">Site Content</a></li>\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/content/table.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/content/table.html",
-			"");
-	}
-]);
+angular.module("../app/partials/content/table.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/content/table.html",
+    "");
+}]);
 
-angular.module("../app/partials/files/add.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/files/add.html",
-			"<div ng-controller=\"fileCtrl\">\n" +
-			"\n" +
-			"  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
-			"  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
-			"  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
-			"  <div class=\"row\">\n" +
-			"    <div class=\"drop-box-container\">\n" +
-			"      <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
-			"      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
-			"      ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
-			"      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
-			"    </div>\n" +
-			"    <div class=\"image-thumbnail\">\n" +
-			"      <h4>Image thumbnail:</h4>\n" +
-			"      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
-			"      <div class=\"progress\">\n" +
-			"        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
-			"          {{progress.percentage}}%\n" +
-			"        </div>\n" +
-			"      </div>\n" +
-			"      {{progress.file}}\n" +
-			"    </div>\n" +
-			"\n" +
-			"  </div>\n" +
-			"\n" +
-			"  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
-			"  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/files/add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/files/add.html",
+    "<div ng-controller=\"fileCtrl\">\n" +
+    "\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"files\"><i class=\"fa fa-upload\"></i>Upload File</a>\n" +
+    "  <a class=\"btn btn-view\" ui-sref=\"admin.files.list\" href=\"\"><i class=\"ion-eye\"></i>View Files</a>\n" +
+    "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
+    "  <div class=\"row\">\n" +
+    "    <div class=\"drop-box-container\">\n" +
+    "      <div ngf-drop ng-model=\"files\" class=\"drop-box\"\n" +
+    "      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
+    "      ngf-accept=\"'.jpg,.png,.pdf'\">Drop Images or PDFs files here</div>\n" +
+    "      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
+    "    </div>\n" +
+    "    <div class=\"image-thumbnail\">\n" +
+    "      <h4>Image thumbnail:</h4>\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <div class=\"progress\">\n" +
+    "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
+    "          {{progress.percentage}}%\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "      {{progress.file}}\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
+    "  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/files/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/files/index.html",
-			"<div ui-view=\"header\"></div>\n" +
-			"<div ui-view>\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/files/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/files/index.html",
+    "<div ui-view=\"header\"></div>\n" +
+    "<div ui-view>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/files/list.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/files/list.html",
-			"<h3>Downloads Page\n" +
-			"\n" +
-			"<!-- <div class=\"btn-group btn-group\">\n" +
-			"  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
-			"  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
-			"</div> -->\n" +
-			"<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a>\n" +
-			"\n" +
-			"</h3>\n" +
-			"<table>\n" +
-			"  <thead>\n" +
-			"    <tr>\n" +
-			"      <th>Name</th>\n" +
-			"      <th>Source</th>\n" +
-			"    </tr>\n" +
-			"  </thead>\n" +
-			"  <tbody>\n" +
-			"    <tr ng-repeat=\"file in files.data\" ng-if=\"file.name.path!=''\">\n" +
-			"      <td>{{file.name.name}}</td>\n" +
-			"      <td>\n" +
-			"        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg'\n" +
-			"        \"src=\"{{file.uri}}\" alt=\"\">\n" +
-			"\n" +
-			"          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
-			"        </td>\n" +
-			"        <td><a ng-if=\"(level == 'admin')\" href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
-			"    </tr>\n" +
-			"  </tbody>\n" +
-			"  <tfoot></tfoot>\n" +
-			"</table>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/files/list.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/files/list.html",
+    "<h3>Downloads Page\n" +
+    "\n" +
+    "<!-- <div class=\"btn-group btn-group\">\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-ios-list\"></i>List</a>\n" +
+    "  <a href=\"\" class=\"btn btn-view\"><i class=\"ion-grid\"></i>Grid</a>\n" +
+    "</div> -->\n" +
+    "<a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.files.add\"><i class='fa fa-plus'></i>Add File</a>\n" +
+    "\n" +
+    "</h3>\n" +
+    "<table>\n" +
+    "  <thead>\n" +
+    "    <tr>\n" +
+    "      <th>Name</th>\n" +
+    "      <th>Source</th>\n" +
+    "    </tr>\n" +
+    "  </thead>\n" +
+    "  <tbody>\n" +
+    "    <tr ng-repeat=\"file in files.data\" ng-if=\"file.name.path!=''\">\n" +
+    "      <td>{{file.name.name}}</td>\n" +
+    "      <td>\n" +
+    "        <img class=\"img-responsive\" ng-if=\"file.mime == 'image/png' || file.mime == 'image/jpeg'\n" +
+    "        \"src=\"{{file.uri}}\" alt=\"\">\n" +
+    "\n" +
+    "          <a ng-if=\"file.mime == 'application/pdf' \" href=\"{{file.uri}}\">{{file.name.name}}</a>\n" +
+    "        </td>\n" +
+    "        <td><a ng-if=\"(level == 'admin')\" href=\"\" class='btn btn-danger' ng-click=\"removeFile(file)\"><i class='icon remove'></i>Remove</a></td>\n" +
+    "    </tr>\n" +
+    "  </tbody>\n" +
+    "  <tfoot></tfoot>\n" +
+    "</table>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/globals/carousel.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/globals/carousel.html",
-			"");
-	}
-]);
+angular.module("../app/partials/globals/carousel.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/carousel.html",
+    "");
+}]);
 
-angular.module("../app/partials/globals/secondary_header.html", []).run([
-	"$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/globals/secondary_header.html",
-			"<nav id=\"secondary\">\n" +
-			"  <div class=\"container-fluid\">\n" +
-			"    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-			"    <div id=\"bs-example-navbar-collapse-1\">\n" +
-			"      <ul>\n" +
-			"        <li ng-repeat=\"item in menu\">\n" +
-			"          <a is-active-nav ui-sref=\"{{item.ui_sref}}\" ><i class=\"{{item.icon_class}}\"></i>{{item.name}}</a>\n" +
-			"        </li>\n" +
-			"      </ul>\n" +
-			"    </div><!-- /.navbar-collapse -->\n" +
-			"  </div><!-- /.container-fluid -->\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/globals/secondary_header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/globals/secondary_header.html",
+    "<nav id=\"secondary\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li ng-repeat=\"item in menu\">\n" +
+    "          <a is-active-nav ui-sref=\"{{item.ui_sref}}\" ><i class=\"{{item.icon_class}}\"></i>{{item.name}}</a>\n" +
+    "        </li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/home/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/home/index.html",
-			"<div class=\"row\">\n" +
-			"  <section class=\"content small\">\n" +
-			"    <h1>{{content.contact.name}}\n" +
-			"      <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Clients</a>\n" +
-			"    </h1>\n" +
-			"    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
-			"\n" +
-			"    <div class='btn-group'>\n" +
-			"      <a href=\"\" class=\"btn btn-sm btn-view\" ui-sref=\"public.contact\"><i class='ion-help-circled'></i>Send Query</a>\n" +
-			"    </div>\n" +
-			"  </section>\n" +
-			"  <div ui-view=\"main\" class=\"content medium\">\n" +
-			"\n" +
-			"  </div>\n" +
-			"  <section class=\"content small\" ui-view=\"news\">\n" +
-			"\n" +
-			"  </section>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/home/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/home/index.html",
+    "<div class=\"row\">\n" +
+    "  <section class=\"content small\">\n" +
+    "    <h1>{{content.contact.name}}\n" +
+    "      <a style=\"float:right\" href=\"\" class='btn btn-view' ui-sref=\"public.downloads.list\"><i class=\"ion-ios-people\"></i>Clients</a>\n" +
+    "    </h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.contact.content[0].body\"></div>\n" +
+    "\n" +
+    "    <div class='btn-group'>\n" +
+    "      <a href=\"\" class=\"btn btn-sm btn-view\" ui-sref=\"public.contact\"><i class='ion-help-circled'></i>Send Query</a>\n" +
+    "    </div>\n" +
+    "  </section>\n" +
+    "  <div ui-view=\"main\" class=\"content medium\">\n" +
+    "\n" +
+    "  </div>\n" +
+    "  <section class=\"content small\" ui-view=\"news\">\n" +
+    "\n" +
+    "  </section>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/home/main.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/home/main.html",
-			"<section id=\"carousel-container\">\n" +
-			"  <carousel interval=\"2000\">\n" +
-			"    <slide ng-repeat=\"slide in slides\" active=\"slide.active\" ng-if=\"slide.path!=''\">\n" +
-			"      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
-			"      <div class=\"carousel-caption\">\n" +
-			"        <p>{{slide.text}}</p>\n" +
-			"      </div>\n" +
-			"    </slide>\n" +
-			"  </carousel>\n" +
-			"</section>\n" +
-			"\n" +
-			"<div class=\"row\">\n" +
-			"  <section class=\"content full\">\n" +
-			"    <h1>{{content.welcome.name}}</h1>\n" +
-			"    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
-			"    </div>\n" +
-			"  </section>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/home/main.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/home/main.html",
+    "<section id=\"carousel-container\">\n" +
+    "  <carousel interval=\"2000\">\n" +
+    "    <slide ng-repeat=\"slide in slides\" active=\"slide.active\" ng-if=\"slide.path!=''\">\n" +
+    "      <img ng-src=\"{{slide.uri}}\" style=\"margin:auto;\">\n" +
+    "      <div class=\"carousel-caption\">\n" +
+    "        <p>{{slide.text}}</p>\n" +
+    "      </div>\n" +
+    "    </slide>\n" +
+    "  </carousel>\n" +
+    "</section>\n" +
+    "\n" +
+    "<div class=\"row\">\n" +
+    "  <section class=\"content full\">\n" +
+    "    <h1>{{content.welcome.name}}</h1>\n" +
+    "    <div class=\"description\" ng-bind-html=\"content.welcome.content[0].body\">\n" +
+    "    </div>\n" +
+    "  </section>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/news/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/news/index.html",
-			"<div id=\"side-content\">\n" +
-			"  <h1>NEWS ARTICLES AND UPCOMING EVENTS</h1>\n" +
-			"  <div ng-repeat=\"item in content\" class='news-item' >\n" +
-			"      <h3>{{item.title}}</h3>\n" +
-			"      <div class=\"row\">\n" +
-			"        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
-			"        <div class=\"news-item-type\">{{item.type}}</div>\n" +
-			"        <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
-			"      </div>\n" +
-			"  </div>\n" +
-			"</div>\n" +
-			"<div id=\"side-menu\">\n" +
-			"  <h1>RECENT POSTS</h1>\n" +
-			"  <nav>\n" +
-			"    <li ng-repeat=\"item in content\">\n" +
-			"      <a href=\"\">{{item.title}}</a>\n" +
-			"    </li>\n" +
-			"  </nav>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/news/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/news/index.html",
+    "<div id=\"side-content\">\n" +
+    "  <h1>NEWS ARTICLES AND UPCOMING EVENTS</h1>\n" +
+    "  <div ng-repeat=\"item in content\" class='news-item' >\n" +
+    "      <h3>{{item.title}}</h3>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"news-item-content\" ng-bind-html=\"item.body\"></div>\n" +
+    "        <div class=\"news-item-type\">{{item.type}}</div>\n" +
+    "        <div class=\"news-item-date\">{{item.time_posted}}</div>\n" +
+    "      </div>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "<div id=\"side-menu\">\n" +
+    "  <h1>RECENT POSTS</h1>\n" +
+    "  <nav>\n" +
+    "    <li ng-repeat=\"item in content\">\n" +
+    "      <a href=\"\">{{item.title}}</a>\n" +
+    "    </li>\n" +
+    "  </nav>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/public/header.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/public/header.html",
-			"<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
-			"  <div class=\"col-md-3\" >\n" +
-			"    <div id=\"gok\">\n" +
-			"      <h4>Republic of Kenya</h4>\n" +
-			"      <img style=\"height:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
-			"      <h5 id=\"ministry\">Ministry of Health</h5>\n" +
-			"    </div>\n" +
-			"  </div>\n" +
-			"  <div class=\"col-md-6\">\n" +
-			"    <h3 style=\"text-align:center;margin-top:30px\">National Quality Control Lab for Drugs and Medical Devices</h3>\n" +
-			"  </div>\n" +
-			"  <div class=\"col-md-3\">\n" +
-			"    <img id=\"nqcl-logo\" style=\"height:100px;padding-top:2%;margin-right: 25%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
-			"  </div>\n" +
-			"</div>\n" +
-			"\n" +
-			"<nav id=\"main\">\n" +
-			"  <div class=\"container-fluid\">\n" +
-			"    <!-- Brand and toggle get grouped for better mobile display -->\n" +
-			"    <div class=\"navbar-header\">\n" +
-			"      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
-			"        <span class=\"sr-only\">Toggle navigation</span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"        <span class=\"icon-bar\"></span>\n" +
-			"      </button>\n" +
-			"    </div>\n" +
-			"\n" +
-			"    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-			"    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
-			"      <ul>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.home\" >Home</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.about\" >About NQCL</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.services\" >Our Services</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.news\" >News and Events</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.downloads.list\">Downloads</a>\n" +
-			"        </li>\n" +
-			"        <li>\n" +
-			"          <a is-active-nav ui-sref=\"public.contact\">Contact Us</a>\n" +
-			"        </li>\n" +
-			"\n" +
-			"      </ul>\n" +
-			"\n" +
-			"      <ul class=\"navbar-right\">\n" +
-			"        <li ng-if=\"user\" class='dropdown'>\n" +
-			"          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n" +
-			"            <i class='fa fa-user'></i>\n" +
-			"            <span>{{user[0].f_name}}</span>\n" +
-			"            <span>{{user[0].l_name}}</span>\n" +
-			"            <span class=\"caret\"></span>\n" +
-			"          </a>\n" +
-			"          <ul class=\"dropdown-menu\" role=\"menu\">\n" +
-			"            <li><a href=\"#\"><i class=\"ion-gear\"></i>Back to Admin Page</a></li>\n" +
-			"          </ul>\n" +
-			"        </li>\n" +
-			"        <li ng-if=\"!user\"><a href=\"#\" is-active-nav ui-sref=\"login\"><i class=\"fa fa-sign-in\"></i>Login to CMS</a></li>\n" +
-			"      </ul>\n" +
-			"    </div><!-- /.navbar-collapse -->\n" +
-			"  </div><!-- /.container-fluid -->\n" +
-			"</nav>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/public/header.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/public/header.html",
+    "<div id=\"logo\" class='row' style=\"margin:0;padding:0\">\n" +
+    "  <div class=\"col-md-3\" >\n" +
+    "    <div id=\"gok\">\n" +
+    "      <h4>Republic of Kenya</h4>\n" +
+    "      <img style=\"height:100px\" class='img-responsive' src=\"app/images/logo/coat_of_arms.png\"/>\n" +
+    "      <h5 id=\"ministry\">Ministry of Health</h5>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "  <div class=\"col-md-6\">\n" +
+    "    <h3 style=\"text-align:center;margin-top:30px\">National Quality Control Lab for Drugs and Medical Devices</h3>\n" +
+    "  </div>\n" +
+    "  <div class=\"col-md-3\">\n" +
+    "    <img id=\"nqcl-logo\" style=\"height:100px;padding-top:2%;margin-right: 25%\" class='img-responsive'src=\"app/images/logo/NQCL_logo.png\"/>\n" +
+    "  </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<nav id=\"main\">\n" +
+    "  <div class=\"container-fluid\">\n" +
+    "    <!-- Brand and toggle get grouped for better mobile display -->\n" +
+    "    <div class=\"navbar-header\">\n" +
+    "      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n" +
+    "        <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "        <span class=\"icon-bar\"></span>\n" +
+    "      </button>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <!-- Collect the nav links, forms, and other content for toggling -->\n" +
+    "    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
+    "      <ul>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.home\" >Home</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.about\" >About NQCL</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.services\" >Our Services</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.news\" >News and Events</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.downloads.list\">Downloads</a>\n" +
+    "        </li>\n" +
+    "        <li>\n" +
+    "          <a is-active-nav ui-sref=\"public.contact\">Contact Us</a>\n" +
+    "        </li>\n" +
+    "\n" +
+    "      </ul>\n" +
+    "\n" +
+    "      <ul class=\"navbar-right\">\n" +
+    "        <li ng-if=\"user\" class='dropdown'>\n" +
+    "          <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-expanded=\"false\">\n" +
+    "            <i class='fa fa-user'></i>\n" +
+    "            <span>{{user[0].f_name}}</span>\n" +
+    "            <span>{{user[0].l_name}}</span>\n" +
+    "            <span class=\"caret\"></span>\n" +
+    "          </a>\n" +
+    "          <ul class=\"dropdown-menu\" role=\"menu\">\n" +
+    "            <li><a href=\"#\"><i class=\"ion-gear\"></i>Back to Admin Page</a></li>\n" +
+    "          </ul>\n" +
+    "        </li>\n" +
+    "        <li ng-if=\"!user\"><a href=\"#\" is-active-nav ui-sref=\"login\"><i class=\"fa fa-sign-in\"></i>Login to CMS</a></li>\n" +
+    "      </ul>\n" +
+    "    </div><!-- /.navbar-collapse -->\n" +
+    "  </div><!-- /.container-fluid -->\n" +
+    "</nav>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/public/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/public/index.html",
-			"<header ui-view=\"header\">\n" +
-			"\n" +
-			"\n" +
-			"</header>\n" +
-			"\n" +
-			"<section ui-view id=\"public-content\">\n" +
-			"\n" +
-			"</section>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/public/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/public/index.html",
+    "<header ui-view=\"header\">\n" +
+    "\n" +
+    "\n" +
+    "</header>\n" +
+    "\n" +
+    "<section ui-view id=\"public-content\">\n" +
+    "\n" +
+    "</section>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/services/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/services/index.html",
-			"<div class=\"row\">\n" +
-			"\n" +
-			"  <section class=\"content full\" ng-bind-html=\"content.services.content[0].body\">\n" +
-			"  </section>\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/services/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/services/index.html",
+    "<div class=\"row\">\n" +
+    "\n" +
+    "  <section class=\"content full\" ng-bind-html=\"content.services.content[0].body\">\n" +
+    "  </section>\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/slides/add.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/slides/add.html",
-			"<div ng-controller=\"fileCtrl\">\n" +
-			"\n" +
-			"  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"slides\"><i class=\"fa fa-upload\"></i>Upload Image</a>\n" +
-			"  <a class=\"btn btn-view\" ui-sref=\"admin.slides.list\" href=\"\"><i class=\"ion-eye\"></i>View Image</a>\n" +
-			"  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
-			"  <div class=\"row\">\n" +
-			"    <div class=\"drop-box-container\">\n" +
-			"      <div ngf-drop ng-model=\"slides\" class=\"drop-box\"\n" +
-			"      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
-			"      ngf-accept=\"'.jpg,.png'\">Drop Images here</div>\n" +
-			"      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
-			"    </div>\n" +
-			"    <div class=\"image-thumbnail\">\n" +
-			"      <h4>Image thumbnail:</h4>\n" +
-			"      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
-			"      <div class=\"progress\">\n" +
-			"        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
-			"          {{progress.percentage}}%\n" +
-			"        </div>\n" +
-			"      </div>\n" +
-			"      {{progress.file}}\n" +
-			"    </div>\n" +
-			"\n" +
-			"  </div>\n" +
-			"\n" +
-			"  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
-			"  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/slides/add.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/add.html",
+    "<div ng-controller=\"fileCtrl\">\n" +
+    "\n" +
+    "  <a class=\"btn btn-add\" ngf-multiple=\"true\" ngf-select ng-model=\"slides\"><i class=\"fa fa-upload\"></i>Upload Image</a>\n" +
+    "  <a class=\"btn btn-view\" ui-sref=\"admin.slides.list\" href=\"\"><i class=\"ion-eye\"></i>View Image</a>\n" +
+    "  <!-- <div class=\"btn\" ngf-select ngf-change=\"upload($files)\">Upload on file change</div> -->\n" +
+    "  <div class=\"row\">\n" +
+    "    <div class=\"drop-box-container\">\n" +
+    "      <div ngf-drop ng-model=\"slides\" class=\"drop-box\"\n" +
+    "      ngf-drag-over-class=\"dragover\" ngf-multiple=\"true\" ngf-allow-dir=\"true\"\n" +
+    "      ngf-accept=\"'.jpg,.png'\">Drop Images here</div>\n" +
+    "      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>\n" +
+    "    </div>\n" +
+    "    <div class=\"image-thumbnail\">\n" +
+    "      <h4>Image thumbnail:</h4>\n" +
+    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <div class=\"progress\">\n" +
+    "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
+    "          {{progress.percentage}}%\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "      {{progress.file}}\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <!--   Audio preview: <audio controls ngf-src=\"files[0]\" ngf-accept=\"audio/*\"></audio>\n" +
+    "  Video preview: <video controls ngf-src=\"files[0]\" ngf-accept=\"video/*\"></video> -->\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/slides/index.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/slides/index.html",
-			"<div ui-view=\"header\"></div>\n" +
-			"<div ui-view>\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/slides/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/index.html",
+    "<div ui-view=\"header\"></div>\n" +
+    "<div ui-view>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);
 
-angular.module("../app/partials/slides/list.html", []).run(["$templateCache",
-	function($templateCache) {
-		$templateCache.put("../app/partials/slides/list.html",
-			"<h3>Images Page\n" +
-			"\n" +
-			"  <a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Image</a>\n" +
-			"\n" +
-			"</h3>\n" +
-			"<div class=\"ui four cards\">\n" +
-			"  <div class=\"card\" ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
-			"    <div class=\"image\">\n" +
-			"      <img src=\"{{image.uri}}\">\n" +
-			"    </div>\n" +
-			"    <div class=\"content\">\n" +
-			"      <a class=\"header\">{{image.name}}</a>\n" +
-			"      <div class=\"meta\">\n" +
-			"        <span class=\"date\">Modified <span am-time-ago=\"image.timestamp\" am-preprocess=\"unix\"></span></span>\n" +
-			"      </div>\n" +
-			"      <div class=\"description\">\n" +
-			"      </div>\n" +
-			"    </div>\n" +
-			"    <div class=\"extra content\">\n" +
-			"      <a href=\"\" ng-click=\"archiveSlide(image)\"><i class='icon archive'></i>Archive</a>\n" +
-			"      <a href=\"\" ng-click=\"removeSlide(image)\"><i class='icon remove'></i>Remove</a>\n" +
-			"    </div>\n" +
-			"  </div>\n" +
-			"\n" +
-			"</div>\n" +
-			"");
-	}
-]);
+angular.module("../app/partials/slides/list.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/slides/list.html",
+    "<h3>Images Page\n" +
+    "\n" +
+    "  <a style=\"float:right\" href=\"\" ng-if=\"(level == 'admin')\" class=\"btn btn-add\" ui-sref=\"admin.slides.add\"><i class='fa fa-plus'></i>Add Image</a>\n" +
+    "\n" +
+    "</h3>\n" +
+    "<div class=\"ui four cards\">\n" +
+    "  <div class=\"card\" ng-repeat=\"image in slides.data\" ng-if=\"image.path!=''\">\n" +
+    "    <div class=\"image\">\n" +
+    "      <img src=\"{{image.uri}}\">\n" +
+    "    </div>\n" +
+    "    <div class=\"content\">\n" +
+    "      <a class=\"header\">{{image.name}}</a>\n" +
+    "      <div class=\"meta\">\n" +
+    "        <span class=\"date\">Modified <span am-time-ago=\"image.timestamp\" am-preprocess=\"unix\"></span></span>\n" +
+    "      </div>\n" +
+    "      <div class=\"description\">\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"extra content\">\n" +
+    "      <a href=\"\" ng-click=\"archiveSlide(image)\"><i class='icon archive'></i>Archive</a>\n" +
+    "      <a href=\"\" ng-click=\"removeSlide(image)\"><i class='icon remove'></i>Remove</a>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "</div>\n" +
+    "");
+}]);

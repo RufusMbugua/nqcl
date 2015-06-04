@@ -17,6 +17,9 @@ class Queries extends MY_Controller {
     $this->response($items);
   }
 
+  function if_unique(){
+    // $record = Query:where('email','=','')->get()->result_array();
+  }
   /**
   * [index_post description]
   * @return [type] [description]
@@ -24,8 +27,26 @@ class Queries extends MY_Controller {
   function index_post(){
     $post_data = file_get_contents("php://input");
     $post_data = json_decode($post_data,true);
-    var_dump($post_data);
-    echo 'Working';
+
+    // var_dump($post_data);die;
+
+    $query = new Query();
+
+    $query->email = $post_data['email'];
+    $query->message = $post_data['message'];
+    $query->status = 0;
+    try{
+      if($query->save()){
+        $response['type']='success';
+        $response['text']="Query Sent";
+      }
+    }
+    catch(Exception $e){
+      $response['type']='danger';
+      $response['text']="Error ".$e->getCode()." :  Query Not Sent";
+    }
+
+    $this->response($response);
   }
 
   /**

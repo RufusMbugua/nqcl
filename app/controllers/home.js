@@ -9,7 +9,7 @@ app.controller(
 			loadImages();
 			loadContent();
 			scope.content = [];
-			scope.query = [];
+			scope.query = {};
 			scope.alerts = [];
 			/**
 			 * [loadImages description]
@@ -50,14 +50,14 @@ app.controller(
 			/**
 			 * [sendQuery description]
 			 */
-			scope.sendQuery = function sendQuery() {
-				// console.log(scope.query);
-				Queries.post(scope.query).then(function(response) {
+			scope.sendQuery = function sendQuery(query) {
+				console.log(query);
+				Queries.post(query).then(function(response) {
 					var alert = {
-							type: 'success',
-							msg: response
-						}
-						// scope.alerts.push(alert);
+						type: response.type,
+						msg: response.text
+					}
+					scope.alerts.push(alert);
 				});;
 			}
 

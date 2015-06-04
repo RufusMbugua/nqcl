@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Africa/Nairobi');
 use \Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Article extends Eloquent{
+class Query extends Eloquent{
 
   public function addArticle($newArticle){
     if($this->db->insert('news',$newArticle)){

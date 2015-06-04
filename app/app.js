@@ -3,7 +3,7 @@ var app = angular.module("nqcl", ['ui.router', 'restangular', 'smart-table',
 	'LocalStorageModule', 'froala', 'ngFileUpload'
 ]);
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('/nqcl');
+	// RestangularProvider.setBaseUrl('/');
 	RestangularProvider.setRequestInterceptor(function(elem, operation) {
 		if (operation === "remove") {
 			return undefined;

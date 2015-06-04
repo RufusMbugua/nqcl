@@ -13,6 +13,7 @@ return array(
     'Front_Model' => $baseDir . '/application/models/front_model.php',
     'MY_Controller' => $baseDir . '/application/core/MY_Controller.php',
     'Menu' => $baseDir . '/application/models/Menu.php',
+    'Query' => $baseDir . '/application/models/Query.php',
     'REST_Controller' => $baseDir . '/application/core/REST_Controller.php',
     'Services_Model' => $baseDir . '/application/models/services_model.php',
     'User' => $baseDir . '/application/models/User.php',
