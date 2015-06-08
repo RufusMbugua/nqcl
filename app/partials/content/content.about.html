@@ -10,9 +10,9 @@
       <td>
         <textarea froala="froalaOptions" ng-model="item.about_body" ng-bind-html="item.body"></textarea></td>
       <td>
-        <div class="btn-group btn-group-sm">
-          <a href="" class="btn btn-warning" ng-click="editAboutContent(item)">Edit</a>
-          <a href="" class="btn btn-danger" ng-click="disableAboutContent(item)">Disable</a>
+        <div class="btn-group btn-group-sm grey">
+          <a href="" ng-click="editAboutContent(item)"><i class="ion-edit"></i></a>
+          <a href="" ng-click="disableAboutContent(item)"><i class="ion-minus-circled"></i></a>
         </div>
       </td>
     </tr>

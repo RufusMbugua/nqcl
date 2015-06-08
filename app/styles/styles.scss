@@ -285,6 +285,17 @@ table{
   background:$main_blue !important;
   color:white !important;
 }
+.grey{
+  a{
+    padding:0 !important;
+    background:none;
+    @extend .btn;
+    color:$secondary_grey;
+  }
+  a:hover{
+    color:black;
+  }
+}
 span.article-actions{
   font-size:1em;
   float:right;

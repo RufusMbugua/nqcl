@@ -1260,10 +1260,10 @@ angular.module("../app/partials/content/content.main.html", []).run(["$templateC
     "        <div ng-if=\"item.active==1\" class=\"label label-success\">Active</div>\n" +
     "      </td>\n" +
     "      <td>\n" +
-    "        <div class=\"btn-group btn-group-sm\">\n" +
-    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editSiteContent(item)\">Edit</a>\n" +
-    "          <a ng-if=\"item.active==1\" href=\"\" class=\"btn btn-danger\" ng-click=\"disableSiteContent(item)\">Disable</a>\n" +
-    "          <a ng-if=\"item.active==0\" href=\"\" class=\"btn btn-success\" ng-click=\"enableSiteContent(item)\">Enable</a>\n" +
+    "        <div class=\"btn-group btn-group-sm grey\">\n" +
+    "          <a href=\"\" ng-click=\"editSiteContent(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "          <a ng-if=\"item.active==1\" href=\"\" ng-click=\"disableSiteContent(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "          <a ng-if=\"item.active==0\" href=\"\" ng-click=\"enableSiteContent(item)\"><i class=\"ion-ios-bolt\"></i>Enable</a>\n" +
     "        </div>\n" +
     "      </td>\n" +
     "    </tr>\n" +

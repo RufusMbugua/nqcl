@@ -1,7 +1,7 @@
 <table>
   <thead>
-    <th style="width:300px">Name</th>
-    <th>Body</th>
+    <th style="width:20%">Name</th>
+    <th style="width:65%">Body</th>
     <th>Active</th>
     <th>Action</th>
   </thead>
@@ -16,10 +16,10 @@
         <div ng-if="item.active==1" class="label label-success">Active</div>
       </td>
       <td>
-        <div class="btn-group btn-group-sm">
-          <a href="" class="btn btn-warning" ng-click="editSiteContent(item)">Edit</a>
-          <a ng-if="item.active==1" href="" class="btn btn-danger" ng-click="disableSiteContent(item)">Disable</a>
-          <a ng-if="item.active==0" href="" class="btn btn-success" ng-click="enableSiteContent(item)">Enable</a>
+        <div class="btn-group btn-group-sm grey">
+          <a href="" ng-click="editSiteContent(item)"><i class="ion-edit"></i></a>
+          <a ng-if="item.active==1" href="" ng-click="disableSiteContent(item)"><i class="ion-minus-circled"></i></a>
+          <a ng-if="item.active==0" href="" ng-click="enableSiteContent(item)"><i class="ion-ios-bolt"></i>Enable</a>
         </div>
       </td>
     </tr>
