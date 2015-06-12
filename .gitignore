@@ -3,6 +3,9 @@
 logs
 *.log
 
+# HTACCESS File
+.htaccess
+
 # Runtime data
 pids
 *.pid

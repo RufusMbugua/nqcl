@@ -1,3 +1,5 @@
-<div ui-view=""></div>
-<div ui-view="profile"></div>
-<div ui-view=""></div>
+<div class="row">
+	<div ui-view=""></div>
+	<div ui-view="profile"></div>
+	<div ui-view="admin-panel" ng-if="user.usertype.name=='Administrator'"></div>
+</div>

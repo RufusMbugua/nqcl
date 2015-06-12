@@ -5919,6 +5919,17 @@ button.close {
 /* Admin Theme */
 /* Ministry Colors */
 /* Secondary Menu */
+.identifier {
+  font-size: 1em !important; }
+
+.administrator {
+  background: #F64747;
+  color: white; }
+
+.publisher {
+  background: #337ab7;
+  color: white; }
+
 body {
   font-family: OpenSansRegular !important;
   background: #FCFCFC; }
@@ -6121,6 +6132,8 @@ i {
 h1, h2, h3, h4, h5, h6 {
   color: black !important;
   font-family: 'Bree Serif',serif !important; }
+  h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    font-family: OpenSansRegular !important; }
 
 /* Label Styling */
 span.label {

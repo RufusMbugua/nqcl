@@ -230,6 +230,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
         },
         'profile@admin.users':{
           templateUrl:'app/partials/users/profile.html'
+        },
+        'admin-panel@admin.users':{
+          templateUrl:'app/partials/users/admin-panel.html'
         }
       }
     })

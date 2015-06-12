@@ -10,7 +10,7 @@ app.controller(
 			var users = Restangular.all('users');
 			var user = [];
 			scope.alerts = [];
-
+			getUsers();
 
 			/**
 			 * [login description]
@@ -21,8 +21,15 @@ app.controller(
 				users.post(scope.user).then(function(response) {
 					localStorageService.set('user', response[0]);
 					rootScope.user = response[0];
+
 					state.go('admin');
 				});
+			}
+
+			function getUsers(){
+				users.getList().then(function(users){
+					scope.users=users;
+				})
 			}
 
 			/**

@@ -17,4 +17,5 @@ return array(
     'REST_Controller' => $baseDir . '/application/core/REST_Controller.php',
     'Services_Model' => $baseDir . '/application/models/services_model.php',
     'User' => $baseDir . '/application/models/User.php',
+    'UserType' => $baseDir . '/application/models/UserType.php',
 );
