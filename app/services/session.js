@@ -18,6 +18,10 @@ app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
 
   }
 
+  Session.update = function update(user) {
+    rootScope.user = user;
+  }
+
   Session.identify = function identify() {
     var currentState = state.current;
 

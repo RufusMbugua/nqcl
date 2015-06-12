@@ -1,0 +1,23 @@
+<form class="row">
+	<div class="row">
+		<div class="form-group col-md-2">
+      		<label for="exampleInputEmail1">Title</label>
+      		<input type="email" ng-model="user.title" class="form-control" name="mail_address" required="required" placeholder="Email" />
+    	</div>
+    	<div class="form-group col-md-5">
+      		<label for="exampleInputEmail1">First Name</label>
+      		<input type="text" ng-model="user.f_name" class="form-control" name="password" required="required" placeholder="Password"/>
+    	</div>
+    		<div class="form-group col-md-5">
+      		<label for="exampleInputEmail1">Last Name</label>
+      		<input type="text" ng-model="user.l_name" class="form-control" name="password" required="required" placeholder="Password"/>
+    </div>
+    <div class="form-group col-md-7">
+      <label for="exampleInputEmail1">Email Address</label>
+      <input type="text" ng-model="user.email" class="form-control" name="password" required="required" placeholder="Password"
+      />
+    </div>
+	</div>
+    <a class="btn btn-default" ng-click="editUser()"><i class="ion-edit"></i>Edit</a>
+ </form>
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>

@@ -33,10 +33,10 @@
 
     <ul class="navbar-right">
       <li>
-        <a>
+        <a ui-sref="admin.users">
           <i class='fa fa-user'></i>
-          <span>{{user[0].f_name}}</span>
-          <span>{{user[0].l_name}}</span>
+          <span>{{user.f_name}}</span>
+          <span>{{user.l_name}}</span>
         </a>
       </li>
       <li><a href="#" is-active-nav ui-sref="logout"><i class='fa fa-sign-out'></i>Logout</a></li>

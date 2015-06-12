@@ -511,26 +511,68 @@ app.value('froalaConfig', {
 );
 ;app.controller(
 	"usersCtrl", ['$scope', '$filter', '$timeout', '$state', 'Restangular',
-		'md5', 'localStorageService', '$rootScope',
+		'md5', 'localStorageService', '$rootScope', 'Session',
 
 		function(scope, filter, timeout, state, Restangular, md5,
-			localStorageService, rootScope) {
+			localStorageService, rootScope, Session) {
+
+			Session.checkIfLogged();
+
 			var users = Restangular.all('users');
 			var user = [];
+			scope.alerts = [];
 
+
+			/**
+			 * [login description]
+			 * @return {[type]} [description]
+			 */
 			scope.login = function login() {
 				scope.user.password = md5.createHash(scope.user.password || '');
 				users.post(scope.user).then(function(response) {
-					localStorageService.set('user', response);
-					rootScope.user = response;
+					localStorageService.set('user', response[0]);
+					rootScope.user = response[0];
 					state.go('admin');
 				});
 			}
 
+			/**
+			 * [editUser description]
+			 * @return {[type]} [description]
+			 */
+			scope.editUser = function editUser() {
+				user = scope.user;
+				user.request = 'update';
+				users.customPUT(scope.user).then(function(response) {
+					var alert = {
+						type: response.type,
+						msg: response.text
+					}
+					scope.alerts.push(alert);
+					Session.update(user);
+				})
+			}
+
+			/**
+			 * [addUser description]
+			 */
+			scope.addUser = function addUser() {
+				users.post(scope.user).then(function(response) {
+
+				})
+			}
+
+			/**
+			 * [closeAlert description]
+			 * @param {[type]} index [description]
+			 */
+			scope.closeAlert = function(index) {
+				scope.alerts.splice(index, 1);
+			};
+
 		}
 	]
-);
-;app.directive("mainHeader", function() {
+);;app.directive("mainHeader", function() {
 	return {
 		templateUrl: "app/partials/globals/header.html"
 	}
@@ -790,7 +832,20 @@ app.directive('isActiveNav', ['$location', function($location) {
           templateUrl: 'app/partials/articles/articles.items.html'
         }
       }
-    });
+    })
+    .state('admin.users',{
+      url:'/users',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/index.html',
+          controller:'usersCtrl'
+        },
+        'profile@admin.users':{
+          templateUrl:'app/partials/users/profile.html'
+        }
+      }
+    })
+    ;
 });
 ;app.factory('Session', ['localStorageService', '$rootScope', '$state', function(
   localStorageService, rootScope, state) {
@@ -812,6 +867,10 @@ app.directive('isActiveNav', ['$location', function($location) {
 
   }
 
+  Session.update = function update(user) {
+    rootScope.user = user;
+  }
+
   Session.identify = function identify() {
     var currentState = state.current;
 
@@ -828,8 +887,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   }
   return Session;
 
-}]);
-;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.items.widget.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html']);
+}]);;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.items.widget.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html', '../app/partials/users/index.html', '../app/partials/users/profile.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -883,10 +941,10 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "\n" +
     "    <ul class=\"navbar-right\">\n" +
     "      <li>\n" +
-    "        <a>\n" +
+    "        <a ui-sref=\"admin.users\">\n" +
     "          <i class='fa fa-user'></i>\n" +
-    "          <span>{{user[0].f_name}}</span>\n" +
-    "          <span>{{user[0].l_name}}</span>\n" +
+    "          <span>{{user.f_name}}</span>\n" +
+    "          <span>{{user.l_name}}</span>\n" +
     "        </a>\n" +
     "      </li>\n" +
     "      <li><a href=\"#\" is-active-nav ui-sref=\"logout\"><i class='fa fa-sign-out'></i>Logout</a></li>\n" +
@@ -1190,9 +1248,9 @@ angular.module("../app/partials/content/content.about.html", []).run(["$template
     "      <td>\n" +
     "        <textarea froala=\"froalaOptions\" ng-model=\"item.about_body\" ng-bind-html=\"item.body\"></textarea></td>\n" +
     "      <td>\n" +
-    "        <div class=\"btn-group btn-group-sm\">\n" +
-    "          <a href=\"\" class=\"btn btn-warning\" ng-click=\"editAboutContent(item)\">Edit</a>\n" +
-    "          <a href=\"\" class=\"btn btn-danger\" ng-click=\"disableAboutContent(item)\">Disable</a>\n" +
+    "        <div class=\"btn-group btn-group-sm grey\">\n" +
+    "          <a href=\"\" ng-click=\"editAboutContent(item)\"><i class=\"ion-edit\"></i></a>\n" +
+    "          <a href=\"\" ng-click=\"disableAboutContent(item)\"><i class=\"ion-minus-circled\"></i></a>\n" +
     "        </div>\n" +
     "      </td>\n" +
     "    </tr>\n" +
@@ -1244,8 +1302,8 @@ angular.module("../app/partials/content/content.main.html", []).run(["$templateC
   $templateCache.put("../app/partials/content/content.main.html",
     "<table>\n" +
     "  <thead>\n" +
-    "    <th style=\"width:300px\">Name</th>\n" +
-    "    <th>Body</th>\n" +
+    "    <th ]8style=\"width:20%\">Name</th>\n" +
+    "    <th style=\"width:65%\">Body</th>\n" +
     "    <th>Active</th>\n" +
     "    <th>Action</th>\n" +
     "  </thead>\n" +
@@ -1623,4 +1681,38 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "\n" +
     "</div>\n" +
     "");
+}]);
+
+angular.module("../app/partials/users/index.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/users/index.html",
+    "<div ui-view=\"\"></div>\n" +
+    "<div ui-view=\"profile\"></div>\n" +
+    "<div ui-view=\"\"></div>");
+}]);
+
+angular.module("../app/partials/users/profile.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/users/profile.html",
+    "<form class=\"row\">\n" +
+    "	<div class=\"row\">\n" +
+    "		<div class=\"form-group col-md-2\">\n" +
+    "      		<label for=\"exampleInputEmail1\">Title</label>\n" +
+    "      		<input type=\"email\" ng-model=\"user.title\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "    	</div>\n" +
+    "    	<div class=\"form-group col-md-5\">\n" +
+    "      		<label for=\"exampleInputEmail1\">First Name</label>\n" +
+    "      		<input type=\"text\" ng-model=\"user.f_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"/>\n" +
+    "    	</div>\n" +
+    "    		<div class=\"form-group col-md-5\">\n" +
+    "      		<label for=\"exampleInputEmail1\">Last Name</label>\n" +
+    "      		<input type=\"text\" ng-model=\"user.l_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"/>\n" +
+    "    </div>\n" +
+    "    <div class=\"form-group col-md-7\">\n" +
+    "      <label for=\"exampleInputEmail1\">Email Address</label>\n" +
+    "      <input type=\"text\" ng-model=\"user.email\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "      />\n" +
+    "    </div>\n" +
+    "	</div>\n" +
+    "    <a class=\"btn btn-default\" ng-click=\"editUser()\"><i class=\"ion-edit\"></i>Edit</a>\n" +
+    " </form>\n" +
+    "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>");
 }]);

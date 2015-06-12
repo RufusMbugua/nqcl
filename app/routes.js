@@ -220,5 +220,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: 'app/partials/articles/articles.items.html'
         }
       }
-    });
+    })
+    .state('admin.users',{
+      url:'/users',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/index.html',
+          controller:'usersCtrl'
+        },
+        'profile@admin.users':{
+          templateUrl:'app/partials/users/profile.html'
+        }
+      }
+    })
+    ;
 });
