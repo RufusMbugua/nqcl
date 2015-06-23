@@ -227,9 +227,30 @@ app.config(function($stateProvider, $urlRouterProvider) {
         '':{
           templateUrl:'app/partials/users/index.html',
           controller:'usersCtrl'
+        }
+      }
+    }).
+    state('admin.users.add',{
+      url:'/add',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/new-profile.html',
+          controller:'usersCtrl'
+        }
+      }
+    }).
+    state('admin.users.view',{
+      url:'/view',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/view.html',
+          controller:'usersCtrl'
         },
-        'profile@admin.users':{
+        'profile@admin.users.view':{
           templateUrl:'app/partials/users/profile.html'
+        },
+        'admin-panel@admin.users.view':{
+          templateUrl:'app/partials/users/admin-panel.html'
         }
       }
     })

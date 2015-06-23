@@ -518,22 +518,37 @@ app.value('froalaConfig', {
 
 			Session.checkIfLogged();
 
-			var users = Restangular.all('users');
+			var Users = Restangular.all('users');
+			var UserTypes = Restangular.all('usertypes');
+
 			var user = [];
 			scope.alerts = [];
-
+			getUsers();
 
 			/**
 			 * [login description]
 			 * @return {[type]} [description]
 			 */
 			scope.login = function login() {
+				scope.user.request = 'login';
 				scope.user.password = md5.createHash(scope.user.password || '');
-				users.post(scope.user).then(function(response) {
+				Users.post(scope.user).then(function(response) {
 					localStorageService.set('user', response[0]);
 					rootScope.user = response[0];
+					if (rootScope.user.usertype.name == 'Administrator') {
+						rootScope.admin = true;
+					} else {
+						rootScope.admin = false;
+					}
+
 					state.go('admin');
 				});
+			}
+
+			function getUsers() {
+				Users.getList().then(function(users) {
+					scope.users = users;
+				})
 			}
 
 			/**
@@ -541,38 +556,97 @@ app.value('froalaConfig', {
 			 * @return {[type]} [description]
 			 */
 			scope.editUser = function editUser() {
-				user = scope.user;
-				user.request = 'update';
-				users.customPUT(scope.user).then(function(response) {
-					var alert = {
-						type: response.type,
-						msg: response.text
-					}
-					scope.alerts.push(alert);
-					Session.update(user);
-				})
+					user = scope.user;
+					user.request = 'update';
+					Users.customPUT(scope.user).then(function(response) {
+						var alert = {
+							type: response.type,
+							msg: response.text
+						}
+						scope.alerts.push(alert);
+						Session.update(user);
+					})
+				}
+				/**
+				 * [newUser description]
+				 * @return {[type]} [description]
+				 */
+			scope.newUser = function newUser() {
+
+				/**
+				 * Reinitialize user object
+				 * @type {Object}
+				 */
+				scope.new_user_flag = true;
+				scope.user = {};
+				UserTypes.getList().then(function(usertypes) {
+					scope.options = usertypes;
+				});
+
 			}
 
 			/**
 			 * [addUser description]
 			 */
 			scope.addUser = function addUser() {
-				users.post(scope.user).then(function(response) {
 
-				})
+				/**
+				 * Request String
+				 * @type {String}
+				 */
+				scope.user.request = 'add';
+				Users.post(scope.user).then(function(response) {
+
+					/**
+					 * Alert Object
+					 * @type {Object}
+					 */
+					var alert = {
+						type: response.type,
+						msg: response.text
+					}
+
+					/**
+					 * Push an Alert to Alerts Array
+					 * @param  {object} alert [description]
+					 * @return {[type]}       [description]
+					 */
+					scope.alerts.push(alert);
+				});
 			}
 
 			/**
-			 * [closeAlert description]
+			 * Reset List to Members
+			 */
+			scope.resetList = function resetList() {
+				scope.new_user_flag = false;
+				rootScope.user = localStorageService.get('user');
+				scope.user = rootScope.user;
+				if (rootScope.user.usertype.name == 'Administrator') {
+					rootScope.admin = true;
+				}
+
+			}
+
+			/**
+			 * Remove selected alert
 			 * @param {[type]} index [description]
 			 */
 			scope.closeAlert = function(index) {
+
+				/**
+				 * Remove selected alert
+				 * @param  {[type]} index [description]
+				 * @param  {[type]} 1     [description]
+				 * @return {[type]}       [description]
+				 */
 				scope.alerts.splice(index, 1);
 			};
 
 		}
 	]
-);;app.directive("mainHeader", function() {
+);
+;app.directive("mainHeader", function() {
 	return {
 		templateUrl: "app/partials/globals/header.html"
 	}
@@ -839,9 +913,30 @@ app.directive('isActiveNav', ['$location', function($location) {
         '':{
           templateUrl:'app/partials/users/index.html',
           controller:'usersCtrl'
+        }
+      }
+    }).
+    state('admin.users.add',{
+      url:'/add',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/new-profile.html',
+          controller:'usersCtrl'
+        }
+      }
+    }).
+    state('admin.users.view',{
+      url:'/view',
+      views:{
+        '':{
+          templateUrl:'app/partials/users/view.html',
+          controller:'usersCtrl'
         },
-        'profile@admin.users':{
+        'profile@admin.users.view':{
           templateUrl:'app/partials/users/profile.html'
+        },
+        'admin-panel@admin.users.view':{
+          templateUrl:'app/partials/users/admin-panel.html'
         }
       }
     })
@@ -887,7 +982,7 @@ app.directive('isActiveNav', ['$location', function($location) {
   }
   return Session;
 
-}]);;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.items.widget.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html', '../app/partials/users/index.html', '../app/partials/users/profile.html']);
+}]);;angular.module('templates-dist', ['../app/partials/about/index.html', '../app/partials/admin/header.html', '../app/partials/admin/index.html', '../app/partials/admin/login.html', '../app/partials/articles/articles.add.html', '../app/partials/articles/articles.items.html', '../app/partials/articles/articles.items.widget.html', '../app/partials/articles/articles.list.html', '../app/partials/articles/articles.published.html', '../app/partials/articles/index.html', '../app/partials/contact/directions.html', '../app/partials/contact/email.html', '../app/partials/contact/index.html', '../app/partials/content/content.about.html', '../app/partials/content/content.detail.html', '../app/partials/content/content.header.html', '../app/partials/content/content.html', '../app/partials/content/content.main.html', '../app/partials/content/menu.html', '../app/partials/content/table.html', '../app/partials/files/add.html', '../app/partials/files/index.html', '../app/partials/files/list.html', '../app/partials/globals/carousel.html', '../app/partials/globals/secondary_header.html', '../app/partials/home/index.html', '../app/partials/home/main.html', '../app/partials/news/index.html', '../app/partials/public/header.html', '../app/partials/public/index.html', '../app/partials/services/index.html', '../app/partials/slides/add.html', '../app/partials/slides/index.html', '../app/partials/slides/list.html', '../app/partials/users/admin-panel.html', '../app/partials/users/index.html', '../app/partials/users/profile.html', '../app/partials/users/view.html']);
 
 angular.module("../app/partials/about/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/about/index.html",
@@ -941,7 +1036,7 @@ angular.module("../app/partials/admin/header.html", []).run(["$templateCache", f
     "\n" +
     "    <ul class=\"navbar-right\">\n" +
     "      <li>\n" +
-    "        <a ui-sref=\"admin.users\">\n" +
+    "        <a is-active-nav ui-sref=\"admin.users.view\">\n" +
     "          <i class='fa fa-user'></i>\n" +
     "          <span>{{user.f_name}}</span>\n" +
     "          <span>{{user.l_name}}</span>\n" +
@@ -1627,7 +1722,7 @@ angular.module("../app/partials/slides/add.html", []).run(["$templateCache", fun
     "    </div>\n" +
     "    <div class=\"image-thumbnail\">\n" +
     "      <h4>Image thumbnail:</h4>\n" +
-    "      <img ngf-src=\"files[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
+    "      <img ngf-src=\"slides[0]\" ngf-default-src=\"/thumb.jpg\">\n" +
     "      <div class=\"progress\">\n" +
     "        <div ng-init=\"progress.percentage=0\" class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: {{progress.percentage}}%;\">\n" +
     "          {{progress.percentage}}%\n" +
@@ -1683,36 +1778,100 @@ angular.module("../app/partials/slides/list.html", []).run(["$templateCache", fu
     "");
 }]);
 
+angular.module("../app/partials/users/admin-panel.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/users/admin-panel.html",
+    "<h3 ng-show=\"user.f_name\">User List\n" +
+    "	<a ng-click=\"newUser()\" style=\"float:right\" href=\"\" class=\"btn btn-add\"><i class=\"fa fa-plus\"></i>Add User</a>\n" +
+    "</h3>\n" +
+    "<table ng-show=\"user.f_name\">\n" +
+    "	<thead>\n" +
+    "		<tr>\n" +
+    "			<th>Title</th>\n" +
+    "			<th>First Name</th>\n" +
+    "			<th>Last Name</th>\n" +
+    "			<th>Email</th>\n" +
+    "			<th>User Level</th>\n" +
+    "			<th>Status</th>\n" +
+    "			<th>Action</th>\n" +
+    "		</tr>\n" +
+    "	</thead>\n" +
+    "	<tbody>\n" +
+    "		<tr ng-repeat=\"user in users\">\n" +
+    "			<td>{{user.title}}</td>\n" +
+    "			<td>{{user.f_name}}</td>\n" +
+    "			<td>{{user.l_name}}</td>\n" +
+    "			<td>{{user.email}}</td>\n" +
+    "			<td>{{user.usertype.name}}</td>\n" +
+    "			<td>\n" +
+    "				<div ng-if=\"user.status==0\" class=\"label label-danger\">Inactive</div>\n" +
+    "				<div ng-if=\"user.status==1\" class=\"label label-success\">Active</div>\n" +
+    "			</td>\n" +
+    "			<td>\n" +
+    "				<div class=\"grey\">\n" +
+    "					<a href=\"\"><i class=\"ion-edit\"></i></a>\n" +
+    "					<a href=\"\" ng-click=\"disableUser(user)\"><i class=\"ion-minus-circled\"></i></a>\n" +
+    "				</div>\n" +
+    "			</td>\n" +
+    "		</tr>\n" +
+    "	</tbody>\n" +
+    "	<tfoot></tfoot>\n" +
+    "</table>\n" +
+    "");
+}]);
+
 angular.module("../app/partials/users/index.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/users/index.html",
-    "<div ui-view=\"\"></div>\n" +
-    "<div ui-view=\"profile\"></div>\n" +
-    "<div ui-view=\"\"></div>");
+    "<div class=\"row\">\n" +
+    "	<div ui-view=\"\"></div>\n" +
+    "</div>");
 }]);
 
 angular.module("../app/partials/users/profile.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("../app/partials/users/profile.html",
-    "<form class=\"row\">\n" +
+    "<h3>User Profile</h3>\n" +
+    "<form class=\"inner\">\n" +
     "	<div class=\"row\">\n" +
     "		<div class=\"form-group col-md-2\">\n" +
     "      		<label for=\"exampleInputEmail1\">Title</label>\n" +
-    "      		<input type=\"email\" ng-model=\"user.title\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Email\" />\n" +
+    "      		<input type=\"email\" ng-model=\"user.title\" class=\"form-control\" name=\"mail_address\" required=\"required\" placeholder=\"Title\" />\n" +
     "    	</div>\n" +
     "    	<div class=\"form-group col-md-5\">\n" +
     "      		<label for=\"exampleInputEmail1\">First Name</label>\n" +
-    "      		<input type=\"text\" ng-model=\"user.f_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"/>\n" +
+    "      		<input type=\"text\" ng-model=\"user.f_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"First Name\"/>\n" +
     "    	</div>\n" +
     "    		<div class=\"form-group col-md-5\">\n" +
     "      		<label for=\"exampleInputEmail1\">Last Name</label>\n" +
-    "      		<input type=\"text\" ng-model=\"user.l_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"/>\n" +
+    "      		<input type=\"text\" ng-model=\"user.l_name\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Last Name\"/>\n" +
     "    </div>\n" +
     "    <div class=\"form-group col-md-7\">\n" +
     "      <label for=\"exampleInputEmail1\">Email Address</label>\n" +
-    "      <input type=\"text\" ng-model=\"user.email\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Password\"\n" +
+    "      <input type=\"text\" ng-model=\"user.email\" class=\"form-control\" name=\"password\" required=\"required\" placeholder=\"Email Address\"\n" +
     "      />\n" +
     "    </div>\n" +
+    "    <div class=\"form-group col-md-2\">\n" +
+    "    <label for=\"\">User Level</label>\n" +
+    "      <label for=\"\" ng-if=\"user.usertype.name=='Administrator'\" class=\"label identifier administrator\">{{user.usertype.name}}</label>\n" +
+    "       <label for=\"\" ng-if=\"user.usertype.name=='Publisher'\" class=\"label identifier publisher\">{{user.usertype.name}}</label>\n" +
+    "			<select ng-show=\"!user.usertype.name\" name=\"\" id=\"\" ng-model=\"user.usertype_id\" class=\"form-control\">\n" +
+    "				<option value=\"\">Select User Level</option>\n" +
+    "				<option value=\"{{option.id}}\" ng-repeat=\"option in options\">{{option.name}}</option>\n" +
+    "			</select>\n" +
+    "    </div>\n" +
+    "\n" +
     "	</div>\n" +
-    "    <a class=\"btn btn-default\" ng-click=\"editUser()\"><i class=\"ion-edit\"></i>Edit</a>\n" +
+    "    <a ng-show=\"!new_user_flag\" class=\"btn btn-default\" ng-click=\"editUser()\"><i class=\"ion-edit\"></i>Edit</a>\n" +
+    "		<a ng-show=\"new_user_flag\" class=\"btn btn-add\" ng-click=\"addUser()\"><i class=\"ion-plus-round\"></i>Register</a>\n" +
+    "		<a ng-show=\"new_user_flag\" class=\"btn btn-view\" ng-click=\"resetList()\"><i class=\"ion\"></i>Back to Users</a>\n" +
     " </form>\n" +
-    "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>");
+    "  <alert ng-repeat=\"alert in alerts\" type=\"{{alert.type}}\" close=\"closeAlert($index)\">{{alert.msg}}</alert>\n" +
+    "");
+}]);
+
+angular.module("../app/partials/users/view.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("../app/partials/users/view.html",
+    "<div class=\"row\">\n" +
+    "	<div ui-view=\"profile\"></div>\n" +
+    "	<div ui-view=\"admin-panel\" ng-show=\"admin\"></div>\n" +
+    "</div>\n" +
+    "");
 }]);
