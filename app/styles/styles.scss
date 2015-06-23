@@ -472,3 +472,12 @@ img#nqcl-logo{
     }
   }
 }
+
+/* Form Styles */
+form.inner{
+  @extend .col-md-12;
+  background:white;
+  border:1px solid #eee;
+  padding:1%;
+  border-radius:2px;
+}

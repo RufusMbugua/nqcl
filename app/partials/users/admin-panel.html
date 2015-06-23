@@ -1,7 +1,7 @@
-<h3>User List
-<a style="float:right" href="" class="btn btn-add"><i class="fa fa-plus"></i>Add User</a>
+<h3 ng-show="user.f_name">User List
+	<a ng-click="newUser()" style="float:right" href="" class="btn btn-add"><i class="fa fa-plus"></i>Add User</a>
 </h3>
-<table>
+<table ng-show="user.f_name">
 	<thead>
 		<tr>
 			<th>Title</th>
@@ -21,13 +21,13 @@
 			<td>{{user.email}}</td>
 			<td>{{user.usertype.name}}</td>
 			<td>
-        		<div ng-if="user.status==0" class="label label-danger">Inactive</div>
-        		<div ng-if="user.status==1" class="label label-success">Active</div>
-      		</td>
+				<div ng-if="user.status==0" class="label label-danger">Inactive</div>
+				<div ng-if="user.status==1" class="label label-success">Active</div>
+			</td>
 			<td>
 				<div class="grey">
-					<a href="" ng-click="editUser(user)"><i class="ion-edit"></i></a>
-          			<a href="" ng-click="disableUser(user)"><i class="ion-minus-circled"></i></a>
+					<a href=""><i class="ion-edit"></i></a>
+					<a href="" ng-click="disableUser(user)"><i class="ion-minus-circled"></i></a>
 				</div>
 			</td>
 		</tr>

@@ -1,4 +1,4 @@
 <div class="row">
 	<div ui-view="profile"></div>
-	<div ui-view="admin-panel" ng-if="user.usertype.name=='Administrator'"></div>
+	<div ui-view="admin-panel" ng-show="admin"></div>
 </div>
