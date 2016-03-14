@@ -1,4 +1,5 @@
-|![](http://nqcl.go.ke/app/images/logo/coat_of_arms.png) | ![](http://nqcl.go.ke/app/images/logo/NQCL_logo.png) |
+<img style=“width:200px;float:left” src=“http://nqcl.go.ke/app/images/logo/coat_of_arms.png”/>
+<img style=“width:200px;float:left” src=“http://nqcl.go.ke/app/images/logo/NQCL_logo.png”/>
 
 # National Quality Control Laboratory (NQCL) Website
 ## What is the NQCL
