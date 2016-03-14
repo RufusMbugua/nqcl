@@ -32,149 +32,46 @@
         "homepage": "http://vfs.bovigo.org/"
     },
     {
-        "name": "siriusphp/validation",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "name": "symfony/console",
+        "version": "v2.6.7",
+        "version_normalized": "2.6.7.0",
+        "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
-            "url": "https://github.com/siriusphp/validation.git",
-            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd"
+            "url": "https://github.com/symfony/Console.git",
+            "reference": "ebc5679854aa24ed7d65062e9e3ab0b18a917272"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/siriusphp/validation/zipball/f7308fd7249442594145e80b55a8f8ccb8d16ebd",
-            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/ebc5679854aa24ed7d65062e9e3ab0b18a917272",
+            "reference": "ebc5679854aa24ed7d65062e9e3ab0b18a917272",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3"
+            "php": ">=5.3.3"
         },
         "require-dev": {
-            "phpunit/phpunit": "3.7",
-            "satooshi/php-coveralls": "dev-master"
-        },
-        "time": "2015-05-17 07:11:18",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "autoload.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Adrian Miu",
-                "email": "adrian@adrianmiu.ro"
-            }
-        ],
-        "description": "Data validation library. Validate arrays, array objects, domain models etc using a simple API. Easily add your own validators on top of the already dozens built-in validation rules",
-        "keywords": [
-            "form",
-            "modeling",
-            "sanitization",
-            "security",
-            "validation"
-        ]
-    },
-    {
-        "name": "siriusphp/upload",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/siriusphp/upload.git",
-            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/siriusphp/upload/zipball/46901ef5dda62fa81a93e0cb764ca74e075134a4",
-            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3",
-            "siriusphp/validation": "~2.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "3.7",
-            "satooshi/php-coveralls": "dev-master"
+            "psr/log": "~1.0",
+            "symfony/event-dispatcher": "~2.1",
+            "symfony/phpunit-bridge": "~2.7",
+            "symfony/process": "~2.1"
         },
         "suggest": {
-            "knplabs/gaufrette": "Alternative filesystem abstraction library for upload destinations",
-            "league/flysystem": "To upload to different destinations, not just to the local file system"
+            "psr/log": "For using the console logger",
+            "symfony/event-dispatcher": "",
+            "symfony/process": ""
         },
-        "time": "2015-05-17 08:38:33",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "autoload.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Adrian Miu",
-                "email": "adrian@adrianmiu.ro"
-            }
-        ],
-        "description": "Framework agnostic upload library",
-        "keywords": [
-            "file",
-            "form",
-            "upload",
-            "validation"
-        ]
-    },
-    {
-        "name": "league/fractal",
-        "version": "0.12.0",
-        "version_normalized": "0.12.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/fractal.git",
-            "reference": "0a51dcb6398dc2377d086210d0624996a1df8322"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/fractal/zipball/0a51dcb6398dc2377d086210d0624996a1df8322",
-            "reference": "0a51dcb6398dc2377d086210d0624996a1df8322",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4"
-        },
-        "require-dev": {
-            "illuminate/contracts": "~5.0",
-            "mockery/mockery": "~0.9",
-            "pagerfanta/pagerfanta": "~1.0.0",
-            "phpunit/phpunit": "~4.0",
-            "squizlabs/php_codesniffer": "~1.5",
-            "zendframework/zend-paginator": "~2.3"
-        },
-        "suggest": {
-            "illuminate/pagination": "The Illuminate Pagination component.",
-            "pagerfanta/pagerfanta": "Pagerfanta Paginator",
-            "zendframework/zend-paginator": "Zend Framework Paginator"
-        },
-        "time": "2015-03-19 15:16:43",
+        "time": "2015-05-02 15:18:45",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "0.13-dev"
+                "dev-master": "2.6-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "League\\Fractal\\": "src"
+            "psr-0": {
+                "Symfony\\Component\\Console\\": ""
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -183,105 +80,16 @@
         ],
         "authors": [
             {
-                "name": "Phil Sturgeon",
-                "email": "me@philsturgeon.uk",
-                "homepage": "http://philsturgeon.uk/",
-                "role": "Developer"
-            }
-        ],
-        "description": "Handle the output of complex data structures ready for API output.",
-        "homepage": "http://fractal.thephpleague.com/",
-        "keywords": [
-            "api",
-            "json",
-            "league",
-            "rest"
-        ]
-    },
-    {
-        "name": "league/flysystem",
-        "version": "1.0.3",
-        "version_normalized": "1.0.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
-            "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "ext-fileinfo": "*",
-            "league/phpunit-coverage-listener": "~1.1",
-            "mockery/mockery": "~0.9",
-            "phpspec/phpspec": "~2.0",
-            "phpspec/prophecy-phpunit": "~1.0",
-            "phpunit/phpunit": "~4.1",
-            "predis/predis": "~1.0",
-            "tedivm/stash": "~0.12.0"
-        },
-        "suggest": {
-            "ext-fileinfo": "Required for MimeType",
-            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
-            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
-            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
-            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
-            "league/flysystem-copy": "Allows you to use Copy.com storage",
-            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
-            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
-            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
-            "league/flysystem-webdav": "Allows you to use WebDAV storage",
-            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
-            "predis/predis": "Allows you to use Predis for caching"
-        },
-        "time": "2015-03-29 14:01:43",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.1-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "League\\Flysystem\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
             {
-                "name": "Frank de Jonge",
-                "email": "info@frenky.net"
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
             }
         ],
-        "description": "Many filesystems, one API.",
-        "keywords": [
-            "Cloud Files",
-            "WebDAV",
-            "aws",
-            "cloud",
-            "copy.com",
-            "dropbox",
-            "file systems",
-            "files",
-            "filesystem",
-            "ftp",
-            "rackspace",
-            "remote",
-            "s3",
-            "sftp",
-            "storage"
-        ]
+        "description": "Symfony Console Component",
+        "homepage": "https://symfony.com"
     },
     {
         "name": "symfony/translation",
@@ -394,37 +202,35 @@
         ]
     },
     {
-        "name": "danielstjules/stringy",
-        "version": "1.9.0",
-        "version_normalized": "1.9.0.0",
+        "name": "illuminate/contracts",
+        "version": "v5.0.0",
+        "version_normalized": "5.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/danielstjules/Stringy.git",
-            "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b"
+            "url": "https://github.com/illuminate/contracts.git",
+            "reference": "78f1dba092d5fcb6d3a19537662abe31c4d128fd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
-            "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
+            "url": "https://api.github.com/repos/illuminate/contracts/zipball/78f1dba092d5fcb6d3a19537662abe31c4d128fd",
+            "reference": "78f1dba092d5fcb6d3a19537662abe31c4d128fd",
             "shasum": ""
         },
         "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.3.0"
+            "php": ">=5.4.0"
         },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2015-02-10 06:19:18",
+        "time": "2015-01-30 16:27:08",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.0-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Stringy\\": "src/"
-            },
-            "files": [
-                "src/Create.php"
-            ]
+                "Illuminate\\Contracts\\": ""
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -432,24 +238,64 @@
         ],
         "authors": [
             {
-                "name": "Daniel St. Jules",
-                "email": "danielst.jules@gmail.com",
-                "homepage": "http://www.danielstjules.com"
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
             }
         ],
-        "description": "A string manipulation library with multibyte support",
-        "homepage": "https://github.com/danielstjules/Stringy",
-        "keywords": [
-            "UTF",
-            "helpers",
-            "manipulation",
-            "methods",
-            "multibyte",
-            "string",
-            "utf-8",
-            "utility",
-            "utils"
-        ]
+        "description": "The Illuminate Contracts package."
+    },
+    {
+        "name": "illuminate/console",
+        "version": "v5.0.28",
+        "version_normalized": "5.0.28.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/illuminate/console.git",
+            "reference": "b41eaa6e22d0b0e1587b2a3005829b38910222bb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/illuminate/console/zipball/b41eaa6e22d0b0e1587b2a3005829b38910222bb",
+            "reference": "b41eaa6e22d0b0e1587b2a3005829b38910222bb",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/contracts": "5.0.*",
+            "nesbot/carbon": "~1.0",
+            "php": ">=5.4.0",
+            "symfony/console": "2.6.*"
+        },
+        "suggest": {
+            "guzzlehttp/guzzle": "Required to use the thenPing method on schedules (~5.0).",
+            "mtdowling/cron-expression": "Required to use scheduling component (~1.0).",
+            "nesbot/carbon": "Required to use scheduling component (~1.0).",
+            "symfony/process": "Required to use scheduling component (2.6.*)."
+        },
+        "time": "2015-04-07 16:16:48",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Illuminate\\Console\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylorotwell@gmail.com"
+            }
+        ],
+        "description": "The Illuminate Console package.",
+        "homepage": "http://laravel.com"
     },
     {
         "name": "doctrine/inflector",
@@ -521,35 +367,37 @@
         ]
     },
     {
-        "name": "illuminate/contracts",
-        "version": "v5.0.0",
-        "version_normalized": "5.0.0.0",
+        "name": "danielstjules/stringy",
+        "version": "1.9.0",
+        "version_normalized": "1.9.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/illuminate/contracts.git",
-            "reference": "78f1dba092d5fcb6d3a19537662abe31c4d128fd"
+            "url": "https://github.com/danielstjules/Stringy.git",
+            "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/contracts/zipball/78f1dba092d5fcb6d3a19537662abe31c4d128fd",
-            "reference": "78f1dba092d5fcb6d3a19537662abe31c4d128fd",
+            "url": "https://api.github.com/repos/danielstjules/Stringy/zipball/3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
+            "reference": "3cf18e9e424a6dedc38b7eb7ef580edb0929461b",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.4.0"
+            "ext-mbstring": "*",
+            "php": ">=5.3.0"
         },
-        "time": "2015-01-30 16:27:08",
+        "require-dev": {
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2015-02-10 06:19:18",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.0-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Illuminate\\Contracts\\": ""
-            }
+                "Stringy\\": "src/"
+            },
+            "files": [
+                "src/Create.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -557,11 +405,24 @@
         ],
         "authors": [
             {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
+                "name": "Daniel St. Jules",
+                "email": "danielst.jules@gmail.com",
+                "homepage": "http://www.danielstjules.com"
             }
         ],
-        "description": "The Illuminate Contracts package."
+        "description": "A string manipulation library with multibyte support",
+        "homepage": "https://github.com/danielstjules/Stringy",
+        "keywords": [
+            "UTF",
+            "helpers",
+            "manipulation",
+            "methods",
+            "multibyte",
+            "string",
+            "utf-8",
+            "utility",
+            "utils"
+        ]
     },
     {
         "name": "illuminate/support",
@@ -723,103 +584,59 @@
         ]
     },
     {
-        "name": "symfony/console",
-        "version": "v2.6.7",
-        "version_normalized": "2.6.7.0",
-        "target-dir": "Symfony/Component/Console",
+        "name": "league/flysystem",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/Console.git",
-            "reference": "ebc5679854aa24ed7d65062e9e3ab0b18a917272"
+            "url": "https://github.com/thephpleague/flysystem.git",
+            "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/ebc5679854aa24ed7d65062e9e3ab0b18a917272",
-            "reference": "ebc5679854aa24ed7d65062e9e3ab0b18a917272",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
+            "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.3"
+            "php": ">=5.4.0"
         },
         "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.1",
-            "symfony/phpunit-bridge": "~2.7",
-            "symfony/process": "~2.1"
+            "ext-fileinfo": "*",
+            "league/phpunit-coverage-listener": "~1.1",
+            "mockery/mockery": "~0.9",
+            "phpspec/phpspec": "~2.0",
+            "phpspec/prophecy-phpunit": "~1.0",
+            "phpunit/phpunit": "~4.1",
+            "predis/predis": "~1.0",
+            "tedivm/stash": "~0.12.0"
         },
         "suggest": {
-            "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": "",
-            "symfony/process": ""
+            "ext-fileinfo": "Required for MimeType",
+            "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+            "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+            "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+            "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+            "league/flysystem-copy": "Allows you to use Copy.com storage",
+            "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+            "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+            "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+            "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+            "league/flysystem-webdav": "Allows you to use WebDAV storage",
+            "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
+            "predis/predis": "Allows you to use Predis for caching"
         },
-        "time": "2015-05-02 15:18:45",
+        "time": "2015-03-29 14:01:43",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.6-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Symfony\\Component\\Console\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Console Component",
-        "homepage": "https://symfony.com"
-    },
-    {
-        "name": "illuminate/console",
-        "version": "v5.0.28",
-        "version_normalized": "5.0.28.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/illuminate/console.git",
-            "reference": "b41eaa6e22d0b0e1587b2a3005829b38910222bb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/console/zipball/b41eaa6e22d0b0e1587b2a3005829b38910222bb",
-            "reference": "b41eaa6e22d0b0e1587b2a3005829b38910222bb",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/contracts": "5.0.*",
-            "nesbot/carbon": "~1.0",
-            "php": ">=5.4.0",
-            "symfony/console": "2.6.*"
-        },
-        "suggest": {
-            "guzzlehttp/guzzle": "Required to use the thenPing method on schedules (~5.0).",
-            "mtdowling/cron-expression": "Required to use scheduling component (~1.0).",
-            "nesbot/carbon": "Required to use scheduling component (~1.0).",
-            "symfony/process": "Required to use scheduling component (2.6.*)."
-        },
-        "time": "2015-04-07 16:16:48",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "5.0-dev"
+                "dev-master": "1.1-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Illuminate\\Console\\": ""
+                "League\\Flysystem\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -828,11 +645,194 @@
         ],
         "authors": [
             {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
+                "name": "Frank de Jonge",
+                "email": "info@frenky.net"
             }
         ],
-        "description": "The Illuminate Console package.",
-        "homepage": "http://laravel.com"
+        "description": "Many filesystems, one API.",
+        "keywords": [
+            "Cloud Files",
+            "WebDAV",
+            "aws",
+            "cloud",
+            "copy.com",
+            "dropbox",
+            "file systems",
+            "files",
+            "filesystem",
+            "ftp",
+            "rackspace",
+            "remote",
+            "s3",
+            "sftp",
+            "storage"
+        ]
+    },
+    {
+        "name": "league/fractal",
+        "version": "0.12.0",
+        "version_normalized": "0.12.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/thephpleague/fractal.git",
+            "reference": "0a51dcb6398dc2377d086210d0624996a1df8322"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/thephpleague/fractal/zipball/0a51dcb6398dc2377d086210d0624996a1df8322",
+            "reference": "0a51dcb6398dc2377d086210d0624996a1df8322",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4"
+        },
+        "require-dev": {
+            "illuminate/contracts": "~5.0",
+            "mockery/mockery": "~0.9",
+            "pagerfanta/pagerfanta": "~1.0.0",
+            "phpunit/phpunit": "~4.0",
+            "squizlabs/php_codesniffer": "~1.5",
+            "zendframework/zend-paginator": "~2.3"
+        },
+        "suggest": {
+            "illuminate/pagination": "The Illuminate Pagination component.",
+            "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+            "zendframework/zend-paginator": "Zend Framework Paginator"
+        },
+        "time": "2015-03-19 15:16:43",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.13-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "League\\Fractal\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Phil Sturgeon",
+                "email": "me@philsturgeon.uk",
+                "homepage": "http://philsturgeon.uk/",
+                "role": "Developer"
+            }
+        ],
+        "description": "Handle the output of complex data structures ready for API output.",
+        "homepage": "http://fractal.thephpleague.com/",
+        "keywords": [
+            "api",
+            "json",
+            "league",
+            "rest"
+        ]
+    },
+    {
+        "name": "siriusphp/validation",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/siriusphp/validation.git",
+            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/siriusphp/validation/zipball/f7308fd7249442594145e80b55a8f8ccb8d16ebd",
+            "reference": "f7308fd7249442594145e80b55a8f8ccb8d16ebd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7",
+            "satooshi/php-coveralls": "dev-master"
+        },
+        "time": "2015-05-17 07:11:18",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "autoload.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adrian Miu",
+                "email": "adrian@adrianmiu.ro"
+            }
+        ],
+        "description": "Data validation library. Validate arrays, array objects, domain models etc using a simple API. Easily add your own validators on top of the already dozens built-in validation rules",
+        "keywords": [
+            "form",
+            "modeling",
+            "sanitization",
+            "security",
+            "validation"
+        ]
+    },
+    {
+        "name": "siriusphp/upload",
+        "version": "2.0.0",
+        "version_normalized": "2.0.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/siriusphp/upload.git",
+            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/siriusphp/upload/zipball/46901ef5dda62fa81a93e0cb764ca74e075134a4",
+            "reference": "46901ef5dda62fa81a93e0cb764ca74e075134a4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3",
+            "siriusphp/validation": "~2.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7",
+            "satooshi/php-coveralls": "dev-master"
+        },
+        "suggest": {
+            "knplabs/gaufrette": "Alternative filesystem abstraction library for upload destinations",
+            "league/flysystem": "To upload to different destinations, not just to the local file system"
+        },
+        "time": "2015-05-17 08:38:33",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "autoload.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Adrian Miu",
+                "email": "adrian@adrianmiu.ro"
+            }
+        ],
+        "description": "Framework agnostic upload library",
+        "keywords": [
+            "file",
+            "form",
+            "upload",
+            "validation"
+        ]
     }
 ]
