@@ -1,8 +1,10 @@
-<img style=“width:200px;float:left” src=“http://nqcl.go.ke/app/images/logo/coat_of_arms.png”/>
-<img style=“width:200px;float:left” src=“http://nqcl.go.ke/app/images/logo/NQCL_logo.png”/>
+<img src=http://nqcl.go.ke/app/images/logo/coat_of_arms.png style=width:100px;float:left;display:inline-block/>
+<img style=width:100px;float:right src=http://nqcl.go.ke/app/images/logo/NQCL_logo.png />
+
+***
 
 # National Quality Control Laboratory (NQCL) Website
-## What is the NQCL
+## What is the NQCL?
 The National Quality Control Laboratory was first conceived in 1978 as an initiative of the Ministry of Health looking into the possibilities of improving drug control activities through the development of a quality control laboratory. - [NQCL Website](http://nqcl.go.ke/)
 
 ## Architecture
