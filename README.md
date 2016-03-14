@@ -1,5 +1,5 @@
-<img src=http://nqcl.go.ke/app/images/logo/coat_of_arms.png style=width:100px;float:left;display:inline-block/>
-<img style=width:100px;float:right src=http://nqcl.go.ke/app/images/logo/NQCL_logo.png />
+<img width=100px src=http://nqcl.go.ke/app/images/logo/coat_of_arms.png style=width:100px;float:left;display:inline-block/>
+<img width=100px style=width:100px;float:right src=http://nqcl.go.ke/app/images/logo/NQCL_logo.png />
 
 ***
 
