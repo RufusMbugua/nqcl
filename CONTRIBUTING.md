@@ -1,6 +1,6 @@
 # Contributing to NQCL
 
-Authored by *Rufus Mbugua* [<mbuguarufus@gmail.com>
+Authored by *Rufus Mbugua* [<mbuguarufus@gmail.com>]
 
 
 If you’d like to contribute to the website, or it’s underlying structure or methodology, there are a couple of things you’d have to do.
