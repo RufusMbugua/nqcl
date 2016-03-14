@@ -21,7 +21,11 @@ A particularly Laravel-like approach was used since there’s a high dependency 
 + [Fractal](http://fractal.thephpleague.com/transformers/)
 
 ### Database
-For this project I used MySQL 5.*. 
+For this project I used MySQL 5.*.
 You could find additional documentation [here](https://dev.mysql.com/doc/).
 
+## INSTALLATION
 For installation instructions, read [this](INSTALL.md).
+
+## CONTRIBUTING
+For contributing instructions, read [this](CONTRIBUTING.md).
